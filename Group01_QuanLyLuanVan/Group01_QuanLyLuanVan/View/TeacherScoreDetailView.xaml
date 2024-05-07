@@ -1,0 +1,102 @@
+﻿<Page x:Class="Group01_QuanLyLuanVan.View.TeacherScoreDetailView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Group01_QuanLyLuanVan.View"
+      mc:Ignorable="d" 
+       xmlns:i= "http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Height="605" Width="700"
+      x:Name="TeacherScoreDetailWd"
+      DataContext="{StaticResource TeacherScoreDetailVM}"
+          
+      Title="StudentScoreView2">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="124"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal"
+                Grid.Row="0" Margin="20,0,0,0">
+                                <Label Cursor="Hand"
+                    Height="45"
+                    Grid.Row="0"
+                    Width="47"
+                    >
+                                    <materialDesign:PackIcon Kind="ArrowLeft"
+                    Foreground="#55b3d9"
+                      Height="40"   
+                      Margin="0,-18,0,0"
+                      Width="35"/>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger  EventName="MouseLeftButtonDown">
+                            <i:InvokeCommandAction Command="{Binding back}"
+                                   CommandParameter="{Binding ElementName=TeacherScoreDetailWd}"></i:InvokeCommandAction>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Label>
+            </StackPanel>
+            <TextBlock
+                HorizontalAlignment="Center"
+                       x:Name="TenDeTai"
+                       Width="492"
+                VerticalAlignment = "Center"
+                FontFamily = "{StaticResource Custom}"
+                FontSize = "20"
+                FontWeight = "SemiBold"
+                Foreground="#55b3d9"
+                       TextWrapping="Wrap" Height="104"
+                />
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <Border Margin="0,50,0,0" Height="220">
+                    <Grid>
+                        <Ellipse Width="188" HorizontalAlignment="Center" StrokeThickness="5" Margin="0,0,0,37">
+                            <Ellipse.Effect>
+                                <DropShadowEffect ShadowDepth="0"
+                      Color="Black"
+                      Opacity="10"
+                      BlurRadius="10"/>
+                            </Ellipse.Effect>
+                            <Ellipse.Fill>
+                                <SolidColorBrush Color="White"/>
+                            </Ellipse.Fill>
+                        </Ellipse>
+
+                        <TextBox x:Name="score" Width = "75"
+                            Height = "50"
+                            Margin = "0,-25,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center"
+                            FontFamily = "{StaticResource Custom}"  FontSize="33" RenderTransformOrigin="0.506,-0.019"
+                                 BorderThickness="0"
+materialDesign:TextFieldAssist.DecorationVisibility="Hidden"
+materialDesign:TextFieldAssist.TextFieldCornerRadius="10"/>
+                    </Grid>
+
+                </Border>
+                <Button
+                            BorderThickness="1"
+                            Content = "Chấm Điểm"
+                            Margin = "0,15,0,0"
+                            Width = "120"
+                            Height = "45"
+                            VerticalAlignment = "Center"
+                            materialDesign:ButtonAssist.CornerRadius = "15"
+                            Background = "#55b3d9"
+                            FontFamily = "{StaticResource Custom}" FontSize="15">
+
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <i:InvokeCommandAction     
+                            Command="{Binding ScoreDetailCM}"
+                            CommandParameter="{Binding ElementName=TeacherScoreDetailWd}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F97E9B6-D543-4769-9BE1-331FA394BA37}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Group01_QuanLyLuanVan</RootNamespace>
+    <AssemblyName>Group01_QuanLyLuanVan</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.0.9.7\lib\net45\LiveCharts.dll</HintPath>
+    </Reference>
+    <Reference Include="LiveCharts.Wpf, Version=0.9.7.0, Culture=neutral, PublicKeyToken=0bc1f845d1ebb8df, processorArchitecture=MSIL">
+      <HintPath>..\packages\LiveCharts.Wpf.0.9.7\lib\net45\LiveCharts.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignColors, Version=2.1.4.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignColors.2.1.4\lib\net462\MaterialDesignColors.dll</HintPath>
+    </Reference>
+    <Reference Include="MaterialDesignThemes.Wpf, Version=4.9.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.4.9.0\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Chat\Core\RelayCommand.cs" />
+    <Compile Include="Chat\Core\ObservableObject.cs" />
+    <Compile Include="Chat\Net\IO\PacketBuilder.cs" />
+    <Compile Include="Chat\Net\IO\PacketReader.cs" />
+    <Compile Include="Chat\Net\Server.cs" />
+    <Compile Include="DAO\ComboBoxData.cs" />
+    <Compile Include="DAO\DBConnection.cs" />
+    <Compile Include="DAO\DeTaiDAO.cs" />
+    <Compile Include="DAO\GiangVienDAO.cs" />
+    <Compile Include="DAO\KhoaDAO.cs" />
+    <Compile Include="DAO\MessageTaskDAO.cs" />
+    <Compile Include="DAO\SinhVienDAO.cs" />
+    <Compile Include="DAO\TaiKhoanDAO.cs" />
+    <Compile Include="DAO\TheLoaiDAO.cs" />
+    <Compile Include="DAO\ThongBaoDAO.cs" />
+    <Compile Include="DAO\TienDoDAO.cs" />
+    <Compile Include="DAO\YeuCauDAO.cs" />
+    <Compile Include="Model\Const.cs" />
+    <Compile Include="Model\DanhGia.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\DataProvider.cs" />
+    <Compile Include="Model\DeTai.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GiangVien.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\Khoa.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MessageTask.cs" />
+    <Compile Include="Model\Nhom.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\QuanLyLuanVan.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuanLyLuanVan.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\QuanLyLuanVan.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\QuanLyLuanVan.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\SinhVien.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TaiKhoan.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TheLoai.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\ThongBao.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TienDo.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TinNhanYeuCau.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\YeuCau.cs">
+      <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ControlBarUC.xaml.cs">
+      <DependentUpon>ControlBarUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SlideCard.xaml.cs">
+      <DependentUpon>SlideCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\UserControl1.xaml.cs">
+      <DependentUpon>UserControl1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\AdminManageTeacherViewModel.cs" />
+    <Compile Include="ViewModel\AdminManageTeacherViewModel1.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModel\ControlBarViewModel.cs" />
+    <Compile Include="ViewModel\ForgetPasswordViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\SignUpViewModel.cs" />
+    <Compile Include="ViewModel\ADMainViewModel.cs" />
+    <Compile Include="ViewModel\StudentAddTopicsViewModel.cs" />
+    <Compile Include="ViewModel\StudentChatYeuCauViewModel.cs" />
+    <Compile Include="ViewModel\StudentListTopicViewModel.cs" />
+    <Compile Include="ViewModel\StudentMailViewModel.cs" />
+    <Compile Include="ViewModel\StudentMainViewModel.cs" />
+    <Compile Include="ViewModel\StudentNotiViewModel.cs" />
+    <Compile Include="ViewModel\StudentReceiveEvaluationViewModel.cs" />
+    <Compile Include="ViewModel\StudentRegisterTopicViewModel.cs" />
+    <Compile Include="ViewModel\StudentScoreViewModel.cs" />
+    <Compile Include="ViewModel\StudentScoreViewModel2.cs" />
+    <Compile Include="ViewModel\StudentThesisViewModel.cs" />
+    <Compile Include="ViewModel\StudentUpdateInforViewModel.cs" />
+    <Compile Include="ViewModel\StudentUpdateProgressViewModel.cs" />
+    <Compile Include="ViewModel\StudentUpdateTaskViewModel.cs" />
+    <Compile Include="ViewModel\SystemErrorReportViewModel.cs" />
+    <Compile Include="ViewModel\TeacherAddDissertationViewModel.cs" />
+    <Compile Include="ViewModel\TeacherDissertationDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherDissertationViewModel.cs" />
+    <Compile Include="ViewModel\TeacherMailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherMainViewModel.cs" />
+    <Compile Include="ViewModel\TeacherNotiAddViewModel.cs" />
+    <Compile Include="ViewModel\TeacherNotiDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherNotificationViewModel.cs" />
+    <Compile Include="ViewModel\TeacherNotiViewModel.cs" />
+    <Compile Include="ViewModel\TeacherProgressDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherProgressViewModel.cs" />
+    <Compile Include="ViewModel\TeacherScoreDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherScoreViewModel.cs" />
+    <Compile Include="ViewModel\TeacherSettingViewModel.cs" />
+    <Compile Include="ViewModel\TeacherStatisticViewModel.cs" />
+    <Compile Include="ViewModel\TeacherTaskDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherTaskMessageViewModel.cs" />
+    <Compile Include="ViewModel\TeacherTaskViewModel.cs" />
+    <Compile Include="ViewModel\TeacherUpdateInforViewModel.cs" />
+    <Compile Include="ViewModel\VerifyCodeViewModel.cs" />
+    <Compile Include="View\ADMainView.xaml.cs">
+      <DependentUpon>ADMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminManageStudentView.xaml.cs">
+      <DependentUpon>AdminManageStudentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminManageTeacherView.xaml.cs">
+      <DependentUpon>AdminManageTeacherView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminManageTeacherView1.xaml.cs">
+      <DependentUpon>AdminManageTeacherView1.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminManageTopicView.xaml.cs">
+      <DependentUpon>AdminManageTopicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminModifyStudentView.xaml.cs">
+      <DependentUpon>AdminModifyStudentView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminModifyTeacherView.xaml.cs">
+      <DependentUpon>AdminModifyTeacherView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\AdminModifyTopicView.xaml.cs">
+      <DependentUpon>AdminModifyTopicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ForgetPasswordView.xaml.cs">
+      <DependentUpon>ForgetPasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginPageView.xaml.cs">
+      <DependentUpon>LoginPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignUpView.xaml.cs">
+      <DependentUpon>SignUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentAddTopicsView.xaml.cs">
+      <DependentUpon>StudentAddTopicsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentChatYeuCauView.xaml.cs">
+      <DependentUpon>StudentChatYeuCauView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentListTopicView.xaml.cs">
+      <DependentUpon>StudentListTopicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentMailView.xaml.cs">
+      <DependentUpon>StudentMailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentMainView.xaml.cs">
+      <DependentUpon>StudentMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentNotiView.xaml.cs">
+      <DependentUpon>StudentNotiView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentReceiveEvaluationView.xaml.cs">
+      <DependentUpon>StudentReceiveEvaluationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentRegisterTopicView.xaml.cs">
+      <DependentUpon>StudentRegisterTopicView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentScoreView.xaml.cs">
+      <DependentUpon>StudentScoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentScoreView2.xaml.cs">
+      <DependentUpon>StudentScoreView2.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentSubmitEssayView.xaml.cs">
+      <DependentUpon>StudentSubmitEssayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentThesisView.xaml.cs">
+      <DependentUpon>StudentThesisView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentUpdateInforView.xaml.cs">
+      <DependentUpon>StudentUpdateInforView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentUpdateProgressView.xaml.cs">
+      <DependentUpon>StudentUpdateProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentUpdateTaskView.xaml.cs">
+      <DependentUpon>StudentUpdateTaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemErrorReport.xaml.cs">
+      <DependentUpon>SystemErrorReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherAddDissertationView.xaml.cs">
+      <DependentUpon>TeacherAddDissertationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherDissertationDetailView.xaml.cs">
+      <DependentUpon>TeacherDissertationDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherDissertationView.xaml.cs">
+      <DependentUpon>TeacherDissertationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherMailView.xaml.cs">
+      <DependentUpon>TeacherMailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherMainView.xaml.cs">
+      <DependentUpon>TeacherMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherNotiAddView.xaml.cs">
+      <DependentUpon>TeacherNotiAddView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherNotiDetailView.xaml.cs">
+      <DependentUpon>TeacherNotiDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherNotificationView.xaml.cs">
+      <DependentUpon>TeacherNotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherNotiView.xaml.cs">
+      <DependentUpon>TeacherNotiView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherProgressDetailView.xaml.cs">
+      <DependentUpon>TeacherProgressDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherProgressView.xaml.cs">
+      <DependentUpon>TeacherProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherScoreDetailView.xaml.cs">
+      <DependentUpon>TeacherScoreDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherScoreView.xaml.cs">
+      <DependentUpon>TeacherScoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherSettingView.xaml.cs">
+      <DependentUpon>TeacherSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherStatisticView.xaml.cs">
+      <DependentUpon>TeacherStatisticView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherTaskDetailView.xaml.cs">
+      <DependentUpon>TeacherTaskDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherTaskMessageView.xaml.cs">
+      <DependentUpon>TeacherTaskMessageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherTaskView.xaml.cs">
+      <DependentUpon>TeacherTaskView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherUpdateInforView.xaml.cs">
+      <DependentUpon>TeacherUpdateInforView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\VerifyCodeView.xaml.cs">
+      <DependentUpon>VerifyCodeView.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Resource\MainResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\StyleResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ControlBarUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SlideCard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UserControl1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ADMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminManageStudentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminManageTeacherView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminManageTeacherView1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminManageTopicView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminModifyStudentView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminModifyTeacherView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\AdminModifyTopicView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ChangePasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ForgetPasswordView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\HomeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginPageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SignUpView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentAddTopicsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentChatYeuCauView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentListTopicView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentMailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentNotiView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentReceiveEvaluationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentRegisterTopicView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentScoreView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentScoreView2.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentSubmitEssayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentThesisView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentUpdateInforView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentUpdateProgressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\StudentUpdateTaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\SystemErrorReport.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherAddDissertationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherDissertationDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherDissertationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherMailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherNotiAddView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherNotiDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherNotificationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherNotiView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherProgressDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherProgressView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherScoreDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherScoreView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherSettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherStatisticView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherTaskDetailView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherTaskMessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherTaskView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\TeacherUpdateInforView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\VerifyCodeView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EntityDeploy Include="Model\QuanLyLuanVan.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>QuanLyLuanVan.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Model\QuanLyLuanVan.edmx.diagram">
+      <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Resource Include="Resource\Font\Nunito-ExtraBold.ttf" />
+    <Resource Include="Resource\Font\NunitoBold.ttf" />
+    <Resource Include="Resource\Font\NunitoRegular.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Test\7979364.jpg" />
+    <Resource Include="Resource\Test\add.png" />
+    <Resource Include="Resource\Test\addava.png" />
+    <Resource Include="Resource\Test\bannerbook.png" />
+    <Resource Include="Resource\Test\library.jpg" />
+    <Resource Include="Resource\Test\login-background.png" />
+    <Resource Include="Resource\Test\logo.png" />
+    <Resource Include="Resource\Test\NextAct.png" />
+    <Resource Include="Resource\Test\NextPas.png" />
+    <Resource Include="Resource\Test\Password_16x16.png" />
+    <Resource Include="Resource\Test\PrevAct.png" />
+    <Resource Include="Resource\Test\PrevPas.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\addava.png" />
+    <Resource Include="Resource\Image\bg1.png" />
+    <Resource Include="Resource\Image\bg2.png" />
+    <Resource Include="Resource\Image\logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\ava.png" />
+    <Resource Include="Resource\Image\congratulation.png" />
+    <Resource Include="Resource\Image\mochi_mat_sang.png" />
+    <Resource Include="Resource\Image\student_register.png" />
+    <Resource Include="Resource\Image\votay.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\task1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\noti.png" />
+    <Resource Include="Resource\Image\topic.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\update.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\note.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\update2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\date.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\menu.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Ava\addava.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\notification %282%29.png" />
+    <Resource Include="Resource\Image\noti2.png" />
+    <Resource Include="Resource\Image\notification.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\noti3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\noti4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\Image\luanvan.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Model\QuanLyLuanVan.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
+      <LastGenOutput>QuanLyLuanVan.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Model\QuanLyLuanVan.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
+      <LastGenOutput>QuanLyLuanVan.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets'))" />
+  </Target>
+</Project>

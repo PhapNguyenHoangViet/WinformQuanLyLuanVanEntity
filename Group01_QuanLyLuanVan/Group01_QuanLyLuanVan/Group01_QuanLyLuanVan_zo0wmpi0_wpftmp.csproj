@@ -1,0 +1,217 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3F97E9B6-D543-4769-9BE1-331FA394BA37}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Group01_QuanLyLuanVan</RootNamespace>
+    <AssemblyName>Group01_QuanLyLuanVan</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Const.cs" />
+    <Compile Include="Model\SinhVien.cs" />
+    <Compile Include="UserControls\ControlBarUC.xaml.cs">
+      <DependentUpon>ControlBarUC.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SlideCard.xaml.cs">
+      <DependentUpon>SlideCard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\ChangePasswordViewModel.cs" />
+    <Compile Include="ViewModel\ControlBarViewModel.cs" />
+    <Compile Include="ViewModel\ForgetPasswordViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\RelayCommand.cs" />
+    <Compile Include="ViewModel\SignUpViewModel.cs" />
+    <Compile Include="ViewModel\ADMainViewModel.cs" />
+    <Compile Include="ViewModel\SystemErrorReportViewModel.cs" />
+    <Compile Include="ViewModel\TeacherAddDissertationViewModel.cs" />
+    <Compile Include="ViewModel\TeacherDissertationDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherDissertationViewModel.cs" />
+    <Compile Include="ViewModel\TeacherMainViewModel.cs" />
+    <Compile Include="ViewModel\TeacherNotificationViewModel.cs" />
+    <Compile Include="ViewModel\TeacherProgressDetailViewModel.cs" />
+    <Compile Include="ViewModel\TeacherProgressViewModel.cs" />
+    <Compile Include="ViewModel\TeacherScoreViewModel.cs" />
+    <Compile Include="ViewModel\TeacherSettingViewModel.cs" />
+    <Compile Include="View\ADMainView.xaml.cs">
+      <DependentUpon>ADMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ChangePasswordView.xaml.cs">
+      <DependentUpon>ChangePasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\ForgetPasswordView.xaml.cs">
+      <DependentUpon>ForgetPasswordView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\HomeView.xaml.cs">
+      <DependentUpon>HomeView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginPageView.xaml.cs">
+      <DependentUpon>LoginPageView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\LoginView.xaml.cs">
+      <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SignUpView.xaml.cs">
+      <DependentUpon>SignUpView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\StudentUpdateProgressView.xaml.cs">
+      <DependentUpon>StudentUpdateProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\SystemErrorReport.xaml.cs">
+      <DependentUpon>SystemErrorReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherAddDissertationView.xaml.cs">
+      <DependentUpon>TeacherAddDissertationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherDissertationDetailView.xaml.cs">
+      <DependentUpon>TeacherDissertationDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherDissertationView.xaml.cs">
+      <DependentUpon>TeacherDissertationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherMainView.xaml.cs">
+      <DependentUpon>TeacherMainView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherNotificationView.xaml.cs">
+      <DependentUpon>TeacherNotificationView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherProgressDetailView.xaml.cs">
+      <DependentUpon>TeacherProgressDetailView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherProgressView.xaml.cs">
+      <DependentUpon>TeacherProgressView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherScoreView.xaml.cs">
+      <DependentUpon>TeacherScoreView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\TeacherSettingView.xaml.cs">
+      <DependentUpon>TeacherSettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets'))" />
+  </Target>
+  <ItemGroup>
+    <ReferencePath Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\packages\MaterialDesignColors.2.1.4\lib\net462\MaterialDesignColors.dll" />
+    <ReferencePath Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\packages\MaterialDesignThemes.4.9.0\lib\net462\MaterialDesignThemes.Wpf.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\Microsoft.CSharp.dll" />
+    <ReferencePath Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\mscorlib.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationCore.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\PresentationFramework.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Core.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.DataSetExtensions.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Data.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Net.Http.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xaml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Xml.Linq.dll" />
+    <ReferencePath Include="C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\WindowsBase.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\MainWindow.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\UserControls\ControlBarUC.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\UserControls\SlideCard.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\ADMainView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\ChangePasswordView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\ForgetPasswordView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\HomeView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\LoginPageView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\LoginView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\SignUpView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\StudentUpdateProgressView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\SystemErrorReport.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherAddDissertationView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherDissertationDetailView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherDissertationView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherMainView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherNotificationView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherProgressDetailView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherProgressView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherScoreView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\View\TeacherSettingView.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\App.g.cs" />
+    <Compile Include="D:\lt winform\DOANCUOIKY2\ProjectGroup01_Winform\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\GeneratedInternalTypeHelper.g.cs" />
+  </ItemGroup>
+</Project>

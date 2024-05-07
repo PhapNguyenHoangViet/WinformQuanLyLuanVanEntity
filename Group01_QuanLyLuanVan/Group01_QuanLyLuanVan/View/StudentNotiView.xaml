@@ -1,0 +1,218 @@
+﻿<Page x:Class="Group01_QuanLyLuanVan.View.StudentNotiView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Group01_QuanLyLuanVan.View"
+      xmlns:convert="clr-namespace:Group01_QuanLyLuanVan.View"
+      mc:Ignorable="d" 
+      xmlns:i= "http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"     
+      Height="605" Width="700"
+      DataContext="{StaticResource StudentNotiVM}"
+      x:Name="studentnotiwd"
+      Title="StudentNotiView">
+    <i:Interaction.Triggers >
+        <i:EventTrigger EventName = "Loaded" >
+            <i:InvokeCommandAction Command = "{Binding LoadThongBaosCommand}"
+                               CommandParameter="{Binding ElementName= studentnotiwd}"></i:InvokeCommandAction >
+        </i:EventTrigger >
+    </i:Interaction.Triggers >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="366*"/>
+            <RowDefinition Height="239*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.RowSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="150"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <TextBlock
+                    Text="THÔNG BÁO TỪ GIÁO VIÊN"
+                    FontFamily="Josefin Sans"
+                    FontSize=" 25"
+                    Margin="0,20,0,10"                    
+                    Foreground="#55b3d9"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center"
+                    />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions >
+                    <ColumnDefinition Width = "248" />
+                    <ColumnDefinition Width="302"/>
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions >
+                <Grid Grid.Column = "0" >
+                    <StackPanel Orientation = "Horizontal" 
+                                HorizontalAlignment="Center"
+                                VerticalAlignment = "Center">
+                        <TextBlock Text = "NGÀY"
+                            FontFamily = "{StaticResource Custom}"
+                            FontSize = "16"
+                            FontWeight = "SemiBold"/>
+                    </StackPanel >
+                </Grid >
+                <Grid Grid.Column = "1" >
+                    <StackPanel Orientation = "Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment = "Center">
+                        <TextBlock Text = "TIÊU ĐỀ"                           
+                            FontFamily = "{StaticResource Custom}"
+                            FontSize = "16"
+                            FontWeight = "SemiBold"/>
+                    </StackPanel >
+                </Grid >
+                <Grid Grid.Column = "2" >
+                    <StackPanel Orientation = "Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment = "Center">
+                        <TextBlock Text = "TRẠNG THÁI"                           
+                            FontFamily = "{StaticResource Custom}"
+                            FontSize = "16"
+                            FontWeight = "SemiBold"/>
+                    </StackPanel >
+                </Grid >
+            </Grid>
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="0*"/>
+                </Grid.RowDefinitions>
+                <ListView
+                    x:Name = "ListThongBaoView"
+                    SelectionMode = "Single"
+                    ScrollViewer.VerticalScrollBarVisibility = "Hidden"
+                    ItemsSource = "{Binding ListThongBao}" 
+                    Foreground="White" Margin="0,0,0,-99" Grid.RowSpan="2">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border
+                                BorderBrush="Gray" BorderThickness="0.5"
+                                CornerRadius="10" Background = "white" Width="684" Height="50">
+                                <Grid>
+                                    <Grid >
+                                        <StackPanel VerticalAlignment="Center" >
+                                            <StackPanel Orientation="Horizontal"
+                                                        >
+                                                <Grid>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="50"/>
+                                                        <ColumnDefinition Width="200" />
+                                                        <ColumnDefinition Width="290" />
+                                                        <ColumnDefinition  Width="150"/>
+
+                                                    </Grid.ColumnDefinitions>
+                                                    <Grid Grid.Column="0">
+                                                        <Image Source="/Resource/Image/noti.png" Width="30"  Height="30"/>
+                                                    </Grid>
+                                                    <Grid Grid.Column="1">
+                                                        <TextBlock
+                                                            x:Name="Ngay"
+                                                            VerticalAlignment="Center"
+                                                            
+                                                            Text="{Binding Ngay}"
+                                                            Foreground="#1e90ff"
+                                                            FontSize="16"
+                                                            FontWeight="Bold"
+                                                            FontFamily="{StaticResource Custom}"
+                                                            TextWrapping="Wrap"/>
+                                                    </Grid>
+                                                    <Grid Grid.Column="2" >
+                                                        <TextBlock
+                                                       HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        x:Name="TieuDe"
+                                                        Text="{Binding TieuDe}"
+                                                        Foreground="#1e90ff"
+                                                        FontFamily="{StaticResource Custom}"
+                                                        FontSize="16"                                                           
+                                                        TextWrapping="Wrap"/>
+                                                    </Grid>
+                                                    <Grid Grid.Column="3">
+                                                        <!--<TextBlock
+                                                       HorizontalAlignment="Center"
+                                                        VerticalAlignment="Center"
+                                                        x:Name="TenTrangThai"
+                                                        Text="{Binding TenTrangThai}"
+                                                        Foreground="#1e90ff"
+                                                        FontFamily="{StaticResource Custom}"
+                                                        FontSize="16"                                                           
+                                                        TextWrapping="Wrap"/>-->
+
+                                                        <Grid.Resources>
+                                                            <convert:TenTrangThaiToColorConverterNoti x:Key="TenTrangThaiConverterNoti"></convert:TenTrangThaiToColorConverterNoti>
+                                                        </Grid.Resources>
+
+                                                        <TextBlock 
+                                                                    x:Name="TenTrangThai"
+                                                                    Text="{Binding TenTrangThai}" 
+                                                                    Foreground="{Binding TenTrangThai, Converter={StaticResource TenTrangThaiConverterNoti}}" 
+                                                                    
+                                                                    FontFamily="{StaticResource Custom}" 
+                                                                    VerticalAlignment="Center" 
+                                                                FontSize="16" 
+                                                                    HorizontalAlignment="Center" />
+
+                                                    </Grid>
+                                                </Grid>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </DataTemplate >
+                    </ListView.ItemTemplate >
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Margin" Value="0,0,0,1" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemsPanel >
+                        <ItemsPanelTemplate >
+                            <WrapPanel Orientation = "Vertical" />
+                        </ItemsPanelTemplate >
+                    </ListView.ItemsPanel >
+                    <i:Interaction.Triggers >
+                        <i:EventTrigger EventName = "SelectionChanged" >
+                            <i:InvokeCommandAction Command = "{Binding DetailThongBaoCommand}"
+                                                       CommandParameter="{Binding ElementName=studentnotiwd}"></i:InvokeCommandAction >
+                        </i:EventTrigger >
+                    </i:Interaction.Triggers >
+                </ListView >
+            </Grid>
+            <Grid Grid.Row="3" Margin="0,20,0,0">
+                <StackPanel Orientation="Vertical" Margin="0,95,0,0">
+                    <TextBlock Text = "NỘI DUNG"
+                        FontFamily = "{StaticResource Custom}"
+                        FontSize = "16"
+                        FontWeight = "SemiBold"
+                        Padding="50,10,0,10"/>
+                    <Border  
+                        BorderBrush="Gray"
+                        BorderThickness="0.5"
+                        CornerRadius="10"
+                        Background="White"
+                        Margin="10,0,10,0">
+                        <TextBlock                                                         
+                            Foreground="#1e90ff"
+
+                           Text="{Binding SelectedThongBaoNoiDung}"
+                           VerticalAlignment="Top"
+                           TextWrapping="Wrap"
+                           x:Name="NoiDung"
+                           FontFamily="{StaticResource Custom}" 
+                           FontSize="16"
+                           Height="150"
+                           Padding="20"/>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Page>

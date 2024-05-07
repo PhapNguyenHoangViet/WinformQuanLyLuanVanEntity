@@ -1,0 +1,78 @@
+﻿<Page x:Class="Group01_QuanLyLuanVan.View.StudentScoreView2"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Group01_QuanLyLuanVan.View"
+      mc:Ignorable="d" 
+       xmlns:i= "http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Height="605" Width="700"
+      x:Name="StudentScoreView2wd"
+      DataContext="{StaticResource StudentScoreVM2}"
+      Title="StudentScoreView2">
+    <i:Interaction.Triggers >
+        <i:EventTrigger EventName = "Loaded" >
+            <i:InvokeCommandAction Command = "{Binding LoadDiemCommand}"
+                               CommandParameter="{Binding ElementName= StudentScoreView2wd}"></i:InvokeCommandAction >
+        </i:EventTrigger >
+    </i:Interaction.Triggers >
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <TextBlock
+                Text="ĐIỂM SỐ CỦA BẠN LÀ:"
+                FontSize=" 25"
+                 Foreground = "#55b3d9"
+                Margin="0,20,0,10"                                    
+                FontFamily="{StaticResource Custom}"
+                FontWeight="Bold"
+                HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Vertical" Margin="0,69,0,0"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+                <ListView ItemsSource="{Binding MotDiem}" HorizontalContentAlignment="Stretch"                    
+                    x:Name = "Diemview"
+                    Height = "202"
+                   
+                    SelectionMode = "Single"
+                    ScrollViewer.VerticalScrollBarVisibility = "Hidden"
+                    Foreground="White"
+                    >
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <Border Height="180"
+                                Width="180"
+                                    Margin="150,0,0,0"
+                        BorderBrush="Gray" 
+                        BorderThickness="3" 
+                        CornerRadius="100">
+                                <TextBlock
+                    Text="{Binding Diem}"
+                     Foreground="Black"
+                    
+                    FontSize="70"
+                    
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+                            </Border>
+                        </DataTemplate >
+                    </ListView.ItemTemplate >
+                    <ListView.ItemsPanel >
+                        <ItemsPanelTemplate >
+                            <WrapPanel Orientation = "Vertical" />
+                        </ItemsPanelTemplate >
+                    </ListView.ItemsPanel >
+                </ListView >
+
+                <Image Source="/Resource/Image/votay.png" Height="254" Width="510"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

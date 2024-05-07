@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="Group01_QuanLyLuanVan.UserControls.UserControl1"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Group01_QuanLyLuanVan.UserControls"
+             mc:Ignorable="d" 
+              Height="Auto" Width="Auto" Background="WhiteSmoke">
+    <Border
+            BorderBrush="Gray" BorderThickness="0.5"
+            CornerRadius="10" Background = "white" Width="654" Height="110">
+        <Grid>
+            <Grid >
+                <StackPanel VerticalAlignment="Center" >
+                    <StackPanel Orientation="Horizontal"
+>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="69"/>
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Image Source="/Resource/Image/note.png" Width="40" Margin="10,0,9,5"/>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock
+                                        VerticalAlignment="Center"
+                                        FontWeight="Bold"
+                                        x:Name="TenDeTai"
+                                        Text="{Binding TenDeTai}"
+                                        Foreground="#1e90ff"
+                                        FontFamily="{StaticResource Custom}"
+                                        FontSize="18"
+                                        Width="526"
+                                        TextWrapping="Wrap"/>
+                            </Grid>
+                        </Grid>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal"
+                            Margin="10,0,0,0" >
+                        <Grid Height="27" Width="630">
+                            <Grid.ColumnDefinitions >
+                                <ColumnDefinition Width = "70" />
+                                <ColumnDefinition Width = "135" />
+                                <ColumnDefinition Width = "207" />
+                                <ColumnDefinition Width = "52" />
+
+                                <ColumnDefinition Width="193" />
+                            </Grid.ColumnDefinitions >
+                            <Grid Grid.Column="0">
+                                <TextBlock
+                                        Text="Thể loại:"
+                                        Margin="0,10,0,0"
+                                        Foreground="gray"
+                                        FontFamily="{StaticResource Custom}"
+                                        FontSize="16"
+                                        />
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <TextBlock
+                                     x:Name="TenTheLoai"
+                                    Text="{Binding TenTheLoai}"
+                                    Margin="0,10,0,0"
+                                    Foreground="gray"
+                                    FontFamily="{StaticResource Custom}"
+                                    FontSize="16"
+                                    />
+                            </Grid>
+                            <Grid Grid.Column="2">
+                                <TextBlock 
+                                        Margin="0,10,0,0"
+                                            x:Name="TenNhom"
+                                            Text="{Binding TenNhom}" 
+                                            Foreground="#FFA500" 
+                                            FontWeight="Bold"
+                                            FontSize="16"
+                                            FontFamily="{StaticResource Custom}" 
+                                            VerticalAlignment="Center" 
+                                            HorizontalAlignment="Center"     />
+
+                            </Grid>
+                            <Grid Grid.Column="3">
+                                <TextBlock
+                                    Text="Điểm:"
+                                    Margin="0,10,0,0"
+                                    Foreground="gray"
+                                    FontFamily="{StaticResource Custom}"
+                                    FontSize="16"
+                                    />
+                            </Grid>
+                            <Grid Grid.Column="4">
+                                <TextBlock
+                                     x:Name="Score"
+                                    Text="{Binding Score}"
+                                    Margin="0,10,0,0"
+                                    Foreground="gray"
+                                    FontFamily="{StaticResource Custom}"
+                                    FontSize="16"
+                                    />
+                            </Grid>
+                        </Grid>
+
+                    </StackPanel>
+
+
+
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+
+</UserControl>

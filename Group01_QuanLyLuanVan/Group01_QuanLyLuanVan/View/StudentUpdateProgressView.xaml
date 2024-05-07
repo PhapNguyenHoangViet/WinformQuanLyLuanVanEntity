@@ -1,0 +1,186 @@
+﻿<Page x:Class="Group01_QuanLyLuanVan.View.StudentUpdateProgressView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Group01_QuanLyLuanVan.View"
+      mc:Ignorable="d" 
+       xmlns:i= "http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Height="605" Width="700"
+      DataContext="{StaticResource StudentUpdateProgessVM}"
+      Title="StudentUpdateProgressView">
+
+    <Grid>
+        <Grid>
+            <StackPanel HorizontalAlignment="Center" Orientation="Vertical" >
+                <TextBlock
+                    Text="CẬP NHẬT TIẾN ĐỘ" Height="60"
+                    FontFamily="Josefin Sans"
+                    FontSize=" 25"
+                    Margin="0 20 0 0"
+                    Foreground="#55b3d9"
+                    FontWeight="Bold"
+                    HorizontalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <DatePicker  
+                        
+                        materialDesign:HintAssist.Foreground="Black"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#1784C2"
+                        Foreground="Black" x:Name="DateBox"
+                        FontFamily="Josefin Sans"
+                        Focusable="False"
+                        materialDesign:HintAssist.Hint="Ngày cập nhật"  Text="{Binding DoB}" Style="{StaticResource MaterialDesignFilledDatePicker}" 
+                        HorizontalAlignment="Left" 
+                        Width="200">
+                    </DatePicker>
+
+                    <TextBox 
+                        Margin="20,0,0,0"  Width="480"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        materialDesign:HintAssist.Foreground="Black"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#1784C2"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        HorizontalAlignment="Left" x:Name="TopicBox" 
+                        FontFamily="Josefin Sans"
+                        materialDesign:HintAssist.Hint="Tiêu đề" />
+                </StackPanel>
+                <TextBox 
+                         Height="100"
+                        Margin="0,30,0,0"
+                        Style="{StaticResource MaterialDesignFilledTextBox}"
+                        materialDesign:HintAssist.Foreground="Black"
+                        materialDesign:TextFieldAssist.UnderlineBrush="#1784C2"
+                        VerticalAlignment="Top"
+                        AcceptsReturn="True"
+                        TextWrapping="Wrap"
+                        x:Name="DescriptionBox" 
+                        FontFamily="Josefin Sans"
+                        materialDesign:HintAssist.Hint="Nội dung"/>
+                <Button Content="Cập nhật"
+                        Margin="0,30,0,0"
+                        Width="120"
+                        Background="#55b3d9"
+                        BorderThickness="0"
+                        x:Name="btn_update"/>
+                <StackPanel Margin="0,30,0,0">
+                    <Grid >
+                        <Grid.ColumnDefinitions >
+                            <ColumnDefinition Width = "90" />
+                            <ColumnDefinition Width = "220" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions >
+                        <Grid Grid.Column = "0" >
+                            <StackPanel Orientation = "Horizontal"                          
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text = "NGÀY"
+                                    HorizontalAlignment = "Right"
+                                    VerticalAlignment = "Center"
+                                    FontFamily = "{StaticResource Custom}"
+                                    FontSize = "12"
+                                    FontWeight = "SemiBold"/>
+                            </StackPanel >
+                        </Grid >
+                        <Grid Grid.Column = "1" >
+                            <StackPanel Orientation = "Horizontal"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text = "TIÊU ĐỀ"
+                                    HorizontalAlignment = "Left"
+                                    VerticalAlignment = "Center"
+                                    FontFamily = "{StaticResource Custom}"
+                                    FontSize = "12"
+                                    FontWeight = "SemiBold"/>
+                            </StackPanel >
+                        </Grid >
+                        <Grid Grid.Column = "2" >
+                            <StackPanel Orientation = "Horizontal"
+                                        HorizontalAlignment="Center">
+                                <TextBlock Text = "NỘI DUNG"
+                                       HorizontalAlignment = "Left"
+                                       VerticalAlignment = "Center"
+                                       FontFamily = "{StaticResource Custom}"
+                                       FontSize = "12"
+                                       FontWeight = "SemiBold"
+                                       />
+                            </StackPanel >
+                        </Grid >
+                    </Grid >
+                </StackPanel>
+                <ListView
+                    x:Name = "ListViewUpdate"
+                    Height = "242"
+                    Width = "676"
+                    SelectionMode = "Single"
+                    ScrollViewer.VerticalScrollBarVisibility = "Hidden"
+                    ItemsSource = "{Binding ListUpdate}" 
+                    Foreground="White"
+                    >
+                    <ListView.ItemTemplate >
+                        <DataTemplate>
+                            <Border
+                                Width = "645"
+                                Height = "40"
+                                CornerRadius = "10"
+                                Margin = "0,0,10,0"
+                                Background = "#55b3d9"
+                                >
+                                <Grid >
+                                    <Grid.ColumnDefinitions >
+                                        <ColumnDefinition Width = "90" />
+                                        <ColumnDefinition Width = "220" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions >
+                                    <Grid Grid.Column = "0" >
+                                        <TextBlock
+                                            Text = "{Binding Ngay}"
+                                            HorizontalAlignment = "Center"
+                                            VerticalAlignment = "Center"
+                                            FontFamily = "{StaticResource Custom}"
+                                            FontSize = "12"
+                                            >
+                                        </TextBlock >
+                                    </Grid >
+                                    <Grid Grid.Column = "1" >
+                                        <TextBlock
+                                            Text = "{Binding TieuDe}"
+                                            HorizontalAlignment = "Left"
+                                            VerticalAlignment = "Center"
+                                            FontFamily = "{StaticResource Custom}"
+                                            FontSize = "12"
+                                            Margin = "10,0,0,0"
+                                            >
+                                        </TextBlock >
+                                    </Grid >
+                                    <Grid Grid.Column = "2" >
+                                        <TextBlock
+                                            Text = "{Binding NoiDung}"
+                                            HorizontalAlignment = "Left"
+                                            VerticalAlignment = "Center"
+                                            FontFamily = "{StaticResource Custom}"
+                                            FontSize = "12"
+                                            Margin = "5,0,0,0"
+                                            >
+                                        </TextBlock >
+                                    </Grid >
+                                </Grid >
+                            </Border >
+                        </DataTemplate >
+                    </ListView.ItemTemplate >
+                    <ListView.ItemsPanel >
+                        <ItemsPanelTemplate >
+                            <WrapPanel Orientation = "Vertical" />
+                        </ItemsPanelTemplate >
+                    </ListView.ItemsPanel >
+                    <i:Interaction.Triggers >
+                        <i:EventTrigger EventName = "SelectionChanged" >
+                            <i:InvokeCommandAction Command = "{Binding DetailReadersCommand}"
+                                                       CommandParameter="{Binding ElementName=Studentswd}"></i:InvokeCommandAction >
+                        </i:EventTrigger >
+                    </i:Interaction.Triggers >
+                </ListView >
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Page>

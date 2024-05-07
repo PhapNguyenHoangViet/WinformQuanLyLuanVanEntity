@@ -1,0 +1,7 @@
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\bin\Debug\ChatServer.exe.config
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\bin\Debug\ChatServer.exe
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\bin\Debug\ChatServer.pdb
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\obj\Debug\ChatServer.csproj.AssemblyReference.cache
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\obj\Debug\ChatServer.csproj.CoreCompileInputs.cache
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\obj\Debug\ChatServer.exe
+D:\winform\ProjectGroup01_Winform\Group01_QuanLyLuanVan\ChatServer\obj\Debug\ChatServer.pdb

@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Group01_QuanLyLuanVan.UserControls.ControlBarUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Group01_QuanLyLuanVan.UserControls"
+             mc:Ignorable="d" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Name="ucControlBar">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="MouseDown">
+            <i:InvokeCommandAction Command="{Binding MouseDownWindowCommand}" CommandParameter="{Binding ElementName=ucControlBar}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Grid >
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="20"
+                Margin="16 0 0 0"
+                Foreground="White"
+                Text="{Binding Tag, ElementName=ucControlBar}"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button 
+                            Command="{Binding MinimizeWindowCommand}"
+                            CommandParameter="{Binding ElementName=ucControlBar}"
+                            ToolTip="Minimize" FontSize="20">
+                <materialDesign:PackIcon Kind="WindowMinimize" FontSize="20" RenderTransformOrigin="0.5,0.5" >
+                    <materialDesign:PackIcon.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </materialDesign:PackIcon.RenderTransform>
+                </materialDesign:PackIcon>
+            </Button>
+            <Button 
+                            Command="{Binding MaximizeWindowCommand}"
+                            CommandParameter="{Binding ElementName=ucControlBar}"
+                            ToolTip="Maximize">
+                <materialDesign:PackIcon Kind="WindowMaximize" />
+            </Button>
+            <Button 
+                            Command="{Binding CloseWindowCommand}"
+                            CommandParameter="{Binding ElementName=ucControlBar}"
+                            ToolTip="Close">
+                <materialDesign:PackIcon Kind="WindowClose" >
+                    <materialDesign:PackIcon.LayoutTransform>
+                        <TransformGroup>
+                            <ScaleTransform ScaleX="1.5" ScaleY="1.5"/>
+                            <SkewTransform/>
+                            <RotateTransform/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </materialDesign:PackIcon.LayoutTransform>
+                </materialDesign:PackIcon>
+            </Button>
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Margin" Value="6 4 6 4"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Yale Blue}"/>
+                    <Setter Property="Width" Value="30"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type Button}">
+                                <Border CornerRadius="10" Background="{TemplateBinding Background}" BorderBrush="Transparent">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#9DCEE2" Opacity="0.5"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Resources>
+        </StackPanel>
+    </Grid>
+</UserControl>
