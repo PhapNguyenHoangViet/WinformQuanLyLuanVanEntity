@@ -112,7 +112,6 @@
     <Compile Include="Model\Khoa.cs">
       <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\MessageTask.cs" />
     <Compile Include="Model\Nhom.cs">
       <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
     </Compile>
@@ -694,19 +693,19 @@
     <Resource Include="Resource\Image\luanvan.png" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Model\QuanLyLuanVan.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
       <LastGenOutput>QuanLyLuanVan.Context.cs</LastGenOutput>
+      <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
     </Content>
     <Content Include="Model\QuanLyLuanVan.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>QuanLyLuanVan.edmx</DependentUpon>
       <LastGenOutput>QuanLyLuanVan.cs</LastGenOutput>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets" Condition="Exists('..\packages\MaterialDesignThemes.4.9.0\build\MaterialDesignThemes.targets')" />

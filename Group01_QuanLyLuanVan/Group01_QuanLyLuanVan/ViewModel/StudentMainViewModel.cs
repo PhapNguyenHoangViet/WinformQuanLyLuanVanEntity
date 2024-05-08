@@ -101,6 +101,10 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
             StudentThesisCM = new RelayCommand<Frame>((P) => { return true; }, (P) =>
             {
+                MessageBox.Show(Const.sinhVien.NhomId.ToString());
+                MessageBox.Show(Const.sinhVien.Username.ToString());
+
+
                 LoadTrangthai();
                 GiangVien gv = new GiangVien();
                 if (Const.sinhVien.NhomId.ToString() != "-1")
@@ -247,7 +251,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void LoadTrangthai()
         {
-            string query = string.Format("SELECT COUNT(tb.trangthai) AS SoLuongTrangThai FROM ThongBao tb JOIN DeTai dt ON tb.deTaiId = dt.deTaiId JOIN SinhVien sv ON dt.nhomId = sv.nhomId JOIN TaiKhoan tk ON sv.username = tk.username WHERE tb.trangthai = 0 AND tk.username = 'phap'");
+            string query = string.Format("SELECT COUNT(tb.trangthai) AS SoLuongTrangThai FROM ThongBao tb JOIN DeTai dt ON tb.deTaiId = dt.deTaiId JOIN SinhVien sv ON dt.nhomId = sv.nhomId JOIN TaiKhoan tk ON sv.username = tk.username WHERE tb.trangthai = 0 AND tk.username = '{0}'", Const.taiKhoan.Username);
 
             using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
             {

@@ -127,7 +127,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
             sv.Email = Mail;
             sv.DiaChi = DiaChi;
             svDAO.UpdateSinhVien(sv);
-            Const.sinhVien = sv;
+            Const.sinhVien = svDAO.FindOneByUsername(Const.taiKhoan.Username);
             Const.taiKhoan.Mail = Mail;
             string avatarFileName = Const.taiKhoan.Username + ((Ava.Contains(".jpg")) ? ".jpg" : ".png").ToString();
             string avatarPath = Const._localLink + @"/Resource/Ava/";
@@ -153,6 +153,8 @@ namespace Group01_QuanLyLuanVan.ViewModel
             App.Current.MainWindow = studentMainView;
             studentMainView.Show();
             oldWindow.Close();
+
+
         }
         FrameworkElement GetParentWindow(FrameworkElement p)
         {

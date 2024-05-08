@@ -72,9 +72,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 DateTime thoiGian = DateTime.Parse(row["thoiGian"].ToString());
                 string username = row["username"].ToString();
                 int yeuCauId = Convert.ToInt32(row["yeuCauId"]);
-                TaiKhoan tk = new TaiKhoan();
-                tk = tkDAO.FindOneByUsername(username);
-                string ava = Const._localLink + tk.Avatar;
+                TaiKhoan tk = tkDAO.FindOneByUsername(username);
+                string ava = "";
+                if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+                    ava = Const._localLink + "/Resource/Ava/addava.png";
+                else
+                    ava = Const._localLink + tk.Avatar;
 
                 ListMessage.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
 
@@ -122,9 +125,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 DateTime thoiGian = DateTime.Parse(lastRow["thoiGian"].ToString());
                 string username = lastRow["username"].ToString();
                 int yeuCauId = Convert.ToInt32(lastRow["yeuCauId"]);
-                TaiKhoan tk = new TaiKhoan();
-                tk = tkDAO.FindOneByUsername(username);
-                string ava = Const._localLink + tk.Avatar;
+                TaiKhoan tk = tkDAO.FindOneByUsername(username);
+                string ava = "";
+                if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+                    ava = Const._localLink + "/Resource/Ava/addava.png";
+                else
+                    ava = Const._localLink + tk.Avatar;
 
                 Application.Current.Dispatcher.Invoke(() =>
                 {
@@ -201,9 +207,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 DateTime thoiGian = DateTime.Parse(row["thoiGian"].ToString());
                 string username = row["username"].ToString();
                 int yeuCauId = Convert.ToInt32(row["yeuCauId"]);
-                TaiKhoan tk = new TaiKhoan();
-                tk = tkDAO.FindOneByUsername(username);
-                string ava = Const._localLink + tk.Avatar;
+                TaiKhoan tk = tkDAO.FindOneByUsername(username);
+                string ava = "";
+                if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+                    ava = Const._localLink + "/Resource/Ava/addava.png";
+                else
+                    ava = Const._localLink + tk.Avatar;
                 ListMessage.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
             }
             return ListMessage;

@@ -131,7 +131,8 @@ namespace Group01_QuanLyLuanVan.ViewModel
             gv.Email = Mail;
             gv.DiaChi = DiaChi;
             gvDAO.UpdateGiangVien(gv);
-            Const.giangVien = gv;
+            Const.giangVien = gvDAO.FindOneByUsername(Const.taiKhoan.Username);
+
             Const.taiKhoan.Mail = Mail;
             string avatarFileName = Const.taiKhoan.Username + ((Ava.Contains(".jpg")) ? ".jpg" : ".png").ToString();
             string avatarPath = Const._localLink + @"/Resource/Ava/";
@@ -144,19 +145,20 @@ namespace Group01_QuanLyLuanVan.ViewModel
             }
             else
             {
-                // Nếu không trùng tên, sao chép file như bình thường
                 File.Copy(Ava, avatarPath + avatarFileName, true);
                 Const.taiKhoan.Avatar = "/Resource/Ava/" + avatarFileName;
             }
 
-            // Cập nhật tài khoản với Avatar mới
             tkDAO.UpdateTaiKhoan(Const.taiKhoan.Mail, Const.taiKhoan.Avatar, Const.taiKhoan.Username);
+
+            Const.taiKhoan = tkDAO.FindOneByUsername(Const.taiKhoan.Username);
+            GiangVien gv1 = gvDAO.FindOneByUsername(Const.taiKhoan.Username);
+            Const.giangVien = gv1;
+
             Window oldWindow = App.Current.MainWindow;
             TeacherMainView teacherMainView = new TeacherMainView();
-
             App.Current.MainWindow = teacherMainView;
             teacherMainView.Show();
-            Const.taiKhoan = tkDAO.FindOneByUsername(Const.taiKhoan.Username);
             oldWindow.Close();
         }
 
