@@ -14,7 +14,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class ChangePasswordViewModel : BaseViewModel
     {
-        TaiKhoanDAO tkDAO= new TaiKhoanDAO();
         private string _OldPass;
         public string OldPass { get => _OldPass; set { _OldPass = value; OnPropertyChanged(); } }
         private string _NewPass;
@@ -52,7 +51,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 {
                     MessageBox.Show("Vui lòng nhập thông tin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
-                else if ( tk.Password != OldPass)
+                else if ( tk.password != OldPass)
                 {
                     MessageBox.Show("Mật khẩu cũ không đúng!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Warning);
                 }
@@ -66,7 +65,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 }
                 else
                 {
-                    tkDAO.ChangePassword(tk.Username, NewPass);
+                    var taiKhoan = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == tk.username);
+                    if (taiKhoan != null)
+                    {
+                        taiKhoan.password = NewPass;
+                        DataProvider.Ins.DB.SaveChanges();
+                    }
                     MessageBox.Show("Đổi mật khẩu thành công!", "Thông báo");
                 }
             }

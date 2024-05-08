@@ -22,7 +22,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 LoginViewModel.MainFrame.Content = new LoginPageView();
             });
 
-
         }
 
     }

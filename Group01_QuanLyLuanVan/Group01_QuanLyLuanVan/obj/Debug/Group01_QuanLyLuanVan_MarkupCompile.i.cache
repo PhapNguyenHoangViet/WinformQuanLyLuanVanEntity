@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\winform\entity\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\
+D:\winform\entity\Group01_QuanLyLuanVan\WinformQuanLyLuanVanEntity\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\obj\Debug\
 Group01_QuanLyLuanVan
 none
 false
 DEBUG;TRACE
-D:\winform\entity\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\App.xaml
+D:\winform\entity\Group01_QuanLyLuanVan\WinformQuanLyLuanVanEntity\Group01_QuanLyLuanVan\Group01_QuanLyLuanVan\App.xaml
 56-134441861
 2-1889483073
-139-949641578
-231040532288
+135-600211209
+23-669629118
 MainWindow.xaml;Resource\MainResource.xaml;Resource\StyleResource.xaml;UserControls\ControlBarUC.xaml;UserControls\SlideCard.xaml;UserControls\UserControl1.xaml;View\ADMainView.xaml;View\AdminManageStudentView.xaml;View\AdminManageTeacherView.xaml;View\AdminManageTeacherView1.xaml;View\AdminManageTopicView.xaml;View\AdminModifyStudentView.xaml;View\AdminModifyTeacherView.xaml;View\AdminModifyTopicView.xaml;View\ChangePasswordView.xaml;View\ForgetPasswordView.xaml;View\HomeView.xaml;View\LoginPageView.xaml;View\LoginView.xaml;View\SignUpView.xaml;View\StudentAddTopicsView.xaml;View\StudentChatYeuCauView.xaml;View\StudentListTopicView.xaml;View\StudentMailView.xaml;View\StudentMainView.xaml;View\StudentNotiView.xaml;View\StudentReceiveEvaluationView.xaml;View\StudentRegisterTopicView.xaml;View\StudentScoreView.xaml;View\StudentScoreView2.xaml;View\StudentSubmitEssayView.xaml;View\StudentThesisView.xaml;View\StudentUpdateInforView.xaml;View\StudentUpdateProgressView.xaml;View\StudentUpdateTaskView.xaml;View\SystemErrorReport.xaml;View\TeacherAddDissertationView.xaml;View\TeacherDissertationDetailView.xaml;View\TeacherDissertationView.xaml;View\TeacherMailView.xaml;View\TeacherMainView.xaml;View\TeacherNotiAddView.xaml;View\TeacherNotiDetailView.xaml;View\TeacherNotificationView.xaml;View\TeacherNotiView.xaml;View\TeacherProgressDetailView.xaml;View\TeacherProgressView.xaml;View\TeacherScoreDetailView.xaml;View\TeacherScoreView.xaml;View\TeacherSettingView.xaml;View\TeacherStatisticView.xaml;View\TeacherTaskDetailView.xaml;View\TeacherTaskMessageView.xaml;View\TeacherTaskView.xaml;View\TeacherUpdateInforView.xaml;View\VerifyCodeView.xaml;
 
 False

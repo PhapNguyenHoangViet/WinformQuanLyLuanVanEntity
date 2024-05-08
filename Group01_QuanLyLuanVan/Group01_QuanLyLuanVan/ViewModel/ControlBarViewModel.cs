@@ -63,7 +63,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         w.DragMove();
                 });
         }
-
         FrameworkElement GetWindowParent(UserControl p)
         {
             FrameworkElement parent = p;

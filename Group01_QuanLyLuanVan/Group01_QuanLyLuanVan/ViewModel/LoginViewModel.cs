@@ -1,13 +1,7 @@
 ﻿using Group01_QuanLyLuanVan.Chat.Net;
-using Group01_QuanLyLuanVan.DAO;
 using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,10 +10,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class LoginViewModel : BaseViewModel
     {
-        SinhVienDAO svDAO = new SinhVienDAO();
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-        GiangVienDAO gvDAO = new GiangVienDAO();
-
         private string username;
         public string Username { get => username; set { username = value; OnPropertyChanged(); } }
 
@@ -47,18 +37,19 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
                 try
                 {
-                    TaiKhoan tk = tkDAO.FindOne(Username, Password);
+                    TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == Username && x.password == Password);
+
                     Const.taiKhoan = tk;
 
                     if (tk != null)
                     {
-                        if (tk.TrangThai == 0)
+                        if (tk.trangThai == 0)
                         {
                             MessageBox.Show("Tài khoản chưa được kích hoạt!", "Thông báo", MessageBoxButton.OK);
                         }
-                        else 
+                        else
                         {
-                            if (tk.Quyen == 0)
+                            if (tk.quyen == 0)
                             {
                                 Window oldWindow = App.Current.MainWindow;
                                 ADMainView adMainView = new ADMainView();
@@ -66,15 +57,16 @@ namespace Group01_QuanLyLuanVan.ViewModel
                                 oldWindow.Close();
                                 adMainView.Show();
                             }
-                            else if (tk.Quyen == 1)
+                            else if (tk.quyen == 1)
                             {
-                                
-                                GiangVien gv = gvDAO.FindOneByUsername(Const.taiKhoan.Username);
+
+                                GiangVien gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.TaiKhoan.username == Const.taiKhoan.username);
+
                                 Const.giangVien = gv;
                                 Const._server = new Server();
-                                Const._server.ConnectToServer(Const.giangVien.Username);
+                                Const._server.ConnectToServer(Const.giangVien.username);
                                 Window oldWindow = App.Current.MainWindow;
-                                TeacherMainView teacherMainView = new TeacherMainView();   
+                                TeacherMainView teacherMainView = new TeacherMainView();
                                 App.Current.MainWindow = teacherMainView;
                                 oldWindow.Close();
                                 teacherMainView.Show();
@@ -82,10 +74,11 @@ namespace Group01_QuanLyLuanVan.ViewModel
                             else
                             {
 
-                                SinhVien sv = svDAO.FindOneByUsername(Username);
+                                SinhVien sv = DataProvider.Ins.DB.SinhViens.FirstOrDefault(x => x.TaiKhoan.username == Const.taiKhoan.username);
+
                                 Const.sinhVien = sv;
                                 Const._server = new Server();
-                                Const._server.ConnectToServer(Const.sinhVien.Username);
+                                Const._server.ConnectToServer(Const.sinhVien.username);
                                 Window oldWindow = App.Current.MainWindow;
                                 StudentMainView studentMainView = new StudentMainView();
                                 App.Current.MainWindow = studentMainView;
@@ -103,8 +96,10 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 {
                     MessageBox.Show("Mất kết nối đến cơ sở dữ liệu!", "Thông báo", MessageBoxButton.OK);
                 }
-            });
+            })
+            {
 
+            };
             ForgetPasswordCM = new RelayCommand<object>((p) => { return true; }, (p) =>
             {
                 MainFrame.Content = new ForgetPasswordView();

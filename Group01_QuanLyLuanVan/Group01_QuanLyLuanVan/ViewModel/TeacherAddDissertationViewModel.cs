@@ -16,9 +16,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class TeacherAddDissertationViewModel : BaseViewModel
     {
-        GiangVienDAO gvDAO = new GiangVienDAO(); 
-        TheLoaiDAO tlDAO = new TheLoaiDAO();
-        DeTaiDAO dtDAO = new DeTaiDAO();
         public ObservableCollection<DeTai> Topics { get; set; }
         public ICommand back { get; set; }
         public ICommand Loadwd { get; set; }
@@ -70,8 +67,22 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 return;
             }
             TheLoai tl = (TheLoai)paramater.LTL.SelectedItem;
-            DeTai dl = new DeTai(paramater.TenDeTai.Text, paramater.MoTa.Text, paramater.YeuCau.Text, int.Parse(paramater.SoLuong.Text), 0, DateTime.Parse(paramater.NgayBatDau.Text), DateTime.Parse(paramater.NgayBatDau.Text), tl.TheLoaiId, Const.giangVien.GiangVienId);
-            dtDAO.AddTopic(dl);
+            DeTai dt = new DeTai
+            {
+                tenDeTai = paramater.TenDeTai.Text,
+                moTa = paramater.MoTa.Text,
+                yeuCauChung = paramater.YeuCau.Text,
+                soLuong = int.Parse(paramater.SoLuong.Text),
+                trangThai = 0,
+                ngayBatDau = DateTime.Parse(paramater.NgayBatDau.Text),
+                ngayKetThuc = DateTime.Parse(paramater.NgayBatDau.Text),
+                theLoaiId = tl.theLoaiId,
+                giangVienId = Const.giangVien.giangVienId,
+                an = 0,
+                diem = 0
+            };
+            DataProvider.Ins.DB.DeTais.Add(dt);
+            DataProvider.Ins.DB.SaveChanges();
             TeacherDissertationView topicsView = new TeacherDissertationView();
             topicsView.ListTopicView.ItemsSource = listTopic();
             topicsView.ListTopicView.Items.Refresh();
@@ -81,27 +92,28 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<DeTai> listTopic()
         {
             Topics = new ObservableCollection<DeTai>();
-            var topicsData = dtDAO.LoadListTopic(Const.giangVien.GiangVienId);
-            foreach (DataRow row in topicsData.Rows)
+            var topicsData = DataProvider.Ins.DB.DeTais.Where(dt => dt.giangVienId == Const.giangVien.giangVienId).ToList();
+
+            foreach (DeTai dt in topicsData)
             {
-                string deTaiId = row["deTaiId"].ToString();
-                string tenDeTai = row["tenDeTai"].ToString();
-                string tenTheLoai = row["tenTheLoai"].ToString();
-                string moTa = row["moTa"].ToString();
-                string yeuCauChung = row["yeuCauChung"].ToString();
-                DateTime ngayBatDau = Convert.ToDateTime(row["ngayBatDau"]);
+                string deTaiId = dt.deTaiId;
+                string tenDeTai = dt.tenDeTai;
+                string tenTheLoai = dt.TheLoai.tenTheLoai;
+                string moTa = dt.moTa;
+                string yeuCauChung = dt.yeuCauChung;
+                DateTime ngayBatDau = Convert.ToDateTime(dt.ngayBatDau);
                 DateTime ngayKetThuc;
                 try
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayKetThuc"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayKetThuc);
                 }
                 catch
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayBatDau"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayBatDau);
                 }
-                int soLuong = Convert.ToInt32(row["soLuong"]);
-                int trangThai = Convert.ToInt32(row["trangThai"]);
-                int an = Convert.ToInt32(row["an"]);
+                int soLuong = Convert.ToInt32(dt.soLuong);
+                int trangThai = Convert.ToInt32(dt.trangThai);
+                int an = Convert.ToInt32(dt.an);
                 string tenTrangThai = "";
 
                 if (trangThai == 1)
@@ -126,7 +138,8 @@ namespace Group01_QuanLyLuanVan.ViewModel
         void _Loadwd(TeacherAddDissertationView paramater)
         {
             GiangVien gv = Const.giangVien;
-            LTL = tlDAO.FindByKhoaId(gv.KhoaId);
+            LTL = DataProvider.Ins.DB.TheLoais.Where(tl => tl.khoaId == gv.khoaId).ToList();
+
             paramater.LTL.ItemsSource = LTL;
             paramater.NgayBatDau.SelectedDate = DateTime.Today;
         }

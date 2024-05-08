@@ -22,7 +22,20 @@ namespace Group01_QuanLyLuanVan.Model
             this.TienDoes = new HashSet<TienDo>();
             this.YeuCaus = new HashSet<YeuCau>();
         }
-    
+        public DeTai(string deTaiId, string tenDeTai, string tenTheLoai, string moTa, string yeuCauChung,
+    DateTime ngayBatDau, DateTime ngayKetThuc, int soLuong, int trangThai)
+        {
+            this.deTaiId = deTaiId;
+            this.tenDeTai = tenDeTai;
+            this.TheLoai.tenTheLoai = tenTheLoai;
+            this.moTa = moTa;
+            this.yeuCauChung = yeuCauChung;
+            this.ngayBatDau = ngayBatDau;
+            this.ngayKetThuc = ngayKetThuc;
+            this.soLuong = soLuong;
+            this.trangThai = trangThai;
+        }
+
         public int id { get; set; }
         public string deTaiId { get; set; }
         public string tenDeTai { get; set; }
