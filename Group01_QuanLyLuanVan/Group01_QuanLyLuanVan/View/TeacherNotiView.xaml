@@ -135,7 +135,7 @@
                                                                 VerticalAlignment="Center"
                                                                 FontWeight="Bold"
                                                                 x:Name="TenDeTai"
-                                                                Text="{Binding TenDeTai}"
+                                                                Text="{Binding tenDeTai}"
                                                                 Foreground="#1e90ff"
                                                                 FontFamily="{StaticResource Custom}"
                                                                 FontSize="18"
@@ -167,7 +167,7 @@
                                                         <Grid Grid.Column="1">
                                                             <TextBlock
                                                              x:Name="TenTheLoai"
-                                                            Text="{Binding TenTheLoai}"
+                                                            Text="{Binding tenTheLoai}"
                                                             Margin="0,10,0,0"
                                                             Foreground="gray"
                                                             FontFamily="{StaticResource Custom}"
@@ -178,7 +178,7 @@
                                                             <TextBlock 
                                                                 Margin="0,10,0,0"
                                                                     x:Name="TenNhom"
-                                                                    Text="{Binding TenNhom}" 
+                                                                    Text="{Binding tenNhom}" 
                                                                     Foreground="#FFA500" 
                                                                     FontWeight="Bold"
                                                                     FontSize="16"

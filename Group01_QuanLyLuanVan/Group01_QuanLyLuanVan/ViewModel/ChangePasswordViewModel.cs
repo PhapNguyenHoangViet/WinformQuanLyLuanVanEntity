@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using System.Windows.Input;
 namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class ChangePasswordViewModel : BaseViewModel
-    {
+    { 
         private string _OldPass;
         public string OldPass { get => _OldPass; set { _OldPass = value; OnPropertyChanged(); } }
         private string _NewPass;

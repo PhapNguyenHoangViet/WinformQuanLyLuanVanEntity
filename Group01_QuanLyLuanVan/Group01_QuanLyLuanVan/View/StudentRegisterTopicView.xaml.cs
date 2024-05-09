@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,9 +25,6 @@ namespace Group01_QuanLyLuanVan.View
     public partial class StudentRegisterTopicView : Page
     {
         private ObservableCollection<SinhVien> sinhViens;
-        SinhVienDAO svDAO = new SinhVienDAO();
-
-
 
         public StudentRegisterTopicView()
         {
@@ -38,15 +34,15 @@ namespace Group01_QuanLyLuanVan.View
 
         private void LoadSinhVienData()
         {
-            DataTable dataTable = svDAO.LoadListSinhVienDangKyDeTai(); // Đây là phần bạn phải cung cấp từ dữ liệu của bạn.
+            var dataTable = DataProvider.Ins.DB.SinhViens.Where(dt => dt.khoaId == Const.sinhVien.khoaId && dt.username == Const.taiKhoan.username && dt.nhomId == null).ToList();
             sinhViens = new ObservableCollection<SinhVien>();
 
-            foreach (DataRow row in dataTable.Rows)
+            foreach (SinhVien sv in dataTable)
             {
                 sinhViens.Add(new SinhVien
                 {
-                    SinhVienId = row["sinhVienId"].ToString(),
-                    HoTen = row["HoTen"].ToString(),
+                    sinhVienId = sv.sinhVienId,
+                    hoTen = sv.hoTen,
                     IsSelected = false
                 });
             }
@@ -88,7 +84,7 @@ namespace Group01_QuanLyLuanVan.View
             {
                 if (sinhVien.IsSelected)
                 {
-                    selectedItemTextBlock.Text += sinhVien.HoTen + ", ";
+                    selectedItemTextBlock.Text += sinhVien.hoTen + ", ";
                 }
             }
             selectedItemTextBlock.Text = selectedItemTextBlock.Text.TrimEnd(' ', ',');

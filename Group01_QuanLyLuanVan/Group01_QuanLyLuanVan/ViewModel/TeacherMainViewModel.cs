@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows;
 using Group01_QuanLyLuanVan.Properties;
-using Group01_QuanLyLuanVan.DAO;
 
 namespace Group01_QuanLyLuanVan.ViewModel
 {
@@ -38,7 +37,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         public void LoadTenND(TeacherMainView p)
         {
-            p.TenDangNhap.Text = Const.giangVien.HoTen;
+            p.TenDangNhap.Text = Const.giangVien.hoTen;
         }
 
         public TeacherMainViewModel()
@@ -77,10 +76,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 MainFrame.Content = new TeacherScoreView();
             });
 
-            TeacherProgressCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
-            {
-                MainFrame.Content = new TeacherProgressView();
-            });
 
             TeacherNotiCM = new RelayCommand<Frame>((p) => { return true; }, (p) =>
             {
@@ -118,10 +113,10 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         void _Loadwd(TeacherMainView p)
         {
-            if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+            if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
                 Ava = Const._localLink + "/Resource/Ava/addava.png";
             else
-                Ava = Const._localLink + Const.taiKhoan.Avatar;
+                Ava = Const._localLink + Const.taiKhoan.avatar;
             LoadTenND(p);
         }
     }

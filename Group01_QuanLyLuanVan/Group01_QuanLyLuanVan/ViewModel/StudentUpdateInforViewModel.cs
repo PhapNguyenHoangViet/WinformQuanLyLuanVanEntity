@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using Microsoft.Win32;
 using System;
@@ -13,15 +12,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
-
+using System.Runtime.ConstrainedExecution;
+using System.Data;
 
 namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class StudentUpdateInforViewModel : BaseViewModel
     {
-        KhoaDAO khoaDAO = new KhoaDAO();
-        SinhVienDAO svDAO = new SinhVienDAO();
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
+
 
         private string _Ava;
         public string Ava { get => _Ava; set { _Ava = value; OnPropertyChanged(); } }
@@ -70,20 +68,20 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void _Loadwd(StudentUpdateInforView p)
         {
-            if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+            if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
                 Ava = Const._localLink + "/Resource/Image/addava.png";
             else
-                Ava = Const._localLink + Const.taiKhoan.Avatar;
+                Ava = Const._localLink + Const.taiKhoan.avatar;
             SinhVien sv = Const.sinhVien;
-            SinhVienId = sv.SinhVienId;
-            NgaySinh = sv.NgaySinh.ToString();
-            DiaChi = sv.DiaChi;
-            GioiTinh = (sv.GioiTinh == "Nam") ? 0 : 1;
+            SinhVienId = sv.sinhVienId;
+            NgaySinh = sv.ngaySinh.ToString();
+            DiaChi = sv.diaChi;
+            GioiTinh = (sv.gioiTinh == "Nam") ? 0 : 1;
             SDT = sv.SDT;
-            HoTen = sv.HoTen;
-            Mail = sv.Email;
-            Khoa khoa = khoaDAO.FindByKhoaId(sv.KhoaId);
-            if (khoa.TenKhoa == "Công nghệ thông tin")
+            HoTen = sv.hoTen;
+            Mail = sv.email;
+            var khoa = DataProvider.Ins.DB.Khoas.FirstOrDefault(k => k.khoaId == Const.sinhVien.khoaId);
+            if (khoa.tenKhoa == "Công nghệ thông tin")
                 TenKhoa = 0;
             else TenKhoa = 1;
         }
@@ -115,38 +113,55 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 return;
             }
             SinhVien sv = new SinhVien();
-            sv.SinhVienId = SinhVienId;
-            sv.KhoaId = TenKhoa.ToString();
-            if (TenKhoa == 0)
-                sv.KhoaId = "K01";
-            else sv.KhoaId = "K02";
-            sv.HoTen = HoTen;
-            sv.GioiTinh = (GioiTinh == 0) ? "Nam" : "Nữ";
-            sv.NgaySinh = DateTime.Parse(NgaySinh);
-            sv.SDT = SDT;
-            sv.Email = Mail;
-            sv.DiaChi = DiaChi;
-            svDAO.UpdateSinhVien(sv);
-            Const.sinhVien = svDAO.FindOneByUsername(Const.taiKhoan.Username);
-            Const.taiKhoan.Mail = Mail;
-            string avatarFileName = Const.taiKhoan.Username + ((Ava.Contains(".jpg")) ? ".jpg" : ".png").ToString();
+
+            var sinhVien = DataProvider.Ins.DB.SinhViens.FirstOrDefault(s => s.sinhVienId == sv.sinhVienId);
+
+            if (sinhVien != null)
+            {
+                sinhVien.sinhVienId = SinhVienId;
+                sinhVien.khoaId = TenKhoa.ToString();
+                if (TenKhoa == 0)
+                    sinhVien.khoaId = "K01";
+                else sinhVien.khoaId = "K02";
+                sinhVien.hoTen = HoTen;
+                sinhVien.gioiTinh = (GioiTinh == 0) ? "Nam" : "Nữ";
+                sinhVien.ngaySinh = DateTime.Parse(NgaySinh);
+                sinhVien.SDT = SDT;
+                sinhVien.email = Mail;
+                sinhVien.diaChi = DiaChi;
+                DataProvider.Ins.DB.SaveChanges();
+            }
+            Const.sinhVien = DataProvider.Ins.DB.SinhViens.FirstOrDefault(sv1 => sv1.username == Const.taiKhoan.username);
+
+
+            Const.taiKhoan.mail = mail;
+            string avatarFileName = Const.taiKhoan.username + ((Ava.Contains(".jpg")) ? ".jpg" : ".png").ToString();
             string avatarPath = Const._localLink + @"/Resource/Ava/";
 
             if (File.Exists(avatarPath + avatarFileName))
             {
                 string newAvatarFileName = GetUniqueFileName(avatarFileName);
                 File.Copy(Ava, avatarPath + newAvatarFileName, true);
-                Const.taiKhoan.Avatar = "/Resource/Ava/" + newAvatarFileName;
+                Const.taiKhoan.avatar = "/Resource/Ava/" + newAvatarFileName;
             }
             else
             {
-                // Nếu không trùng tên, sao chép file như bình thường
                 File.Copy(Ava, avatarPath + avatarFileName, true);
-                Const.taiKhoan.Avatar = "/Resource/Ava/" + avatarFileName;
+                Const.taiKhoan.avatar = "/Resource/Ava/" + avatarFileName;
             }
-            tkDAO.UpdateTaiKhoan(Const.taiKhoan.Mail, Const.taiKhoan.Avatar, Const.taiKhoan.Username);
 
-            Const.taiKhoan = tkDAO.FindOneByUsername(Const.taiKhoan.Username);
+            var taiKhoan = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(tk => tk.username == Const.taiKhoan.username);
+
+            if (taiKhoan != null)
+            {
+                taiKhoan.mail = Const.taiKhoan.mail;
+                taiKhoan.avatar = Const.taiKhoan.avatar;
+                DataProvider.Ins.DB.SaveChanges();
+            }
+
+            Const.taiKhoan = DataProvider.Ins.DB.TaiKhoans
+                        .FirstOrDefault(tk => tk.username == Const.taiKhoan.username);
+
 
             Window oldWindow = App.Current.MainWindow;
             StudentMainView studentMainView = new StudentMainView();

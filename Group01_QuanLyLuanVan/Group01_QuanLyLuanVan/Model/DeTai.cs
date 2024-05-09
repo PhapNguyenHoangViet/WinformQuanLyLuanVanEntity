@@ -22,6 +22,22 @@ namespace Group01_QuanLyLuanVan.Model
             this.TienDoes = new HashSet<TienDo>();
             this.YeuCaus = new HashSet<YeuCau>();
         }
+
+        public DeTai(int diem)
+        {
+            this.diem = diem;
+        }
+        public DeTai(string tenDeTai, string moTa, string yeuCauChung, DateTime ngayBatDau, DateTime ngayKetThuc, int nhomId, string hoTen, string tenTheLoai)
+        {
+            this.tenDeTai = tenDeTai;
+            this.moTa = moTa;
+            this.yeuCauChung = yeuCauChung;
+            this.ngayBatDau = ngayBatDau;
+            this.ngayKetThuc = ngayKetThuc;
+            this.nhomId = nhomId;
+            this.hoTen = hoTen;
+            this.tenTheLoai = tenTheLoai;
+        }
         public DeTai(string deTaiId, string tenDeTai, string tenTheLoai, string moTa, string yeuCauChung,
     DateTime ngayBatDau, DateTime ngayKetThuc, int soLuong, int trangThai)
         {
@@ -36,11 +52,64 @@ namespace Group01_QuanLyLuanVan.Model
             this.trangThai = trangThai;
         }
 
+        public DeTai(string deTaiId, string tenDeTai, string tenTheLoai, string hoTen, string moTa, string yeuCauChung,
+            DateTime ngayBatDau, DateTime ngayKetThuc, int soLuong, string tenTrangThai)
+        {
+            this.deTaiId = deTaiId;
+            this.tenDeTai = tenDeTai;
+            this.hoTen = hoTen;
+            this.tenTheLoai = tenTheLoai;
+            this.moTa = moTa;
+            this.yeuCauChung = yeuCauChung;
+            this.ngayBatDau = ngayBatDau;
+            this.ngayKetThuc = ngayKetThuc;
+            this.soLuong = soLuong;
+            this.tenTrangThai = tenTrangThai;
+        }
+        public DeTai(string deTaiId, string tenDeTai, string tenTheLoai, string moTa, string yeuCauChung,
+    DateTime ngayBatDau, DateTime ngayKetThuc, int soLuong, string tenTrangThai)
+        {
+            this.deTaiId = deTaiId;
+            this.tenDeTai = tenDeTai;
+            this.tenTheLoai = tenTheLoai;
+            this.moTa = moTa;
+            this.yeuCauChung = yeuCauChung;
+            this.ngayBatDau = ngayBatDau;
+            this.ngayKetThuc = ngayKetThuc;
+            this.soLuong = soLuong;
+            this.tenTrangThai = tenTrangThai;
+        }
+
+        public DeTai(string deTaiId, string tenDeTai, string tenTheLoai, string tenNhom)
+        {
+            this.deTaiId = deTaiId;
+            this.tenDeTai = tenDeTai;
+            this.tenTheLoai = tenTheLoai;
+            this.tenNhom = tenNhom;
+        }
+
+        public DeTai(string deTaiId, string tenDeTai, string tenTheLoai, string tenNhom, string phanTram)
+        {
+            this.deTaiId = deTaiId;
+            this.tenDeTai = tenDeTai;
+            this.tenTheLoai = tenTheLoai;
+            this.tenNhom = tenNhom;
+            this.phanTram = phanTram;
+        }
+
         public int id { get; set; }
         public string deTaiId { get; set; }
         public string tenDeTai { get; set; }
         public string moTa { get; set; }
         public string yeuCauChung { get; set; }
+        public string tenTheLoai { get; set; }
+        public string tenTrangThai { get; set; }
+        public string tenNhom { get; set; }
+
+        public string phanTram { get; set; }
+        public string hoTen { get; set; }
+
+
         public Nullable<int> soLuong { get; set; }
         public Nullable<int> trangThai { get; set; }
         public Nullable<System.DateTime> ngayBatDau { get; set; }

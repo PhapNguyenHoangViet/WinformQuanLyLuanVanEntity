@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,9 +25,6 @@ namespace Group01_QuanLyLuanVan.View
     {
         private ObservableCollection<SinhVien> sinhViens;
 
-        TheLoaiDAO tlDAO = new TheLoaiDAO();
-        SinhVienDAO svDAO = new SinhVienDAO();
-        GiangVienDAO gvDAO = new GiangVienDAO();
         public StudentAddTopicsView()
         {
             InitializeComponent();
@@ -39,36 +35,41 @@ namespace Group01_QuanLyLuanVan.View
 
         private void LoadTheLoaiData()
         {
-            DataTable dataTable = tlDAO.LoadListTheLoai();
+            var dataTable = DataProvider.Ins.DB.TheLoais.Where(dt => dt.khoaId == Const.sinhVien.khoaId).ToList();
 
-            foreach (DataRow row in dataTable.Rows)
+            foreach (TheLoai tl in dataTable)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                item.Content = row["TenTheLoai"].ToString();
+                item.Content = tl.tenTheLoai.ToString();
                 TheLoai.Items.Add(item);
             }
         }
         private void LoadGiangVienData()
         {
-            DataTable dataTable = gvDAO.LoadListGiangVien();
-            foreach (DataRow row in dataTable.Rows)
+
+            var dataTable = DataProvider.Ins.DB.GiangViens.Where(dt => dt.khoaId == Const.sinhVien.khoaId).ToList();
+
+            foreach (GiangVien tl in dataTable)
             {
                 ComboBoxItem item = new ComboBoxItem();
-                item.Content = row["Hoten"].ToString();
-                GiangVien.Items.Add(item);
+                item.Content = tl.hoTen.ToString();
+                TheLoai.Items.Add(item);
             }
+
+            
         }
         private void LoadSinhVienData()
         {
-            DataTable dataTable = svDAO.LoadListSinhVienDangKyDeTai(); // Đây là phần bạn phải cung cấp từ dữ liệu của bạn.
+
+            var dataTable = DataProvider.Ins.DB.SinhViens.Where(dt => dt.khoaId == Const.sinhVien.khoaId && dt.username != Const.taiKhoan.username).ToList();
             sinhViens = new ObservableCollection<SinhVien>();
 
-            foreach (DataRow row in dataTable.Rows)
+            foreach (SinhVien tl in dataTable)
             {
                 sinhViens.Add(new SinhVien
                 {
-                    SinhVienId = row["sinhVienId"].ToString(),
-                    HoTen = row["HoTen"].ToString(),
+                    sinhVienId = tl.sinhVienId.ToString(),
+                    hoTen = tl.hoTen.ToString(),
                     IsSelected = false
                 });
             }
@@ -110,7 +111,7 @@ namespace Group01_QuanLyLuanVan.View
             {
                 if (sinhVien.IsSelected)
                 {
-                    selectedItemTextBlock.Text += sinhVien.HoTen + ", ";
+                    selectedItemTextBlock.Text += sinhVien.hoTen + ", ";
                 }
             }
             selectedItemTextBlock.Text = selectedItemTextBlock.Text.TrimEnd(' ', ',');

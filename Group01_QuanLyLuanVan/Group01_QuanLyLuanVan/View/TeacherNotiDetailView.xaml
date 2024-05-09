@@ -142,7 +142,7 @@
                                             
                                             Foreground="#FFA500" 
                                             x:Name="Ngay"
-                                            Text = "{Binding Ngay}"
+                                            Text = "{Binding ngay}"
                                             HorizontalAlignment = "Center"
                                             VerticalAlignment = "Center"
                                             FontFamily = "{StaticResource Custom}"
@@ -154,7 +154,7 @@
                                         <TextBlock
                                             Foreground="#1e90ff" 
                                             x:Name="TieuDe"
-                                            Text = "{Binding TieuDe}"
+                                            Text = "{Binding tieuDe}"
                                             HorizontalAlignment = "Center"
                                             VerticalAlignment = "Center"
                                             FontFamily = "{StaticResource Custom}"

@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -17,7 +16,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
     public class StudentNotiViewModel : BaseViewModel
     {
 
-        ThongBaoDAO tbDAO = new ThongBaoDAO();
         private ObservableCollection<ThongBao> _ListThongBao;
         public ObservableCollection<ThongBao> ListThongBao { get => _ListThongBao; set { _ListThongBao = value;/* OnPropertyChanged();*/ } }
         public ICommand DetailThongBaoCommand { get; set; }
@@ -37,16 +35,17 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         public StudentNotiViewModel()
         {
-            ThongBaos = new ObservableCollection<ThongBao>();
-            var thongBaosData = tbDAO.LoadListThongBao();
-            foreach (DataRow row in thongBaosData.Rows)
+            DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+            string dtTaiId = dt.deTaiId;
+            var thongBaos = DataProvider.Ins.DB.ThongBaos.Where(tb => tb.deTaiId == dtTaiId).ToList();
+            foreach (ThongBao tb in thongBaos)
             {
-                int thongBaoId = Convert.ToInt32(row["thongBaoId"]);
-                int trangThai = Convert.ToInt32(row["trangthai"]);
-                string tieuDe = row["tieuDe"].ToString();
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                DateTime ngay = Convert.ToDateTime(row["ngay"]);
+                int thongBaoId = tb.thongBaoId;
+                int trangThai = Convert.ToInt32(tb.trangthai);
+                string tieuDe = tb.tieude;
+                string noiDung = tb.noiDung;
+                string deTaiId = tb.deTaiId;
+                DateTime ngay = Convert.ToDateTime(tb.ngay);
                 string tenTrangThai = "";
 
                 if (trangThai == 1)
@@ -70,15 +69,16 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<ThongBao> listThongBao()
         {
             ThongBaos = new ObservableCollection<ThongBao>();
-            var thongBaosData = tbDAO.LoadListThongBao();
-            foreach (DataRow row in thongBaosData.Rows)
+            var thongBaos = DataProvider.Ins.DB.ThongBaos
+            .Where(tb => tb.DeTai.Nhom.SinhViens.Any(sv => sv.sinhVienId == Const.sinhVien.sinhVienId)).ToList();
+            foreach (ThongBao tb in thongBaos)
             {
-                int thongBaoId = Convert.ToInt32(row["thongBaoId"]);
-                int trangThai = Convert.ToInt32(row["trangthai"]);
-                string tieuDe = row["tieuDe"].ToString();
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                DateTime ngay = Convert.ToDateTime(row["ngay"]);
+                int thongBaoId = tb.thongBaoId;
+                int trangThai = Convert.ToInt32(tb.trangthai);
+                string tieuDe = tb.tieude;
+                string noiDung = tb.noiDung;
+                string deTaiId = tb.deTaiId;
+                DateTime ngay = Convert.ToDateTime(tb.ngay);
                 string tenTrangThai = "";
 
                 if (trangThai == 1)
@@ -98,19 +98,18 @@ namespace Group01_QuanLyLuanVan.ViewModel
             if (tbView != null && tbView.ListThongBaoView.SelectedItem != null)
             {
                 var selectedThongBao = (ThongBao)tbView.ListThongBaoView.SelectedItem;
-                SelectedThongBaoNoiDung = selectedThongBao.NoiDung;
+                SelectedThongBaoNoiDung = selectedThongBao.noiDung;
 
             }
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
+            var thongBaos = DataProvider.Ins.DB.ThongBaos
+                .Where(tb => tb.DeTai.nhomId == Const.sinhVien.nhomId && tb.noiDung == SelectedThongBaoNoiDung)
+                .ToList();
+
+            foreach (var thongBao in thongBaos)
             {
-                conn.Open();
-                string updatetrangthaiQuery = "UPDATE ThongBao SET trangthai = 1 WHERE deTaiId IN (SELECT deTaiId FROM DeTai WHERE nhomId = @nhomid) AND noiDung = @noidung ";
-                SqlCommand updatetrangthaiQueryCommand = new SqlCommand(updatetrangthaiQuery, conn);
-                updatetrangthaiQueryCommand.Parameters.AddWithValue("@noidung", SelectedThongBaoNoiDung);
-                updatetrangthaiQueryCommand.Parameters.AddWithValue("@nhomid", Const.sinhVien.NhomId);
-                updatetrangthaiQueryCommand.ExecuteNonQuery();
+                thongBao.trangthai = 1;
             }
-
+            DataProvider.Ins.DB.SaveChanges();
         }
     }
 }

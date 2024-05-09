@@ -19,7 +19,22 @@ namespace Group01_QuanLyLuanVan.Model
         {
             this.TinNhanYeuCaus = new HashSet<TinNhanYeuCau>();
         }
-    
+
+        public YeuCau(int yeuCauId, string noiDung, int trangThai, string deTaiId)
+        {
+            this.yeuCauId = yeuCauId;
+            this.noiDung = noiDung;
+            this.trangThai = trangThai;
+            this.deTaiId = deTaiId;
+        }
+
+        public YeuCau(string noiDung, int trangThai, string deTaiId)
+        {
+            this.noiDung = noiDung;
+            this.trangThai = trangThai;
+            this.deTaiId = deTaiId;
+        }
+
         public int yeuCauId { get; set; }
         public string noiDung { get; set; }
         public Nullable<int> trangThai { get; set; }

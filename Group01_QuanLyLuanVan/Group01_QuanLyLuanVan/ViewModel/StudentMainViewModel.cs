@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -51,11 +50,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 OnPropertyChanged(nameof(SelectedOption));
             }
         }
-        YeuCauDAO ycDAO = new YeuCauDAO();
-        ThongBaoDAO tbDAO = new ThongBaoDAO();
-        DeTaiDAO dtDAO = new DeTaiDAO();
-        SinhVienDAO sinhVienDAO = new SinhVienDAO();
-        GiangVienDAO gvDAO = new GiangVienDAO();
         public ICommand LoadPageHomeCM { get; set; }
         public static Frame MainFrame { get; set; }
         public ICommand HomeStudentCM { get; set; }
@@ -73,7 +67,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
         public ObservableCollection<DeTai> Topics { get; set; }
         public void LoadTenND(StudentMainView p)
         {
-            p.TenDangNhap.Text = Const.sinhVien.HoTen;
+            p.TenDangNhap.Text = Const.sinhVien.hoTen;
         }
 
         public StudentMainViewModel()
@@ -101,17 +95,14 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
             StudentThesisCM = new RelayCommand<Frame>((P) => { return true; }, (P) =>
             {
-                MessageBox.Show(Const.sinhVien.NhomId.ToString());
-                MessageBox.Show(Const.sinhVien.Username.ToString());
-
-
                 LoadTrangthai();
                 GiangVien gv = new GiangVien();
-                if (Const.sinhVien.NhomId.ToString() != "-1")
+                if (Const.sinhVien.nhomId.ToString() != "-1")
                 {
-                    string dtTaiId = sinhVienDAO.FindDeTaiIdByNhomID(Const.sinhVien.NhomId);
-                    string gvId = dtDAO.FindGiangVienIdByDeTaiId(dtTaiId);
-                    gv = gvDAO.FindOneById(gvId);
+                    DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+                    string dtTaiId = dt.deTaiId;
+                    string gvId = dt.giangVienId;
+                    gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.giangVienId == gvId);
                 }
                 else
                 {
@@ -124,11 +115,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
             {
                 LoadTrangthai();
                 GiangVien gv = new GiangVien();
-                if (Const.sinhVien.NhomId.ToString() != "-1")
+                if (Const.sinhVien.nhomId.ToString() != "-1")
                 {
-                    string dtTaiId = sinhVienDAO.FindDeTaiIdByNhomID(Const.sinhVien.NhomId);
-                    string gvId = dtDAO.FindGiangVienIdByDeTaiId(dtTaiId);
-                    gv = gvDAO.FindOneById(gvId);
+                    DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+                    string dtTaiId = dt.deTaiId;
+                    string gvId = dt.giangVienId;
+                    gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.giangVienId == gvId);
                 }
                 else
                 {
@@ -148,13 +140,13 @@ namespace Group01_QuanLyLuanVan.ViewModel
             StudentScoreCM = new RelayCommand<Frame>((P) => { return true; }, (P) =>
             {
                 LoadTrangthai();
-                GiangVien gv = new GiangVien(); 
-                if (Const.sinhVien.NhomId.ToString() != "-1")
-
+                GiangVien gv = new GiangVien();
+                if (Const.sinhVien.nhomId.ToString() != "-1")
                 {
-                    string dtTaiId = sinhVienDAO.FindDeTaiIdByNhomID(Const.sinhVien.NhomId);
-                    string gvId = dtDAO.FindGiangVienIdByDeTaiId(dtTaiId);
-                    gv = gvDAO.FindOneById(gvId);
+                    DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+                    string dtTaiId = dt.deTaiId;
+                    string gvId = dt.giangVienId;
+                    gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.giangVienId == gvId);
                 }
                 else
                 {
@@ -169,11 +161,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
             {
                 LoadTrangthai();
                 GiangVien gv = new GiangVien();
-                if (Const.sinhVien.NhomId.ToString() != "-1")
+                if (Const.sinhVien.nhomId.ToString() != "-1")
                 {
-                    string dtTaiId = sinhVienDAO.FindDeTaiIdByNhomID(Const.sinhVien.NhomId);
-                    string gvId = dtDAO.FindGiangVienIdByDeTaiId(dtTaiId);
-                    gv = gvDAO.FindOneById(gvId);
+                    DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+                    string dtTaiId = dt.deTaiId;
+                    string gvId = dt.giangVienId;
+                    gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.giangVienId == gvId);
                 }
                 else
                 {
@@ -194,11 +187,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 LoadTrangthai();
                 StudentMailView studentMailView = new StudentMailView();
                 GiangVien gv = new GiangVien();
-                if (Const.sinhVien.NhomId.ToString() != "-1")
+                if (Const.sinhVien.nhomId.ToString() != "-1")
                 {
-                    string dtTaiId = sinhVienDAO.FindDeTaiIdByNhomID(Const.sinhVien.NhomId);
-                    string gvId = dtDAO.FindGiangVienIdByDeTaiId(dtTaiId);
-                    gv = gvDAO.FindOneById(gvId);
+                    DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+                    string dtTaiId = dt.deTaiId;
+                    string gvId = dt.giangVienId;
+                    gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.giangVienId == gvId);
                 }
                 else
                 {
@@ -207,8 +201,8 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 }
                 if (gv != null)
                 {
-                    studentMailView.HoTen.Text = gv.HoTen.ToString();
-                    studentMailView.EmailAddress.Text = gv.Email.ToString();
+                    studentMailView.HoTen.Text = gv.hoTen.ToString();
+                    studentMailView.EmailAddress.Text = gv.email.ToString();
                 }
                 else
                 {
@@ -240,10 +234,10 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void _Loadwd(StudentMainView p)
         {
-            if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+            if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
                 Ava = Const._localLink + "/Resource/Ava/addava.png";
             else
-                Ava = Const._localLink + Const.taiKhoan.Avatar;
+                Ava = Const._localLink + Const.taiKhoan.avatar;
             LoadTenND(p);
 
             LoadTrangthai();
@@ -251,20 +245,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void LoadTrangthai()
         {
-            string query = string.Format("SELECT COUNT(tb.trangthai) AS SoLuongTrangThai FROM ThongBao tb JOIN DeTai dt ON tb.deTaiId = dt.deTaiId JOIN SinhVien sv ON dt.nhomId = sv.nhomId JOIN TaiKhoan tk ON sv.username = tk.username WHERE tb.trangthai = 0 AND tk.username = '{0}'", Const.taiKhoan.Username);
-
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
-            {
-                SqlCommand command = new SqlCommand(query, conn);
-                conn.Open();
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        Sum = Convert.ToInt32(reader["SoLuongTrangThai"]);
-                    }
-                }
-            }
+            DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+            string dtTaiId = dt.deTaiId;
+            Sum = DataProvider.Ins.DB.ThongBaos 
+                .Where(tb => tb.trangthai == 0 && tb.deTaiId == dtTaiId)
+                .Count();
+           
 
         }
 

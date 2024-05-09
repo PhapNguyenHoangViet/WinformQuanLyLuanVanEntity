@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -14,21 +13,24 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class StudentScoreViewModel2 : BaseViewModel
     {
-        DeTaiDAO dtDAO = new DeTaiDAO();
 
         public ICommand LoadDiemCommand { get; set; }
         private ObservableCollection<DeTai> _MotDiem;
         public ObservableCollection<DeTai> MotDiem { get => _MotDiem; set { _MotDiem = value;/* OnPropertyChanged();*/ } }
         public StudentScoreViewModel2()
         {
+
             MotDiem = new ObservableCollection<DeTai>();
-            var diemData = dtDAO.LoadDiemByUsername();
-            foreach (DataRow row in diemData.Rows)
+            var diemQuery = (from dt in DataProvider.Ins.DB.DeTais
+                             join sv in DataProvider.Ins.DB.SinhViens on dt.nhomId equals sv.nhomId
+                             where sv.username == Const.sinhVien.username
+                             select dt.diem)
+                .ToList();
+            if (diemQuery.Any())
             {
+                int firstDiem = (int)diemQuery.FirstOrDefault();
+                MotDiem.Add(new DeTai(firstDiem));
 
-                float diem = Convert.ToInt32(row["diem"]);
-
-                MotDiem.Add(new DeTai(diem));
             }
             LoadDiemCommand = new RelayCommand<StudentScoreView2>((p) => true, (p) => _LoadDiemCommand(p));
 
@@ -40,13 +42,16 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<DeTai> motDiem()
         {
             MotDiem = new ObservableCollection<DeTai>();
-            var diemData = dtDAO.LoadDiemByUsername();
-            foreach (DataRow row in diemData.Rows)
+            var diemQuery = (from dt in DataProvider.Ins.DB.DeTais
+                             join sv in DataProvider.Ins.DB.SinhViens on dt.nhomId equals sv.nhomId
+                             where sv.username == Const.sinhVien.username
+                             select dt.diem)
+                .ToList();
+            if (diemQuery.Any())
             {
+                int firstDiem = (int)diemQuery.FirstOrDefault();
+                MotDiem.Add(new DeTai(firstDiem));
 
-                float diem = Convert.ToInt32(row["diem"]);
-
-                MotDiem.Add(new DeTai(diem));
             }
             return MotDiem;
         }

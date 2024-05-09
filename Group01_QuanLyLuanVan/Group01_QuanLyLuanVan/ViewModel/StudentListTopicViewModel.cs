@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -22,7 +21,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class StudentListTopicViewModel : BaseViewModel
     {
-        DeTaiDAO dtDAO = new DeTaiDAO();
+
         private ObservableCollection<DeTai> _ListTopic;
         public ObservableCollection<DeTai> ListTopic { get => _ListTopic; set { _ListTopic = value;/* OnPropertyChanged();*/ } }
         private ObservableCollection<string> _ListTK;
@@ -34,38 +33,47 @@ namespace Group01_QuanLyLuanVan.ViewModel
         public ICommand AddTopicsCommand { get; set; }
         public StudentListTopicViewModel()
         {
+
             Topics = new ObservableCollection<DeTai>();
-            var topicsData = dtDAO.LoadListTopicCoGV();
-            foreach (DataRow row in topicsData.Rows)
+
+            var topicsData = DataProvider.Ins.DB.DeTais
+            .Where(dt => dt.GiangVien.khoaId == Const.sinhVien.khoaId && dt.trangThai != 2 && dt.an != 1)
+            .ToList();
+
+            foreach (DeTai dt in topicsData)
             {
-                string deTaiId = row["deTaiId"].ToString();
-                string tenDeTai = row["tenDeTai"].ToString();
-                string tenTheLoai = row["tenTheLoai"].ToString();
-                string hoTen = row["hoTen"].ToString();
-                string moTa = row["moTa"].ToString();
-                string yeuCauChung = row["yeuCauChung"].ToString();
-                DateTime ngayBatDau = Convert.ToDateTime(row["ngayBatDau"]);
+                string deTaiId = dt.deTaiId;
+                string tenDeTai = dt.tenDeTai;
+                string tenTheLoai = dt.TheLoai.tenTheLoai;
+                string hoTen = dt.GiangVien.hoTen;
+                string moTa = dt.moTa;
+                string yeuCauChung = dt.yeuCauChung;
+                DateTime ngayBatDau = Convert.ToDateTime(dt.ngayBatDau);
                 DateTime ngayKetThuc;
                 try
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayKetThuc"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayKetThuc);
                 }
                 catch
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayBatDau"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayBatDau);
                 }
-                int soLuong = Convert.ToInt32(row["soLuong"]);
-                int trangThai = Convert.ToInt32(row["trangThai"]);
-                int an = Convert.ToInt32(row["an"]);
+                int soLuong = Convert.ToInt32(dt.soLuong);
+                int trangThai = Convert.ToInt32(dt.trangThai);
+                int an = Convert.ToInt32(dt.an);
                 string tenTrangThai = "";
 
                 if (trangThai == 1)
                 {
                     tenTrangThai = "Đã đăng ký";
                 }
-                else
+                else if (trangThai == 0)
                 {
                     tenTrangThai = "Chưa đăng ký";
+                }
+                else
+                {
+                    tenTrangThai = "Đề xuất";
                 }
                 if (an != 1)
                     Topics.Add(new DeTai(deTaiId, tenDeTai, tenTheLoai, hoTen, moTa, yeuCauChung, ngayBatDau, ngayKetThuc, soLuong, tenTrangThai));
@@ -79,32 +87,29 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void _AddTopicsCommand(StudentListTopicView topicsView)
         {
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
+            var nhomId = DataProvider.Ins.DB.SinhViens
+                .Where(sv => sv.username == Const.taiKhoan.username)
+                .Select(sv => sv.nhomId)
+                .FirstOrDefault();
+            var trangThai = DataProvider.Ins.DB.SinhViens
+                .Where(sv => sv.username == Const.taiKhoan.username)
+                .Join(DataProvider.Ins.DB.DeTais, sv => sv.nhomId, dt => dt.nhomId, (sv, dt) => dt.trangThai)
+                .FirstOrDefault();
+            int TrangThaiResult = trangThai != null ? Convert.ToInt32(trangThai) : 0;
+            if (nhomId != null && TrangThaiResult != 2)
             {
-                conn.Open();
-                string selectNhomIdQuery = String.Format("SELECT NhomId FROM SinhVien WHERE Username = '{0}'", Const.taiKhoan.Username);
-                SqlCommand selectNhomIdCommand = new SqlCommand(selectNhomIdQuery, conn);
-                object nhomIdResult = selectNhomIdCommand.ExecuteScalar();
-
-                string selectTrangThaiQuery = String.Format("SELECT  d.TrangThai FROM SinhVien s INNER JOIN detai d ON s.nhomId = d.nhomId WHERE Username = '{0}'", Const.taiKhoan.Username);
-                SqlCommand selectTrangThaiCommand = new SqlCommand(selectTrangThaiQuery, conn);
-                object result = selectTrangThaiCommand.ExecuteScalar();
-                int TrangThaiResult = result != null ? Convert.ToInt32(result) : 0;
-
-                if (nhomIdResult != DBNull.Value && TrangThaiResult != 2)
-                {
-                    MessageBox.Show("Bạn đã đăng ký đề tài trước đó rồi!");
-                }
-                else if (nhomIdResult != DBNull.Value && TrangThaiResult == 2)
-                {
-                    MessageBox.Show("Bạn đã đề xuất đề tài rồi!");
-                }
-                else
-                {
-                    StudentAddTopicsView addTopicsView = new StudentAddTopicsView();
-                    StudentMainViewModel.MainFrame.Content = addTopicsView;
-                }
+                MessageBox.Show("Bạn đã đăng ký đề tài trước đó rồi!");
             }
+            else if (nhomId != null && TrangThaiResult == 2)
+            {
+                MessageBox.Show("Bạn đã đề xuất đề tài rồi!");
+            }
+            else
+            {
+                StudentAddTopicsView addTopicsView = new StudentAddTopicsView();
+                StudentMainViewModel.MainFrame.Content = addTopicsView;
+            }
+
         }
         void _LoadTopicsCommand(StudentListTopicView topicsView)
         {
@@ -114,37 +119,45 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<DeTai> listTopic()
         {
             Topics = new ObservableCollection<DeTai>();
-            var topicsData = dtDAO.LoadListTopicCoGV();
-            foreach (DataRow row in topicsData.Rows)
+
+            var topicsData = DataProvider.Ins.DB.DeTais
+            .Where(dt => dt.GiangVien.khoaId == Const.sinhVien.khoaId && dt.trangThai != 2 && dt.an != 1)
+            .ToList();
+
+            foreach (DeTai dt in topicsData)
             {
-                string deTaiId = row["deTaiId"].ToString();
-                string tenDeTai = row["tenDeTai"].ToString();
-                string tenTheLoai = row["tenTheLoai"].ToString();
-                string hoTen = row["hoTen"].ToString();
-                string moTa = row["moTa"].ToString();
-                string yeuCauChung = row["yeuCauChung"].ToString();
-                DateTime ngayBatDau = Convert.ToDateTime(row["ngayBatDau"]);
+                string deTaiId = dt.deTaiId;
+                string tenDeTai = dt.tenDeTai;
+                string tenTheLoai = dt.TheLoai.tenTheLoai;
+                string hoTen = dt.GiangVien.hoTen;
+                string moTa = dt.moTa;
+                string yeuCauChung = dt.yeuCauChung;
+                DateTime ngayBatDau = Convert.ToDateTime(dt.ngayBatDau);
                 DateTime ngayKetThuc;
                 try
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayKetThuc"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayKetThuc);
                 }
                 catch
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayBatDau"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayBatDau);
                 }
-                int soLuong = Convert.ToInt32(row["soLuong"]);
-                int trangThai = Convert.ToInt32(row["trangThai"]);
-                int an = Convert.ToInt32(row["an"]);
+                int soLuong = Convert.ToInt32(dt.soLuong);
+                int trangThai = Convert.ToInt32(dt.trangThai);
+                int an = Convert.ToInt32(dt.an);
                 string tenTrangThai = "";
 
                 if (trangThai == 1)
                 {
                     tenTrangThai = "Đã đăng ký";
                 }
-                else
+                else if (trangThai == 0)
                 {
                     tenTrangThai = "Chưa đăng ký";
+                }
+                else
+                {
+                    tenTrangThai = "Đề xuất";
                 }
                 if (an != 1)
                     Topics.Add(new DeTai(deTaiId, tenDeTai, tenTheLoai, hoTen, moTa, yeuCauChung, ngayBatDau, ngayKetThuc, soLuong, tenTrangThai));
@@ -155,19 +168,19 @@ namespace Group01_QuanLyLuanVan.ViewModel
         {
             StudentRegisterTopicView detailTopic = new StudentRegisterTopicView();
             DeTai temp = (DeTai)topicsView.ListTopicView.SelectedItem;
-            detailTopic.deTaiId.Text = temp.DeTaiId;
-            detailTopic.TenDeTai.Text = temp.TenDeTai;
-            detailTopic.TenTheLoai.Text = temp.TenTheLoai;
-            detailTopic.HoTen.Text = temp.HoTen;
-            detailTopic.MoTa.Text = temp.MoTa;
-            detailTopic.YeuCau.Text = temp.YeuCauChung;
-            detailTopic.NgayBatDau.Text = temp.NgayBatDau.ToString();
-            if (temp.NgayBatDau.ToString() == temp.NgayKetThuc.ToString())
+            detailTopic.deTaiId.Text = temp.deTaiId;
+            detailTopic.TenDeTai.Text = temp.tenDeTai;
+            detailTopic.TenTheLoai.Text = temp.tenTheLoai;
+            detailTopic.HoTen.Text = temp.hoTen;
+            detailTopic.MoTa.Text = temp.moTa;
+            detailTopic.YeuCau.Text = temp.yeuCauChung;
+            detailTopic.NgayBatDau.Text = temp.ngayBatDau.ToString();
+            if (temp.ngayBatDau.ToString() == temp.ngayKetThuc.ToString())
                 detailTopic.NgayKetThuc.Text = "";
             else
-                detailTopic.NgayKetThuc.Text = temp.NgayKetThuc.ToString();
-            detailTopic.SoLuong.Text = temp.SoLuong.ToString();
-            detailTopic.TenTrangThai.Text = temp.TenTrangThai.ToString();
+                detailTopic.NgayKetThuc.Text = temp.ngayKetThuc.ToString();
+            detailTopic.SoLuong.Text = temp.soLuong.ToString();
+            detailTopic.TenTrangThai.Text = temp.tenTrangThai.ToString();
 
             ListTopic = Topics;
             topicsView.ListTopicView.ItemsSource = ListTopic;
@@ -186,7 +199,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         {
                             foreach (DeTai s in ListTopic)
                             {
-                                if (s.TenDeTai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
+                                if (s.tenDeTai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
                                 {
                                     temp.Add(s);
                                 }
@@ -197,7 +210,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         {
                             foreach (DeTai s in ListTopic)
                             {
-                                if (s.TenTheLoai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
+                                if (s.tenTheLoai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
                                 {
                                     temp.Add(s);
                                 }
@@ -208,7 +221,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         {
                             foreach (DeTai s in ListTopic)
                             {
-                                if (s.HoTen.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
+                                if (s.hoTen.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
                                 {
                                     temp.Add(s);
                                 }
@@ -222,7 +235,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 topicsView.ListTopicView.ItemsSource = ListTopic;
         }
 
-        
+
 
     }
 }

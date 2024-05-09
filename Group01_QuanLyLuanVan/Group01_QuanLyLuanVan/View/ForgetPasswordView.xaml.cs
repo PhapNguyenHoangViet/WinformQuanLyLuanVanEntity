@@ -15,7 +15,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Group01_QuanLyLuanVan.DAO;
 
 namespace Group01_QuanLyLuanVan.View
 {
@@ -24,7 +23,6 @@ namespace Group01_QuanLyLuanVan.View
     /// </summary>
     public partial class ForgetPasswordView : Page
     {
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         public ForgetPasswordView()
         {
             InitializeComponent();
@@ -32,13 +30,14 @@ namespace Group01_QuanLyLuanVan.View
 
         private void sendmailbtn_Click(object sender, RoutedEventArgs e)
         {
-            TaiKhoan tk = tkDAO.FindOneByMail(MailAddress.Text);
+            TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.mail == MailAddress.Text);
+
             if (tk == null)
             {
                 MessageBox.Show("Email này chưa được đăng ký !", "THÔNG BÁO", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            string nd = "Vui lòng nhập mật khẩu " + tk.Password + " để đăng nhập. Trân trọng !";
+            string nd = "Vui lòng nhập mật khẩu " + tk.password + " để đăng nhập. Trân trọng !";
             MailMessage message = new MailMessage("21110587@student.hcmute.edu.vn", MailAddress.Text, "Lấy lại mật khẩu", nd);
             SmtpClient smtpClient = new SmtpClient("smtp.gmail.com", 587);
             smtpClient.EnableSsl = true;

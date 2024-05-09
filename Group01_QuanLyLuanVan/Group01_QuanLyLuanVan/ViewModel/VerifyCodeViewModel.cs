@@ -7,14 +7,11 @@ using System.Windows.Input;
 using System.Windows;
 using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
-using Group01_QuanLyLuanVan.DAO;
 
 namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class VerifyCodeViewModel : BaseViewModel
     {
-
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
         public ICommand ConfirmCommand { get; set; }
 
         public VerifyCodeViewModel()
@@ -29,7 +26,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
             string savedVerificationCode = "123456";
             if (verificationCode == savedVerificationCode)
             {
-                tkDAO.UpdateStatus(Const.taiKhoan.Username);
+                TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == Const.taiKhoan.username);
+                if (tk != null)
+                {
+                    tk.trangThai = 1;
+                    DataProvider.Ins.DB.SaveChanges();
+                }
                 Window oldWindow = App.Current.MainWindow;
                 oldWindow.Close();
             }

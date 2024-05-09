@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Group01_QuanLyLuanVan.DAO;
 using Group01_QuanLyLuanVan.Model;
 using System.Collections.ObjectModel;
 using System.Data;
@@ -17,11 +16,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class TeacherTaskViewModel : BaseViewModel
     {
-
-        DeTaiDAO dtDAO = new DeTaiDAO();
-
-        YeuCauDAO yeuCauDAO = new YeuCauDAO();
-
         private ObservableCollection<DeTai> _ListTopic;
         public ObservableCollection<DeTai> ListTopic { get => _ListTopic; set { _ListTopic = value;OnPropertyChanged(); } }
         private ObservableCollection<string> _ListTK;
@@ -36,14 +30,24 @@ namespace Group01_QuanLyLuanVan.ViewModel
         public TeacherTaskViewModel()
         {
             Topics = new ObservableCollection<DeTai>();
-            var topicsData = dtDAO.LoadListTopic(Const.giangVien.GiangVienId);
-            foreach (DataRow row in topicsData.Rows)
+            var topicsData = DataProvider.Ins.DB.DeTais.Where(dt => dt.giangVienId == Const.giangVien.giangVienId).ToList();
+
+            foreach (DeTai dt in topicsData)
             {
-                string deTaiId = row["deTaiId"].ToString();
-                string tenDeTai = row["tenDeTai"].ToString();
-                string tenTheLoai = row["tenTheLoai"].ToString();
-                int an = Convert.ToInt32(row["an"]);
-                int nhomId = dtDAO.FindNhomIdByDeTaiId(deTaiId);
+                string deTaiId = dt.deTaiId;
+                string tenDeTai = dt.tenDeTai;
+                string tenTheLoai = dt.TheLoai.tenTheLoai;
+                int an = Convert.ToInt32(dt.an);
+
+                int nhomId = -1;
+                var dt1 = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == deTaiId);
+                if (dt1 != null)
+                {
+                    if (dt1.nhomId != null)
+                    {
+                        nhomId = (int)dt1.nhomId;
+                    }
+                }
                 string tenNhom = "Nhóm " + nhomId.ToString();
 
                 if (an != 1 && nhomId != -1)
@@ -67,16 +71,16 @@ namespace Group01_QuanLyLuanVan.ViewModel
             TeacherTaskDetailView taskView = new TeacherTaskDetailView();
             DeTai temp = (DeTai)topicsView.ListTopicView.SelectedItem;
             Const.DeTai = temp;
-            taskView.TenDeTai.Text = temp.TenDeTai;
-            Const.deTaiId =  temp.DeTaiId;
+            taskView.TenDeTai.Text = temp.tenDeTai;
+            Const.deTaiId =  temp.deTaiId;
             Tasks = new ObservableCollection<YeuCau>();
-            var tasksdata = yeuCauDAO.LoadListTask(temp.DeTaiId);
-            foreach (DataRow row in tasksdata.Rows)
+            var tasksdata = DataProvider.Ins.DB.YeuCaus.Where(dt => dt.deTaiId == temp.deTaiId).ToList();
+            foreach (YeuCau yc in tasksdata)
             {
-                int yeuCauId = int.Parse(row["yeuCauId"].ToString());
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                int trangThai = Convert.ToInt32(row["trangThai"]);
+                int yeuCauId = int.Parse(yc.yeuCauId.ToString());
+                string noiDung =yc.noiDung.ToString();
+                string deTaiId = yc.deTaiId.ToString();
+                int trangThai = Convert.ToInt32(yc.trangThai);
                 Tasks.Add(new YeuCau(yeuCauId, noiDung, trangThai, deTaiId));
             }
             taskView.ListTaskView.ItemsSource = Tasks;
@@ -95,7 +99,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         {
                             foreach (DeTai s in ListTopic)
                             {
-                                if (s.TenDeTai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
+                                if (s.tenDeTai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
                                 {
                                     temp.Add(s);
                                 }
@@ -106,7 +110,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         {
                             foreach (DeTai s in ListTopic)
                             {
-                                if (s.TenTheLoai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
+                                if (s.tenTheLoai.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
                                 {
                                     temp.Add(s);
                                 }
@@ -117,7 +121,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                         {
                             foreach (DeTai s in ListTopic)
                             {
-                                if (s.TenNhom.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
+                                if (s.tenNhom.ToLower().Contains(topicsView.txbSearch.Text.ToLower()))
                                 {
                                     temp.Add(s);
                                 }
@@ -133,18 +137,28 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<DeTai> listTopic()
         {
             Topics = new ObservableCollection<DeTai>();
-            var topicsData = dtDAO.LoadListTopic(Const.giangVien.GiangVienId);
-            foreach (DataRow row in topicsData.Rows)
+            var topicsData = DataProvider.Ins.DB.DeTais.Where(dt => dt.giangVienId == Const.giangVien.giangVienId).ToList();
+
+            foreach (DeTai dt in topicsData)
             {
-                string deTaiId = row["deTaiId"].ToString();
-                string tenDeTai = row["tenDeTai"].ToString();
-                string tenTheLoai = row["tenTheLoai"].ToString();
-                int an = Convert.ToInt32(row["an"]);
-                int nhomId = dtDAO.FindNhomIdByDeTaiId(deTaiId);
-                string tenNhom = "Nhóm " + nhomId.ToString(); 
+                string deTaiId = dt.deTaiId;
+                string tenDeTai = dt.tenDeTai;
+                string tenTheLoai = dt.TheLoai.tenTheLoai;
+                int an = Convert.ToInt32(dt.an);
+
+                int nhomId = -1;
+                var dt1 = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == deTaiId);
+                if (dt1 != null)
+                {
+                    if (dt1.nhomId != null)
+                    {
+                        nhomId = (int)dt1.nhomId;
+                    }
+                }
+                string tenNhom = "Nhóm " + nhomId.ToString();
 
                 if (an != 1 && nhomId != -1)
-                    Topics.Add(new DeTai(deTaiId,tenDeTai, tenTheLoai, tenNhom));
+                    Topics.Add(new DeTai(deTaiId, tenDeTai, tenTheLoai, tenNhom));
             }
             return Topics;
         }

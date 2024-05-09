@@ -12,7 +12,6 @@ using System.Windows.Media.Imaging;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
-using Group01_QuanLyLuanVan.DAO;
 using System.IO;
 using System.Net.Mail;
 using System.Net;
@@ -20,7 +19,7 @@ using System.Net;
 namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class SignUpViewModel : BaseViewModel
-    {
+    { 
         private string _linkaddimage;
         public string linkaddimage { get => _linkaddimage; set { _linkaddimage = value; OnPropertyChanged(); } }
 

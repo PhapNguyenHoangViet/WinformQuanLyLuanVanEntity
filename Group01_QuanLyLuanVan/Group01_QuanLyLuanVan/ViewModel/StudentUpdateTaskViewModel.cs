@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -21,11 +20,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class StudentUpdateTaskViewModel : BaseViewModel
     {
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
-
-        YeuCauDAO ycDAO = new YeuCauDAO();
-        MessageTaskDAO messageTaskDAO = new MessageTaskDAO();
-
         public ICommand ThemTask { get; set; }
 
         private ObservableCollection<YeuCau> _ListTask;
@@ -34,27 +28,28 @@ namespace Group01_QuanLyLuanVan.ViewModel
         public ObservableCollection<YeuCau> Tasks { get; set; }
         public ICommand LoadTasksCommand { get; set; }
         public ICommand MessageTaskCommand { get; set; }
-        private ObservableCollection<MessageTask> _ListMessage;
-        public ObservableCollection<MessageTask> ListMessage
+        private ObservableCollection<TinNhanYeuCau> _ListMessage;
+        public ObservableCollection<TinNhanYeuCau> ListMessage
         {
-            get { return _ListMessage ?? (_ListMessage = new ObservableCollection<MessageTask>()); }
+            get { return _ListMessage ?? (_ListMessage = new ObservableCollection<TinNhanYeuCau>()); }
             set { _ListMessage = value; }
         }
 
-        public ObservableCollection<MessageTask> MessageTasks { get; set; }
+        public ObservableCollection<TinNhanYeuCau> MessageTasks { get; set; }
 
         public StudentUpdateTaskViewModel()
         {
             Tasks = new ObservableCollection<YeuCau>();
-            var tasksData = ycDAO.LoadListYeuCau();
-            foreach (DataRow row in tasksData.Rows)
+            DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+            string dtTaiId = dt.deTaiId;
+            Const.deTaiId = dtTaiId;
+            var tasksdata = DataProvider.Ins.DB.YeuCaus.Where(task => task.deTaiId == dtTaiId).ToList();
+            foreach (YeuCau yc in tasksdata)
             {
-                int yeuCauId = int.Parse(row["yeuCauId"].ToString());
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                int trangThai = Convert.ToInt32(row["trangThai"]);
-
-
+                int yeuCauId = int.Parse(yc.yeuCauId.ToString());
+                string noiDung = yc.noiDung.ToString();
+                string deTaiId = yc.deTaiId.ToString();
+                int trangThai = Convert.ToInt32(yc.trangThai);
                 Tasks.Add(new YeuCau(yeuCauId, noiDung, trangThai, deTaiId));
             }
             ListTask = Tasks;
@@ -65,29 +60,33 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         void _MessageTaskCommand(StudentUpdateTaskView studentTaskDetailView)
         {
-
-
             StudentChatYeuCauView messageView = new StudentChatYeuCauView();
             YeuCau temp = (YeuCau)studentTaskDetailView.ListTaskView.SelectedItem;
-            Const.yeuCauId = temp.YeuCauId;
-            Const.YeuCau = temp;
-            ////messageView.TenDeTai.Text = teacherTaskDetailView.TenDeTai.Text;
-            messageView.TenTask.Text = temp.NoiDung;
-            messageView.TienDo.Text = temp.TrangThai.ToString();
-            MessageTasks = new ObservableCollection<MessageTask>();
-            var messages = messageTaskDAO.LoadListMessageTask(temp.YeuCauId);
-            foreach (DataRow row in messages.Rows)
-            {
-                int tinNhanId = int.Parse(row["tinNhanId"].ToString());
-                string tinNhan = row["tinNhan"].ToString();
-                DateTime thoiGian = DateTime.Parse(row["thoiGian"].ToString());
-                string username = row["username"].ToString();
-                int yeuCauId = Convert.ToInt32(row["yeuCauId"]);
-                TaiKhoan tk = new TaiKhoan();
-                tk = tkDAO.FindOneByUsername(username);
-                string ava = Const._localLink + tk.Avatar;
 
-                MessageTasks.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
+            Const.yeuCauId = temp.yeuCauId;
+            Const.YeuCau = temp;
+            //messageView.TenDeTai.Text = teacherTaskDetailView.TenDeTai.Text;
+            messageView.TenTask.Text = temp.noiDung.ToString();
+            messageView.TienDo.Text = temp.trangThai.ToString();
+            MessageTasks = new ObservableCollection<TinNhanYeuCau>();
+            var messages = DataProvider.Ins.DB.TinNhanYeuCaus.Where(dt => dt.yeuCauId == temp.yeuCauId).ToList();
+            foreach (TinNhanYeuCau msg in messages)
+
+            {
+                int tinNhanId = int.Parse(msg.tinNhanId.ToString());
+                string tinNhan = msg.tinNhan.ToString();
+                DateTime thoiGian = DateTime.Parse(msg.thoiGian.ToString());
+                string username = msg.username.ToString();
+                int yeuCauId = Convert.ToInt32(msg.yeuCauId);
+                TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == username);
+
+                string ava = "";
+                if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
+                    ava = Const._localLink + "/Resource/Ava/addava.png";
+                else
+                    ava = Const._localLink + tk.avatar;
+
+                MessageTasks.Add(new TinNhanYeuCau(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
             }
 
             messageView.ListMessageView.ItemsSource = MessageTasks;
@@ -103,15 +102,15 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<YeuCau> listTask()
         {
             Tasks = new ObservableCollection<YeuCau>();
-            var tasksData = ycDAO.LoadListYeuCau();
-            foreach (DataRow row in tasksData.Rows)
+            DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+            string dtTaiId = dt.deTaiId;
+            var tasksdata = DataProvider.Ins.DB.YeuCaus.Where(task => task.deTaiId == dtTaiId).ToList();
+            foreach (YeuCau yc in tasksdata)
             {
-                int yeuCauId = int.Parse(row["yeuCauId"].ToString());
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                int trangThai = Convert.ToInt32(row["trangThai"]);
-
-
+                int yeuCauId = int.Parse(yc.yeuCauId.ToString());
+                string noiDung = yc.noiDung.ToString();
+                string deTaiId = yc.deTaiId.ToString();
+                int trangThai = Convert.ToInt32(yc.trangThai);
                 Tasks.Add(new YeuCau(yeuCauId, noiDung, trangThai, deTaiId));
             }
             return Tasks;
@@ -119,76 +118,36 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         void _ThemTask(StudentUpdateTaskView p)
         {
-            if (string.IsNullOrWhiteSpace(p.ThemTask.Text))
+            if (p.ThemTask.Text == "")
             {
-                MessageBox.Show("Vui lòng nhập nội dung cho task.");
+                MessageBox.Show("Vui lòng nhập nội dung.");
                 return;
             }
             else
             {
-                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
+                YeuCau yc = new YeuCau(p.ThemTask.Text, 0, Const.deTaiId);
+
+                DataProvider.Ins.DB.YeuCaus.Add(yc);
+                DataProvider.Ins.DB.SaveChanges();
+                Tasks = new ObservableCollection<YeuCau>();
+                DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.nhomId == Const.sinhVien.nhomId);
+                string dtTaiId = dt.deTaiId;
+                var tasksdata = DataProvider.Ins.DB.YeuCaus.Where(task => task.deTaiId == dtTaiId).ToList();
+                foreach (YeuCau task in tasksdata)
                 {
-                    conn.Open();
-                    SqlTransaction transaction = conn.BeginTransaction(); // Bắt đầu giao dịch
-
-                    try
-                    {
-                        string sql = "SELECT deTaiId FROM SinhVien JOIN DeTai ON SinhVien.nhomId = DeTai.nhomId WHERE sinhVienId = @sinhVienId";
-
-                        using (SqlCommand command = new SqlCommand(sql, conn, transaction))
-                        {
-                            command.Parameters.AddWithValue("@sinhVienId", Const.sinhVien.SinhVienId);
-
-                            object detaiId = command.ExecuteScalar();
-
-                            if (detaiId != null)
-                            {
-                                string insertYeuCauQuery = "INSERT INTO YeuCau (noiDung, trangThai, deTaiId) VALUES (@noiDung, 0, @deTaiId)";
-                                using (SqlCommand insertYeuCauCommand = new SqlCommand(insertYeuCauQuery, conn, transaction))
-                                {
-                                    insertYeuCauCommand.Parameters.AddWithValue("@noiDung", p.ThemTask.Text);
-                                    insertYeuCauCommand.Parameters.AddWithValue("@deTaiId", detaiId);
-                                    insertYeuCauCommand.ExecuteNonQuery();
-                                }
-
-                                transaction.Commit();
-                                MessageBox.Show("Thêm thành công");
-                            }
-                            else
-                            {
-                                MessageBox.Show("Không tìm thấy dữ liệu.");
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        transaction.Rollback();
-                        MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
-                    }
-                    finally
-                    {
-                        conn.Close();
-                    }
-                    Tasks = new ObservableCollection<YeuCau>();
-                    var tasksData = ycDAO.LoadListYeuCau();
-                    foreach (DataRow row in tasksData.Rows)
-                    {
-                        int yeuCauId = int.Parse(row["yeuCauId"].ToString());
-                        string noiDung = row["noiDung"].ToString();
-                        string deTaiId = row["deTaiId"].ToString();
-                        int trangThai = Convert.ToInt32(row["trangThai"]);
-
-
-                        Tasks.Add(new YeuCau(yeuCauId, noiDung, trangThai, deTaiId));
-                    }
-
-                    p.ThemTask.Text = "";
-
-                    StudentUpdateTaskView tasksView = new StudentUpdateTaskView();
-                    tasksView.ListTaskView.ItemsSource = Tasks;
-                    tasksView.ListTaskView.Items.Refresh();
-                    StudentMainViewModel.MainFrame.Content = tasksView;
+                    int yeuCauId = int.Parse(task.yeuCauId.ToString());
+                    string noiDung = task.noiDung.ToString();
+                    string deTaiId = task.deTaiId.ToString();
+                    int trangThai = Convert.ToInt32(task.trangThai);
+                    Tasks.Add(new YeuCau(yeuCauId, noiDung, trangThai, deTaiId));
                 }
+
+                p.ThemTask.Text = "";
+
+                StudentUpdateTaskView tasksView = new StudentUpdateTaskView();
+                tasksView.ListTaskView.ItemsSource = Tasks;
+                tasksView.ListTaskView.Items.Refresh();
+                StudentMainViewModel.MainFrame.Content = tasksView;
             }
         }
     }

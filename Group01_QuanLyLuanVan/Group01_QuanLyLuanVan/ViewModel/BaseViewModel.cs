@@ -19,5 +19,5 @@ namespace Group01_QuanLyLuanVan.ViewModel
             if (handler != null)
                 handler(this, new PropertyChangedEventArgs(propertyName));
         }
-    }
+    } 
 }

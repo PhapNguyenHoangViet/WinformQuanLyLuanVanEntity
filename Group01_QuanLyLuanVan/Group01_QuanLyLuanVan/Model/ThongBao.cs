@@ -14,13 +14,39 @@ namespace Group01_QuanLyLuanVan.Model
     
     public partial class ThongBao
     {
+        public ThongBao(string tieude, string noiDung, string deTaiId, DateTime ngay)
+        {
+            this.tieude = tieude;
+            this.noiDung = noiDung;
+            this.deTaiId = deTaiId;
+            this.ngay = ngay;
+        }
+        public ThongBao(int thongBaoId, string tieuDe, string noiDung, string deTaiId, DateTime ngay)
+        {
+            this.thongBaoId = thongBaoId;
+            this.tieude = tieuDe;
+            this.noiDung = noiDung;
+            this.deTaiId = deTaiId;
+            this.ngay = ngay;
+        }
+
+        public ThongBao(int thongBaoId, string tieuDe, string noiDung, string deTaiId, DateTime ngay, string tenTrangThai)
+        {
+            this.thongBaoId = thongBaoId;
+            this.tieude = tieuDe;
+            this.noiDung = noiDung;
+            this.deTaiId = deTaiId;
+            this.ngay = ngay;
+            this.tenTrangThai = tenTrangThai;
+        }
+        public string tenTrangThai { get; set; }
+
         public int thongBaoId { get; set; }
         public string tieude { get; set; }
         public string noiDung { get; set; }
         public string deTaiId { get; set; }
         public Nullable<System.DateTime> ngay { get; set; }
         public Nullable<int> trangthai { get; set; }
-    
         public virtual DeTai DeTai { get; set; }
     }
 }

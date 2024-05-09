@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -17,13 +16,9 @@ namespace Group01_QuanLyLuanVan.ViewModel
     public class TeacherDissertationDetailViewModel : BaseViewModel
     {
         public ObservableCollection<DeTai> Topics { get; set; }
-        DeTaiDAO deTaiDAO = new DeTaiDAO();
         public ICommand back { get; set; }
-
         public ICommand UpdateTopicCM { get; set; }
         public ICommand UpdateTrangThaiTopicCM { get; set; }
-
-        
         public ICommand DeleteTopicCM { get; set; }
         public TeacherDissertationDetailViewModel()
         {
@@ -45,8 +40,16 @@ namespace Group01_QuanLyLuanVan.ViewModel
             string moTa = p.MoTa.Text;
             string yeuCau = p.YeuCau.Text;
             int soLuong = int.Parse(p.SoLuong.Text);
-            DeTai dt = new DeTai(deTaiId, tenDeTai, moTa, yeuCau, soLuong);
-            deTaiDAO.UpdateTopic(dt);
+            var dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == deTaiId);
+            if (dt != null)
+            {
+                dt.tenDeTai = tenDeTai;
+                dt.moTa = moTa;
+                dt.yeuCauChung = yeuCau;
+                dt.soLuong = soLuong;
+                DataProvider.Ins.DB.SaveChanges();
+            }
+
             MessageBox.Show("Đã cập nhật đề tài này !", "THÔNG BÁO", MessageBoxButton.OK);
             TeacherDissertationView topicsView = new TeacherDissertationView();
             topicsView.ListTopicView.ItemsSource = listTopic();
@@ -57,7 +60,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
         void _UpdateTrangThaiTopicCM(TeacherDissertationDetailView p)
         {
             string deTaiId = p.deTaiId.Text;
-            deTaiDAO.UpdateTrangThaiTopic(deTaiId);
+            DeTai dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == deTaiId);
+            if (dt != null)
+            {
+                dt.trangThai = 1;
+                DataProvider.Ins.DB.SaveChanges();
+            }
             TeacherDissertationView topicsView = new TeacherDissertationView();
             topicsView.ListTopicView.ItemsSource = listTopic();
             topicsView.ListTopicView.Items.Refresh();
@@ -66,7 +74,12 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         void _DeleteTopicCM(TeacherDissertationDetailView p)
         {
-            deTaiDAO.AnTopic(p.deTaiId.Text);
+            var dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == p.deTaiId.Text);
+            if (dt != null)
+            {
+                dt.an = 1;
+                DataProvider.Ins.DB.SaveChanges();
+            }
             MessageBox.Show("Đã xóa đề tài này !", "THÔNG BÁO", MessageBoxButton.OK);
             TeacherDissertationView topicsView = new TeacherDissertationView();
             topicsView.ListTopicView.ItemsSource = listTopic();
@@ -77,28 +90,30 @@ namespace Group01_QuanLyLuanVan.ViewModel
         ObservableCollection<DeTai> listTopic()
         {
             Topics = new ObservableCollection<DeTai>();
-            var topicsData = deTaiDAO.LoadListTopic(Const.giangVien.GiangVienId);
-            foreach (DataRow row in topicsData.Rows)
+            var topicsData = DataProvider.Ins.DB.DeTais.Where(dt => dt.giangVienId == Const.giangVien.giangVienId).ToList();
+
+            foreach (DeTai dt in topicsData)
             {
-                string deTaiId = row["deTaiId"].ToString();
-                string tenDeTai = row["tenDeTai"].ToString();
-                string tenTheLoai = row["tenTheLoai"].ToString();
-                string moTa = row["moTa"].ToString();
-                string yeuCauChung = row["yeuCauChung"].ToString();
-                DateTime ngayBatDau = Convert.ToDateTime(row["ngayBatDau"]);
+                string deTaiId = dt.deTaiId;
+                string tenDeTai = dt.tenDeTai;
+                string tenTheLoai = dt.TheLoai.tenTheLoai;
+                string moTa = dt.moTa;
+                string yeuCauChung = dt.yeuCauChung;
+                DateTime ngayBatDau = Convert.ToDateTime(dt.ngayBatDau);
                 DateTime ngayKetThuc;
                 try
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayKetThuc"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayKetThuc);
                 }
                 catch
                 {
-                    ngayKetThuc = Convert.ToDateTime(row["ngayBatDau"]);
+                    ngayKetThuc = Convert.ToDateTime(dt.ngayBatDau);
                 }
-                int soLuong = Convert.ToInt32(row["soLuong"]);
-                int trangThai = Convert.ToInt32(row["trangThai"]);
-                int an = Convert.ToInt32(row["an"]);
+                int soLuong = Convert.ToInt32(dt.soLuong);
+                int trangThai = Convert.ToInt32(dt.trangThai);
+                int an = Convert.ToInt32(dt.an);
                 string tenTrangThai = "";
+
                 if (trangThai == 1)
                 {
                     tenTrangThai = "Đã đăng ký";
@@ -108,12 +123,11 @@ namespace Group01_QuanLyLuanVan.ViewModel
                     tenTrangThai = "Chưa đăng ký";
                 }
                 else
-
                 {
                     tenTrangThai = "Đề xuất";
                 }
                 if (an != 1)
-                Topics.Add(new DeTai(deTaiId, tenDeTai, tenTheLoai, moTa, yeuCauChung, ngayBatDau, ngayKetThuc, soLuong, tenTrangThai));
+                    Topics.Add(new DeTai(deTaiId, tenDeTai, tenTheLoai, moTa, yeuCauChung, ngayBatDau, ngayKetThuc, soLuong, tenTrangThai));
             }
             return Topics;
         }

@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -125,7 +124,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
                     tenTrangThai = "Chưa đăng ký";
                 }
                 else
-
                 {
                     tenTrangThai = "Đề xuất";
                 }
@@ -133,7 +131,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                     Topics.Add(new DeTai(deTaiId, tenDeTai, tenTheLoai, moTa, yeuCauChung, ngayBatDau, ngayKetThuc, soLuong, tenTrangThai));
             }
             return Topics;
-        }
+        } 
 
         void _Loadwd(TeacherAddDissertationView paramater)
         {

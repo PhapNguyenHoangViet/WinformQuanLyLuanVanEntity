@@ -152,7 +152,7 @@
                                                                 VerticalAlignment="Center"
                                                                 FontWeight="Bold"
                                                                 x:Name="TenDeTai"
-                                                                Text="{Binding TenDeTai}"
+                                                                Text="{Binding tenDeTai}"
                                                                 Foreground="#1e90ff"
                                                                 FontFamily="{StaticResource Custom}"
                                                                 FontSize="18"
@@ -183,7 +183,7 @@
                                                         <Grid Grid.Column="1">
                                                             <TextBlock
                                                                 x:Name="HoTen"
-                                                            Text="{Binding HoTen}"
+                                                            Text="{Binding hoTen}"
                                                             Margin="0,10,0,0"
                                                             Foreground="#cd5555"
                                                             FontFamily="{StaticResource Custom}"
@@ -202,7 +202,7 @@
                                                         <Grid Grid.Column="3">
                                                             <TextBlock
                                                              x:Name="TenTheLoai"
-                                                            Text="{Binding TenTheLoai}"
+                                                            Text="{Binding tenTheLoai}"
                                                             Margin="0,10,0,0"
                                                             Foreground="gray"
                                                             FontFamily="{StaticResource Custom}"
@@ -215,11 +215,11 @@
                                                             </Grid.Resources>
                                                             <Border CornerRadius="10" Width="100" 
                                                                 BorderThickness="1" Padding="5"
-                                                                BorderBrush="{Binding TenTrangThai, Converter={StaticResource TenTrangThaiConverter}}">
+                                                                BorderBrush="{Binding tenTrangThai, Converter={StaticResource TenTrangThaiConverter}}">
                                                                 <TextBlock 
                                                                     x:Name="TenTrangThai"
-                                                                    Text="{Binding TenTrangThai}" 
-                                                                    Foreground="{Binding TenTrangThai, Converter={StaticResource TenTrangThaiConverter}}" 
+                                                                    Text="{Binding tenTrangThai}" 
+                                                                    Foreground="{Binding tenTrangThai, Converter={StaticResource TenTrangThaiConverter}}" 
                                                                     FontWeight="Bold"
                                                                     FontFamily="{StaticResource Custom}" 
                                                                     VerticalAlignment="Center" 

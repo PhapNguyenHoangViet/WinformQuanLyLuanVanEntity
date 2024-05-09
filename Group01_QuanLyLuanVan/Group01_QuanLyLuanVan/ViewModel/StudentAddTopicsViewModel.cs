@@ -1,11 +1,11 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -16,13 +16,15 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
 
+
 namespace Group01_QuanLyLuanVan.ViewModel
 {
 
     public class StudentAddTopicsViewModel : BaseViewModel, INotifyPropertyChanged
     {
-
-
+        public int nhomId { get; set; }
+        public string theLoaiId { get; set; }
+        public string giangVienId { get; set; }
 
         public ICommand back { get; set; }
         public ICommand DeXuatCommand { get; set; }
@@ -43,6 +45,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
         void _DeXuatCommand(StudentAddTopicsView p)
         {
             int nhomId = GetNextNhomId();
+
             if (string.IsNullOrWhiteSpace(p.TenDeTai.Text) ||
             p.GiangVien.SelectedItem == null ||
             p.TheLoai.SelectedItem == null ||
@@ -53,108 +56,95 @@ namespace Group01_QuanLyLuanVan.ViewModel
             }
             else
             {
-                using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
+                try
                 {
-                    conn.Open();
-                    SqlTransaction transaction = conn.BeginTransaction();
-
-                    try
+                    var theLoai = DataProvider.Ins.DB.TheLoais.FirstOrDefault(tl => tl.tenTheLoai == p.TheLoai.Text);
+                    if (theLoai != null)
                     {
-                        string selectTheLoaiIdQuery = String.Format("SELECT theLoaiId FROM TheLoai WHERE TenTheLoai = N'{0}'", p.TheLoai.Text);
-                        SqlCommand selectTheLoaiIdCommand = new SqlCommand(selectTheLoaiIdQuery, conn, transaction);
-                        string theLoaiId = (string)selectTheLoaiIdCommand.ExecuteScalar();
-
-
-                        string selectGiangVienIdQuery = String.Format("SELECT GiangVienId FROM GiangVien WHERE hoten = N'{0}'", p.GiangVien.Text);
-                        SqlCommand selectGiangVienIdCommand = new SqlCommand(selectGiangVienIdQuery, conn, transaction);
-                        string giangVienId = (string)selectGiangVienIdCommand.ExecuteScalar();
-
-
-                        string insertNhomQuery = "INSERT INTO Nhom (nhomId) VALUES (@nhomId)";
-                        SqlCommand insertNhomCommand = new SqlCommand(insertNhomQuery, conn, transaction);
-                        insertNhomCommand.Parameters.AddWithValue("@nhomId", nhomId);
-                        insertNhomCommand.ExecuteNonQuery();
-
-                        string insertDeTaiQuery = "INSERT INTO DeTai (tenDeTai, moTa, yeuCauChung,trangThai, ngayBatDau,theLoaiId,nhomId, giangVienId, an, diem) VALUES (@tenDeTai, @moTa, @yeuCauChung, @trangThai, @ngayBatDau,@theLoaiId, @nhomId, @giangVienId, @an, @diem)";
-                        SqlCommand insertDeTaiCommand = new SqlCommand(insertDeTaiQuery, conn, transaction);
-                        insertDeTaiCommand.Parameters.AddWithValue("@tenDeTai", p.TenDeTai.Text);
-                        insertDeTaiCommand.Parameters.AddWithValue("@moTa", p.MoTa.Text);
-                        insertDeTaiCommand.Parameters.AddWithValue("@yeuCauChung", p.YeuCau.Text);
-                        insertDeTaiCommand.Parameters.AddWithValue("@trangThai", 2);
-                        insertDeTaiCommand.Parameters.AddWithValue("@ngayBatDau", DateTime.Today);
-                        insertDeTaiCommand.Parameters.AddWithValue("@an", 0);
-                        insertDeTaiCommand.Parameters.AddWithValue("@nhomId", nhomId);
-                        insertDeTaiCommand.Parameters.AddWithValue("@theLoaiId", theLoaiId);
-                        insertDeTaiCommand.Parameters.AddWithValue("@giangVienId", giangVienId);
-                        insertDeTaiCommand.Parameters.AddWithValue("@diem", 0);
-
-                        //insertDeTaiCommand.Parameters.AddWithValue("@soLuong", _selectedCount);
-                        insertDeTaiCommand.ExecuteNonQuery();
-
-
-                        string updateSinhVienUserQuery = String.Format("UPDATE SinhVien SET nhomId = @nhomId WHERE Username = '{0}'", Const.taiKhoan.Username);
-                        SqlCommand updateSinhVienUserCommand = new SqlCommand(updateSinhVienUserQuery, conn, transaction);
-                        updateSinhVienUserCommand.Parameters.AddWithValue("@nhomId", nhomId);
-                        Const.sinhVien.NhomId = nhomId;
-                        updateSinhVienUserCommand.ExecuteNonQuery();
-
-                        transaction.Commit();
+                        string theLoaiId = theLoai.theLoaiId;
                     }
-                    catch (Exception ex)
-                    {
 
-                        transaction.Rollback();
-                        MessageBox.Show("Lỗi khi thực hiện đề xuất đề tài!" + ex.Message);
-                    }
-                    int selectedCount = 1;
-                    string sinhVienId = "";
-                    foreach (SinhVien sinhVien in p.multiSelectComboBox.ItemsSource)
+
+                    var giangVien = DataProvider.Ins.DB.GiangViens.FirstOrDefault(gv => gv.hoTen == p.GiangVien.Text);
+                    if (giangVien != null)
                     {
-                        if (sinhVien.IsSelected)
+                        string giangVienId = giangVien.giangVienId;
+                    }
+
+
+                    Nhom nhom = new Nhom
+                    {
+                        nhomId = nhomId
+                    };
+
+                    DataProvider.Ins.DB.Nhoms.Add(nhom);
+                    DataProvider.Ins.DB.SaveChanges();
+
+                    DeTai newDeTai = new DeTai
+                    {
+                        tenDeTai = p.TenDeTai.Text,
+                        moTa = p.MoTa.Text,
+                        yeuCauChung = p.YeuCau.Text,
+                        trangThai = 2,
+                        ngayBatDau = DateTime.Today,
+                        an = 0,
+                        nhomId = nhomId,
+                        theLoaiId = theLoaiId,
+                        giangVienId = giangVienId,
+                        diem = 0
+                    };
+
+                    DataProvider.Ins.DB.DeTais.Add(newDeTai);
+                    DataProvider.Ins.DB.SaveChanges();
+
+
+
+                    var sinhVienToUpdate = DataProvider.Ins.DB.SinhViens.FirstOrDefault(sv => sv.username == Const.taiKhoan.username);
+
+                    if (sinhVienToUpdate != null)
+                    {
+                        sinhVienToUpdate.nhomId = nhomId;
+
+                        DataProvider.Ins.DB.SaveChanges();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi thực hiện đề xuất đề tài!" + ex.Message);
+                }
+                int selectedCount = 1;
+                string sinhVienId = "";
+                foreach (SinhVien sinhVien in p.multiSelectComboBox.ItemsSource)
+                {
+                    if (sinhVien.IsSelected)
+                    {
+                        selectedCount++;
+                        sinhVienId = sinhVien.sinhVienId;
+
+                        if (string.IsNullOrEmpty(sinhVienId))
                         {
-                            selectedCount++;
+                            MessageBox.Show("Vui lòng chọn một sinh viên.");
+                            return;
+                        }
 
-                            sinhVienId = sinhVien.SinhVienId;
+                        var sinhVienToUpdate = DataProvider.Ins.DB.SinhViens.FirstOrDefault(sv => sv.sinhVienId == sinhVienId);
 
-                            if (string.IsNullOrEmpty(sinhVienId))
-                            {
-                                MessageBox.Show("Vui lòng chọn một sinh viên.");
-                                return;
-                            }
-
-                            // Thực thi truy vấn SQL để cập nhật nhomId trong bảng SinhVien
-                            string updateSinhVienQuery = "UPDATE SinhVien SET nhomId = @nhomId WHERE sinhVienId = @sinhVienId";
-                            SqlCommand updateSinhVienCommand = new SqlCommand(updateSinhVienQuery, conn);
-                            updateSinhVienCommand.Parameters.AddWithValue("@nhomId", nhomId);
-                            updateSinhVienCommand.Parameters.AddWithValue("@sinhVienId", sinhVienId);
-
-
-                            try
-                            {
-                                // Thực thi truy vấn cập nhật nhomId trong bảng SinhVien
-                                updateSinhVienCommand.ExecuteNonQuery();
-
-                                //MessageBox.Show("Đã cập nhật nhomId cho sinh viên thành công.");
-
-
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show("Lỗi khi cập nhật nhomId cho sinh viên: " + ex.Message);
-                            }
-
+                        if (sinhVienToUpdate != null)
+                        {
+                            sinhVienToUpdate.nhomId = nhomId;
+                            DataProvider.Ins.DB.SaveChanges();
                         }
 
                     }
-                    string updateDeTaiQuery = "UPDATE DeTai SET soluong = @SoLuong WHERE NhomId = @nhomId";
-                    SqlCommand updateSoLuongCommand = new SqlCommand(updateDeTaiQuery, conn);
-                    updateSoLuongCommand.Parameters.AddWithValue("@nhomId", nhomId);
-                    updateSoLuongCommand.Parameters.AddWithValue("@SoLuong", selectedCount);
-                    updateSoLuongCommand.ExecuteNonQuery();
+
+                    var deTais = DataProvider.Ins.DB.DeTais.Where(dt => dt.nhomId == nhomId);
+                    foreach (var deTai in deTais)
+                    {
+                        deTai.soLuong = selectedCount;
+                    }
+                    DataProvider.Ins.DB.SaveChanges();
                     MessageBox.Show("Đề xuất thành công.");
                 }
-
-
 
             }
             StudentListTopicView studentListTopicView = new StudentListTopicView();
@@ -164,25 +154,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         private int GetNextNhomId()
         {
-            int nextNhomId = 0; // Giá trị mặc định nếu bảng Nhom chưa có dữ liệu
-
-
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
-            {
-                conn.Open();
-
-                // Truy vấn SQL để lấy giá trị nhomId lớn nhất trong bảng Nhom
-                string selectQuery = "SELECT ISNULL(MAX(nhomId), 0) FROM Nhom";
-                SqlCommand command = new SqlCommand(selectQuery, conn);
-
-                // Thực thi truy vấn và lấy giá trị nhomId lớn nhất
-                object result = command.ExecuteScalar();
-                if (result != null && result != DBNull.Value)
-                {
-                    nextNhomId = Convert.ToInt32(result) + 1;
-                }
-            }
-
+            int nextNhomId = DataProvider.Ins.DB.Nhoms.Select(n => n.nhomId).DefaultIfEmpty(0).Max() + 1;
             return nextNhomId;
         }
     }

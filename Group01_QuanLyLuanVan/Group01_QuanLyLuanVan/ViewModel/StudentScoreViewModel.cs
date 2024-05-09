@@ -1,13 +1,4 @@
-﻿using Group01_QuanLyLuanVan.Model;
-using Group01_QuanLyLuanVan.View;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Documents;
+﻿using Group01_QuanLyLuanVan.View;
 using System.Windows.Input;
 
 namespace Group01_QuanLyLuanVan.ViewModel

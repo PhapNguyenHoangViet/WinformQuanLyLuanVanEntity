@@ -14,6 +14,37 @@ namespace Group01_QuanLyLuanVan.Model
     
     public partial class TinNhanYeuCau
     {
+        public TinNhanYeuCau() { }
+        public TinNhanYeuCau(int tinNhanId, string tinNhan, DateTime thoiGian, string username, int yeuCauId, string avatar)
+        {
+            this.tinNhanId = tinNhanId;
+            this.tinNhan = tinNhan;
+            this.thoiGian = thoiGian;
+            this.username = username;
+            this.yeuCauId = yeuCauId;
+            this.avatar = avatar;
+
+        }
+
+        public TinNhanYeuCau(int tinNhanId, string tinNhan, DateTime thoiGian, string username, int yeuCauId)
+        {
+            this.tinNhanId = tinNhanId;
+            this.tinNhan = tinNhan;
+            this.thoiGian = thoiGian;
+            this.username = username;
+            this.yeuCauId = yeuCauId;
+        }
+
+        public TinNhanYeuCau(string username, string uid)
+        {
+            this.username = username;
+            this.uid = uid;
+        }
+        public string avatar { get; set; }
+        public string uid { get; set; }
+
+
+
         public int tinNhanId { get; set; }
         public string tinNhan { get; set; }
         public Nullable<System.DateTime> thoiGian { get; set; }

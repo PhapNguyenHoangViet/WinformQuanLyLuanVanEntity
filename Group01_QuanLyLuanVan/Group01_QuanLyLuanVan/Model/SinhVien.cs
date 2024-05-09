@@ -14,6 +14,41 @@ namespace Group01_QuanLyLuanVan.Model
     
     public partial class SinhVien
     {
+        public SinhVien()
+        {
+
+        }
+        public SinhVien(string sinhVienId, string hoTen, DateTime ngaySinh, string gioiTinh, string diaChi, string email, string sdt, string khoaId, string username, int nhomId)
+        {
+            this.sinhVienId = sinhVienId;
+            this.hoTen = hoTen;
+            this.ngaySinh = ngaySinh;
+            this.gioiTinh = gioiTinh;
+            this.diaChi = diaChi;
+            this.email = email;
+            this.SDT = sdt;
+            this.khoaId = khoaId;
+            this.username = username;
+            this.nhomId = nhomId;
+        }
+
+        public SinhVien(string sinhVienId, string hoTen, DateTime ngaySinh, string gioiTinh, string diaChi, string email, string sdt, string khoaId, string username)
+        {
+            this.sinhVienId = sinhVienId;
+            this.hoTen = hoTen;
+            this.ngaySinh = ngaySinh;
+            this.gioiTinh = gioiTinh;
+            this.diaChi = diaChi;
+            this.email = email;
+            this.SDT = sdt;
+            this.khoaId = khoaId;
+            this.username = username;
+        }
+
+
+        public bool IsSelected { get; set; }
+        public string FullInfo => $"{sinhVienId} - {hoTen}";
+
         public int id { get; set; }
         public string sinhVienId { get; set; }
         public string hoTen { get; set; }

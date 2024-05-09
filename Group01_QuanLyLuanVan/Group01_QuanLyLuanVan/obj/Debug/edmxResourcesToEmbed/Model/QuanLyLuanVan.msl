@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="QuanLyLuanVanModelStoreContainer" CdmEntityContainer="QuanLyLuanVanEntities">
+    <EntitySetMapping Name="DanhGias">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.DanhGia">
+        <MappingFragment StoreEntitySet="DanhGia">
+          <ScalarProperty Name="danhGiaId" ColumnName="danhGiaId" />
+          <ScalarProperty Name="noiDung" ColumnName="noiDung" />
+          <ScalarProperty Name="deTaiId" ColumnName="deTaiId" />
+          <ScalarProperty Name="ngay" ColumnName="ngay" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DeTais">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.DeTai">
+        <MappingFragment StoreEntitySet="DeTai">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="deTaiId" ColumnName="deTaiId" />
+          <ScalarProperty Name="tenDeTai" ColumnName="tenDeTai" />
+          <ScalarProperty Name="moTa" ColumnName="moTa" />
+          <ScalarProperty Name="yeuCauChung" ColumnName="yeuCauChung" />
+          <ScalarProperty Name="soLuong" ColumnName="soLuong" />
+          <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+          <ScalarProperty Name="ngayBatDau" ColumnName="ngayBatDau" />
+          <ScalarProperty Name="ngayKetThuc" ColumnName="ngayKetThuc" />
+          <ScalarProperty Name="theLoaiId" ColumnName="theLoaiId" />
+          <ScalarProperty Name="nhomId" ColumnName="nhomId" />
+          <ScalarProperty Name="an" ColumnName="an" />
+          <ScalarProperty Name="diem" ColumnName="diem" />
+          <ScalarProperty Name="giangVienId" ColumnName="giangVienId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GiangViens">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.GiangVien">
+        <MappingFragment StoreEntitySet="GiangVien">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="giangVienId" ColumnName="giangVienId" />
+          <ScalarProperty Name="hoTen" ColumnName="hoTen" />
+          <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+          <ScalarProperty Name="gioiTinh" ColumnName="gioiTinh" />
+          <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="khoaId" ColumnName="khoaId" />
+          <ScalarProperty Name="username" ColumnName="username" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Khoas">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.Khoa">
+        <MappingFragment StoreEntitySet="Khoa">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="khoaId" ColumnName="khoaId" />
+          <ScalarProperty Name="tenKhoa" ColumnName="tenKhoa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Nhoms">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.Nhom">
+        <MappingFragment StoreEntitySet="Nhom">
+          <ScalarProperty Name="nhomId" ColumnName="nhomId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SinhViens">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.SinhVien">
+        <MappingFragment StoreEntitySet="SinhVien">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="sinhVienId" ColumnName="sinhVienId" />
+          <ScalarProperty Name="hoTen" ColumnName="hoTen" />
+          <ScalarProperty Name="ngaySinh" ColumnName="ngaySinh" />
+          <ScalarProperty Name="gioiTinh" ColumnName="gioiTinh" />
+          <ScalarProperty Name="diaChi" ColumnName="diaChi" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="SDT" ColumnName="SDT" />
+          <ScalarProperty Name="khoaId" ColumnName="khoaId" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="nhomId" ColumnName="nhomId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TaiKhoans">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.TaiKhoan">
+        <MappingFragment StoreEntitySet="TaiKhoan">
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="mail" ColumnName="mail" />
+          <ScalarProperty Name="quyen" ColumnName="quyen" />
+          <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+          <ScalarProperty Name="code" ColumnName="code" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TheLoais">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.TheLoai">
+        <MappingFragment StoreEntitySet="TheLoai">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="theLoaiId" ColumnName="theLoaiId" />
+          <ScalarProperty Name="tenTheLoai" ColumnName="tenTheLoai" />
+          <ScalarProperty Name="khoaId" ColumnName="khoaId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ThongBaos">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.ThongBao">
+        <MappingFragment StoreEntitySet="ThongBao">
+          <ScalarProperty Name="thongBaoId" ColumnName="thongBaoId" />
+          <ScalarProperty Name="tieude" ColumnName="tieude" />
+          <ScalarProperty Name="noiDung" ColumnName="noiDung" />
+          <ScalarProperty Name="deTaiId" ColumnName="deTaiId" />
+          <ScalarProperty Name="ngay" ColumnName="ngay" />
+          <ScalarProperty Name="trangthai" ColumnName="trangthai" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TienDoes">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.TienDo">
+        <MappingFragment StoreEntitySet="TienDo">
+          <ScalarProperty Name="tienDoId" ColumnName="tienDoId" />
+          <ScalarProperty Name="noiDung" ColumnName="noiDung" />
+          <ScalarProperty Name="phanTram" ColumnName="phanTram" />
+          <ScalarProperty Name="ngay" ColumnName="ngay" />
+          <ScalarProperty Name="deTaiId" ColumnName="deTaiId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TinNhanYeuCaus">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.TinNhanYeuCau">
+        <MappingFragment StoreEntitySet="TinNhanYeuCau">
+          <ScalarProperty Name="tinNhanId" ColumnName="tinNhanId" />
+          <ScalarProperty Name="tinNhan" ColumnName="tinNhan" />
+          <ScalarProperty Name="thoiGian" ColumnName="thoiGian" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="yeuCauId" ColumnName="yeuCauId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="YeuCaus">
+      <EntityTypeMapping TypeName="QuanLyLuanVanModel.YeuCau">
+        <MappingFragment StoreEntitySet="YeuCau">
+          <ScalarProperty Name="yeuCauId" ColumnName="yeuCauId" />
+          <ScalarProperty Name="noiDung" ColumnName="noiDung" />
+          <ScalarProperty Name="trangThai" ColumnName="trangThai" />
+          <ScalarProperty Name="phanTram" ColumnName="phanTram" />
+          <ScalarProperty Name="deTaiId" ColumnName="deTaiId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

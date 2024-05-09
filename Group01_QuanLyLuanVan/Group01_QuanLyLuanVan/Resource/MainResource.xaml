@@ -4,30 +4,23 @@
                     xmlns:local="clr-namespace:Group01_QuanLyLuanVan.ViewModel">
  
     <viewmodel:ADMainViewModel x:Key="ADMainVM"></viewmodel:ADMainViewModel>
-    <viewmodel:AdminManageTeacherViewModel x:Key="AdminManageTeacherVM"></viewmodel:AdminManageTeacherViewModel>
 
     <viewmodel:LoginViewModel x:Key="LoginVM"></viewmodel:LoginViewModel>
     <viewmodel:ForgetPasswordViewModel x:Key="ForgetPassVM"></viewmodel:ForgetPasswordViewModel>
     <viewmodel:SignUpViewModel x:Key="SignUpVM"></viewmodel:SignUpViewModel>
     <viewmodel:VerifyCodeViewModel x:Key="VerifyCodeVM"></viewmodel:VerifyCodeViewModel>
     <viewmodel:ChangePasswordViewModel x:Key="ChangePasswordVM"></viewmodel:ChangePasswordViewModel>
-    <viewmodel:HomeViewModel x:Key="HomeVM"></viewmodel:HomeViewModel>
-    <viewmodel:SystemErrorReportViewModel x:Key="SystemErrorReportVM"></viewmodel:SystemErrorReportViewModel>
 
     <viewmodel:TeacherAddDissertationViewModel x:Key="TeacherAddDissertationVM"></viewmodel:TeacherAddDissertationViewModel>
     <viewmodel:TeacherDissertationDetailViewModel x:Key="TeacherDissertationDetailVM"></viewmodel:TeacherDissertationDetailViewModel>
     <viewmodel:TeacherDissertationViewModel x:Key="TeacherDissertationVM"></viewmodel:TeacherDissertationViewModel>
     <viewmodel:TeacherMainViewModel x:Key="TeacherMainVM"></viewmodel:TeacherMainViewModel>
-    <viewmodel:TeacherNotificationViewModel x:Key="TeacherNotificationVM"></viewmodel:TeacherNotificationViewModel>
     <viewmodel:TeacherNotiViewModel x:Key="TeacherNotiVM"></viewmodel:TeacherNotiViewModel>
-    <viewmodel:TeacherProgressDetailViewModel x:Key="TeacherProgressDetailVM"></viewmodel:TeacherProgressDetailViewModel>
-    <viewmodel:TeacherProgressViewModel x:Key="TeacherProgressVM"></viewmodel:TeacherProgressViewModel>
     <viewmodel:TeacherScoreViewModel x:Key="TeacherScoreVM"></viewmodel:TeacherScoreViewModel>
     <viewmodel:TeacherStatisticViewModel x:Key="TeacherStatisticVM"></viewmodel:TeacherStatisticViewModel>
 
     <viewmodel:TeacherScoreDetailViewModel x:Key="TeacherScoreDetailVM"></viewmodel:TeacherScoreDetailViewModel>
 
-    <viewmodel:TeacherSettingViewModel x:Key="TeacherSettingVM"></viewmodel:TeacherSettingViewModel>
     <viewmodel:TeacherUpdateInforViewModel x:Key="TeacherUpdateInforVM"></viewmodel:TeacherUpdateInforViewModel>
     <viewmodel:TeacherTaskViewModel x:Key="TeacherTaskVM"></viewmodel:TeacherTaskViewModel>
     <viewmodel:TeacherTaskDetailViewModel x:Key="TeacherTaskDetailVM"></viewmodel:TeacherTaskDetailViewModel>
@@ -44,8 +37,6 @@
     <viewmodel:StudentAddTopicsViewModel x:Key="StudentAddTopicVM"></viewmodel:StudentAddTopicsViewModel>
     <viewmodel:StudentUpdateTaskViewModel x:Key="StudentUpdateTaskVM"></viewmodel:StudentUpdateTaskViewModel>
     <viewmodel:StudentNotiViewModel x:Key="StudentNotiVM"></viewmodel:StudentNotiViewModel>
-    <viewmodel:StudentUpdateProgressViewModel x:Key="StudentUpdateProgessVM"></viewmodel:StudentUpdateProgressViewModel>
-    <viewmodel:StudentReceiveEvaluationViewModel x:Key="StudentReceiveEvaluationVM"></viewmodel:StudentReceiveEvaluationViewModel>
     <viewmodel:StudentMailViewModel x:Key="StudentMailVM"></viewmodel:StudentMailViewModel>
 
     <viewmodel:StudentChatYeuCauViewModel x:Key="StudentChatYeuCauVM"></viewmodel:StudentChatYeuCauViewModel>

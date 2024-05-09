@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class TeacherScoreDetailViewModel : BaseViewModel
     {
-        DeTaiDAO detaiDAO = new DeTaiDAO();
         public ICommand back { get; set; }
         public ICommand ScoreDetailCM { get; set; }
         
@@ -33,7 +31,15 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 return;
             }
             else
-                detaiDAO.UpdateScoreTopic(float.Parse(score), Const.deTaiId);
+            {
+                var dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == Const.deTaiId);
+                if (dt != null)
+                {
+                    dt.diem = float.Parse(score);
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+            }
+                
 
             TeacherScoreView taskView = new TeacherScoreView();
             TeacherMainViewModel.MainFrame.Content = taskView;

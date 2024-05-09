@@ -11,7 +11,6 @@ using System.Windows.Input;
 using System.ComponentModel;
 using Group01_QuanLyLuanVan.Model;
 using System.Windows.Controls;
-using Group01_QuanLyLuanVan.DAO;
 using System.Collections.ObjectModel;
 using System.Data;
 
@@ -21,7 +20,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class StudentChatYeuCauViewModel : BaseViewModel, INotifyPropertyChanged
     {
-        TaiKhoanDAO tkDAO = new TaiKhoanDAO();
 
         private int _sliderValue;
         public int SliderValue
@@ -45,17 +43,15 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         public ICommand back { get; set; }
 
-        public ObservableCollection<MessageTask> Users { get; set; }
+        public ObservableCollection<TinNhanYeuCau> Users { get; set; }
         public string Message { get; set; }
-
-        MessageTaskDAO messageTaskDAO = new MessageTaskDAO();
 
         public ICommand AddMsg { get; set; }
 
-        private ObservableCollection<MessageTask> _ListMessage;
-        public ObservableCollection<MessageTask> ListMessage
+        private ObservableCollection<TinNhanYeuCau> _ListMessage;
+        public ObservableCollection<TinNhanYeuCau> ListMessage
         {
-            get { return _ListMessage ?? (_ListMessage = new ObservableCollection<MessageTask>()); }
+            get { return _ListMessage ?? (_ListMessage = new ObservableCollection<TinNhanYeuCau>()); }
             set { _ListMessage = value; }
         }
 
@@ -64,27 +60,28 @@ namespace Group01_QuanLyLuanVan.ViewModel
             back = new RelayCommand<StudentChatYeuCauView>((p) => true, p => _back(p));
 
             UpdateTrangThaiCommand = new RelayCommand<StudentChatYeuCauView>((p) => true, (p) => _UpdateTrangThaiCommand(p));
-            var msgsdata = messageTaskDAO.LoadListMessageTask(Const.yeuCauId);
-            foreach (DataRow row in msgsdata.Rows)
+            var messages = DataProvider.Ins.DB.TinNhanYeuCaus.Where(dt => dt.yeuCauId == Const.yeuCauId).ToList();
+            foreach (TinNhanYeuCau msg in messages)
+
             {
-                int tinNhanId = int.Parse(row["tinNhanId"].ToString());
-                string tinNhan = row["tinNhan"].ToString();
-                DateTime thoiGian = DateTime.Parse(row["thoiGian"].ToString());
-                string username = row["username"].ToString();
-                int yeuCauId = Convert.ToInt32(row["yeuCauId"]);
-                TaiKhoan tk = tkDAO.FindOneByUsername(username);
+                int tinNhanId = int.Parse(msg.tinNhanId.ToString());
+                string tinNhan = msg.tinNhan.ToString();
+                DateTime thoiGian = DateTime.Parse(msg.thoiGian.ToString());
+                string username = msg.username.ToString();
+                int yeuCauId = Convert.ToInt32(msg.yeuCauId);
+                TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == username);
+
                 string ava = "";
-                if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+                if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
                     ava = Const._localLink + "/Resource/Ava/addava.png";
                 else
-                    ava = Const._localLink + tk.Avatar;
+                    ava = Const._localLink + tk.avatar;
 
-                ListMessage.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
-
+                ListMessage.Add(new TinNhanYeuCau(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
             }
 
-            Users = new ObservableCollection<MessageTask>();
-            ListMessage = new ObservableCollection<MessageTask>();
+            Users = new ObservableCollection<TinNhanYeuCau>();
+            ListMessage = new ObservableCollection<TinNhanYeuCau>();
             Const._server.connectedEvent += UserConnected;
             Const._server.msgReceivedEvent += MessageReceived;
             Const._server.userDisconnectEvent += UserDisconnected;
@@ -95,53 +92,59 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void _LoadTaskMessageCommand(StudentChatYeuCauView msgView)
         {
-            msgView.TenTask.Text = Const.YeuCau.NoiDung;
+            msgView.TenTask.Text = Const.YeuCau.noiDung;
             msgView.ListMessageView.ItemsSource = listMsg();
 
         }
         private void UserDisconnected()
         {
             var uid = Const._server.PacketReader.ReadMessage();
-            var user = Users.Where(x => x.UID == uid).FirstOrDefault();
+            var user = Users.Where(x => x.uid == uid).FirstOrDefault();
             Application.Current.Dispatcher.Invoke(() => Users.Remove(user));
 
         }
 
         private void MessageReceived()
         {
-            Quyen = "0";
             var msg = Const._server.PacketReader.ReadMessage();
             string[] splittedStrings = msg.Split(new string[] { "|" }, StringSplitOptions.None);
             string message = splittedStrings[0].ToString();
             int yeucauId = int.Parse(splittedStrings[1].ToString());
 
             //messageTaskDAO.AddMessage(message, DateTime.Now, Const.sinhVien.Username, yeucauId);
-            DataTable dataTable = messageTaskDAO.LoadListMessageTask(yeucauId);
-            if (dataTable.Rows.Count > 0)
-            {
-                DataRow lastRow = dataTable.Rows[dataTable.Rows.Count - 1];
-                int tinNhanId = int.Parse(lastRow["tinNhanId"].ToString());
-                string tinNhan = lastRow["tinNhan"].ToString();
-                DateTime thoiGian = DateTime.Parse(lastRow["thoiGian"].ToString());
-                string username = lastRow["username"].ToString();
-                int yeuCauId = Convert.ToInt32(lastRow["yeuCauId"]);
-                TaiKhoan tk = tkDAO.FindOneByUsername(username);
-                string ava = "";
-                if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
-                    ava = Const._localLink + "/Resource/Ava/addava.png";
-                else
-                    ava = Const._localLink + tk.Avatar;
+            var messages = DataProvider.Ins.DB.TinNhanYeuCaus.Where(dt => dt.yeuCauId == Const.yeuCauId).ToList();
 
-                Application.Current.Dispatcher.Invoke(() =>
+            if (messages.Count > 0)
+            {
+                var lastMsg = messages.LastOrDefault();
+                if (lastMsg != null)
                 {
-                    ListMessage.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
-                });
+                    int tinNhanId = int.Parse(lastMsg.tinNhanId.ToString());
+                    string tinNhan = lastMsg.tinNhan.ToString();
+                    DateTime thoiGian = DateTime.Parse(lastMsg.thoiGian.ToString());
+                    string username = lastMsg.username.ToString();
+                    int yeuCauId = Convert.ToInt32(lastMsg.yeuCauId);
+                    TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == username);
+
+                    string ava = "";
+                    if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
+                        ava = Const._localLink + "/Resource/Ava/addava.png";
+                    else
+                        ava = Const._localLink + tk.avatar;
+
+
+                    Application.Current.Dispatcher.Invoke(() =>
+                    {
+                        ListMessage.Add(new TinNhanYeuCau(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
+
+                    });
+                }
             }
 
             Application.Current.Dispatcher.Invoke(() =>
             {
                 StudentChatYeuCauView studentChatYeuCauView = new StudentChatYeuCauView();
-                studentChatYeuCauView.TenTask.Text = Const.YeuCau.NoiDung;
+                studentChatYeuCauView.TenTask.Text = Const.YeuCau.noiDung;
                 studentChatYeuCauView.ListMessageView.ItemsSource = listMsg();
                 studentChatYeuCauView.ListMessageView.Items.Refresh();
                 StudentMainViewModel.MainFrame.Content = studentChatYeuCauView;
@@ -150,13 +153,14 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         private void UserConnected()
         {
-            var user = new MessageTask
+            var user = new TinNhanYeuCau
                 (Const._server.PacketReader.ReadMessage(),
                 Const._server.PacketReader.ReadMessage());
 
-            if (!Users.Any(x => x.UID == user.UID))
+            if (!Users.Any(x => x.uid == user.uid))
             {
                 Application.Current.Dispatcher.Invoke(() => Users.Add(user));
+
             }
         }
 
@@ -170,50 +174,42 @@ namespace Group01_QuanLyLuanVan.ViewModel
             else
             {
                 Quyen = "0";
-                messageTaskDAO.AddMessage(p.Msg.Text, DateTime.Now, Const.sinhVien.Username, Const.yeuCauId);
+                TinNhanYeuCau msg = new TinNhanYeuCau
+                {
+                    tinNhan = p.Msg.Text,
+                    thoiGian = DateTime.Now,
+                    username = Const.sinhVien.username,
+                    yeuCauId = Const.yeuCauId
+                };
+                DataProvider.Ins.DB.TinNhanYeuCaus.Add(msg);
+                DataProvider.Ins.DB.SaveChanges();
                 Const._server.SendMessageToServer(Message + "|" + Const.yeuCauId.ToString());
-
-
-                //DataTable dataTable = messageTaskDAO.LoadListMessageTask(Const.yeuCauId);
-                //if (dataTable.Rows.Count > 0)
-                //{
-                //    DataRow lastRow = dataTable.Rows[dataTable.Rows.Count - 1];
-                //    int tinNhanId = int.Parse(lastRow["tinNhanId"].ToString());
-                //    string tinNhan = lastRow["tinNhan"].ToString();
-                //    DateTime thoiGian = DateTime.Parse(lastRow["thoiGian"].ToString());
-                //    string username = lastRow["username"].ToString();
-                //    int yeuCauId = Convert.ToInt32(lastRow["yeuCauId"]);
-                //    ListMessage.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId));
-                //}
                 p.Msg.Text = "";
-
-                //StudentChatYeuCauView studentChatYeuCauView = new StudentChatYeuCauView();
-                //studentChatYeuCauView.TenTask.Text = Const.YeuCau.NoiDung;
-                //studentChatYeuCauView.ListMessageView.ItemsSource = listMsg();
-                //studentChatYeuCauView.ListMessageView.Items.Refresh();
-                //StudentMainViewModel.MainFrame.Content = studentChatYeuCauView;
 
             }
 
         }
-        ObservableCollection<MessageTask> listMsg()
+        ObservableCollection<TinNhanYeuCau> listMsg()
         {
-            ListMessage = new ObservableCollection<MessageTask>();
-            DataTable messages = messageTaskDAO.LoadListMessageTask(Const.yeuCauId);
-            foreach (DataRow row in messages.Rows)
+            ListMessage = new ObservableCollection<TinNhanYeuCau>();
+            var messages = DataProvider.Ins.DB.TinNhanYeuCaus.Where(dt => dt.yeuCauId == Const.yeuCauId).ToList();
+            foreach (TinNhanYeuCau msg in messages)
+
             {
-                int tinNhanId = int.Parse(row["tinNhanId"].ToString());
-                string tinNhan = row["tinNhan"].ToString();
-                DateTime thoiGian = DateTime.Parse(row["thoiGian"].ToString());
-                string username = row["username"].ToString();
-                int yeuCauId = Convert.ToInt32(row["yeuCauId"]);
-                TaiKhoan tk = tkDAO.FindOneByUsername(username);
+                int tinNhanId = int.Parse(msg.tinNhanId.ToString());
+                string tinNhan = msg.tinNhan.ToString();
+                DateTime thoiGian = DateTime.Parse(msg.thoiGian.ToString());
+                string username = msg.username.ToString();
+                int yeuCauId = Convert.ToInt32(msg.yeuCauId);
+                TaiKhoan tk = DataProvider.Ins.DB.TaiKhoans.FirstOrDefault(x => x.username == username);
+
                 string ava = "";
-                if (Const.taiKhoan.Avatar == "/Resource/Image/addava.png")
+                if (Const.taiKhoan.avatar == "/Resource/Image/addava.png")
                     ava = Const._localLink + "/Resource/Ava/addava.png";
                 else
-                    ava = Const._localLink + tk.Avatar;
-                ListMessage.Add(new MessageTask(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
+                    ava = Const._localLink + tk.avatar;
+
+                ListMessage.Add(new TinNhanYeuCau(tinNhanId, tinNhan, thoiGian, username, yeuCauId, ava));
             }
             return ListMessage;
         }
@@ -221,34 +217,26 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         void _UpdateTrangThaiCommand(StudentChatYeuCauView p)
         {
-            using (SqlConnection conn = new SqlConnection(Properties.Settings.Default.connStr))
+            int trangThai = SliderValue;
+            try
             {
-                conn.Open();
-                int trangThai = SliderValue;
-                try
+                YeuCau yc = DataProvider.Ins.DB.YeuCaus.FirstOrDefault(x => x.yeuCauId == Const.yeuCauId);
+                if (yc != null)
                 {
-                    string updateTrangThaiQuery = "UPDATE YeuCau SET trangThai =  @TrangThai FROM YeuCau yc JOIN DeTai dt ON yc.deTaiId = dt.deTaiId JOIN SinhVien sv ON sv.nhomId = dt.nhomId WHERE sv.username = @user and noiDung = @NoiDung";
-                    SqlCommand updateTrangThaiCommand = new SqlCommand(updateTrangThaiQuery, conn);
-                    updateTrangThaiCommand.Parameters.AddWithValue("@TrangThai", trangThai);
-                    updateTrangThaiCommand.Parameters.AddWithValue("@user", Const.sinhVien.Username);
-                    updateTrangThaiCommand.Parameters.AddWithValue("@NoiDung", p.TenTask.Text); // Lấy giá trị từ TextBox TenTask
-                    updateTrangThaiCommand.ExecuteNonQuery();
-                    MessageBox.Show("Cập nhật thành công!");
-
+                    yc.trangThai = trangThai;
+                    DataProvider.Ins.DB.SaveChanges();
                 }
 
-                catch
-                {
-                    MessageBox.Show("Cập nhật không thành công!");
-                }
+                MessageBox.Show("Cập nhật thành công!");
+                StudentUpdateTaskView taskView = new StudentUpdateTaskView();
+                StudentMainViewModel.MainFrame.Content = taskView;
+            }
+            catch
+            {
+                MessageBox.Show("Cập nhật không thành công!");
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
         void _back(StudentChatYeuCauView paramater)
         {
             StudentUpdateTaskView taskView = new StudentUpdateTaskView();

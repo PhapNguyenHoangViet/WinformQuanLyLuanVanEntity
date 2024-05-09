@@ -152,10 +152,10 @@
 
                                         <Grid Grid.Column="0">
                                             <TextBlock
-                                                            x:Name="Ngay"
+                                                            x:Name="ngay"
                                                             VerticalAlignment="Center"
                                                             Margin="30,0,0,0"
-                                                            Text="{Binding NoiDung}"
+                                                            Text="{Binding noiDung}"
                                                             Foreground="#1e90ff"
                                                             FontSize="16"
                                                             FontWeight="Bold"
@@ -167,8 +167,8 @@
                                             <TextBlock
                                                        HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        x:Name="TieuDe"
-                                                        Text="{Binding TrangThai}"
+                                                        x:Name="tieuDe"
+                                                        Text="{Binding trangThai}"
                                                         Foreground="#FFA500"
                                                         FontFamily="{StaticResource Custom}"
                                                         FontSize="16"                                                           

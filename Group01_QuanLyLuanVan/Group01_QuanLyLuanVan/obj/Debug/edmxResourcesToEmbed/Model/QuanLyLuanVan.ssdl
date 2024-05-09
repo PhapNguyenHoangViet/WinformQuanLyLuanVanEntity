@@ -1,0 +1,392 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyLuanVanModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="DanhGia">
+    <Key>
+      <PropertyRef Name="danhGiaId" />
+    </Key>
+    <Property Name="danhGiaId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noiDung" Type="nvarchar" MaxLength="200" />
+    <Property Name="deTaiId" Type="varchar" MaxLength="10" />
+    <Property Name="ngay" Type="date" />
+  </EntityType>
+  <EntityType Name="DeTai">
+    <Key>
+      <PropertyRef Name="deTaiId" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="deTaiId" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="tenDeTai" Type="nvarchar" MaxLength="200" />
+    <Property Name="moTa" Type="nvarchar" MaxLength="200" />
+    <Property Name="yeuCauChung" Type="nvarchar" MaxLength="200" />
+    <Property Name="soLuong" Type="int" />
+    <Property Name="trangThai" Type="int" />
+    <Property Name="ngayBatDau" Type="datetime" />
+    <Property Name="ngayKetThuc" Type="datetime" />
+    <Property Name="theLoaiId" Type="varchar" MaxLength="10" />
+    <Property Name="nhomId" Type="int" />
+    <Property Name="an" Type="int" />
+    <Property Name="diem" Type="float" />
+    <Property Name="giangVienId" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="GiangVien">
+    <Key>
+      <PropertyRef Name="giangVienId" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="giangVienId" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="hoTen" Type="nvarchar" MaxLength="100" />
+    <Property Name="ngaySinh" Type="datetime" />
+    <Property Name="gioiTinh" Type="nvarchar" MaxLength="10" />
+    <Property Name="diaChi" Type="nvarchar" MaxLength="100" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+    <Property Name="khoaId" Type="varchar" MaxLength="10" />
+    <Property Name="username" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Khoa">
+    <Key>
+      <PropertyRef Name="khoaId" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="khoaId" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="tenKhoa" Type="nvarchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Nhom">
+    <Key>
+      <PropertyRef Name="nhomId" />
+    </Key>
+    <Property Name="nhomId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SinhVien">
+    <Key>
+      <PropertyRef Name="sinhVienId" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="sinhVienId" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="hoTen" Type="nvarchar" MaxLength="100" />
+    <Property Name="ngaySinh" Type="datetime" />
+    <Property Name="gioiTinh" Type="nvarchar" MaxLength="10" />
+    <Property Name="diaChi" Type="nvarchar" MaxLength="100" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDT" Type="nvarchar" MaxLength="10" />
+    <Property Name="khoaId" Type="varchar" MaxLength="10" />
+    <Property Name="username" Type="nvarchar" MaxLength="30" />
+    <Property Name="nhomId" Type="int" />
+  </EntityType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="username" />
+    </Key>
+    <Property Name="username" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="30" />
+    <Property Name="mail" Type="nvarchar" MaxLength="100" />
+    <Property Name="quyen" Type="int" />
+    <Property Name="trangThai" Type="int" />
+    <Property Name="code" Type="nvarchar" MaxLength="30" />
+    <Property Name="avatar" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="TheLoai">
+    <Key>
+      <PropertyRef Name="theLoaiId" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="theLoaiId" Type="varchar" MaxLength="10" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="tenTheLoai" Type="nvarchar" MaxLength="200" />
+    <Property Name="khoaId" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="ThongBao">
+    <Key>
+      <PropertyRef Name="thongBaoId" />
+    </Key>
+    <Property Name="thongBaoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tieude" Type="nvarchar" MaxLength="200" />
+    <Property Name="noiDung" Type="nvarchar" MaxLength="200" />
+    <Property Name="deTaiId" Type="varchar" MaxLength="10" />
+    <Property Name="ngay" Type="date" />
+    <Property Name="trangthai" Type="int" />
+  </EntityType>
+  <EntityType Name="TienDo">
+    <Key>
+      <PropertyRef Name="tienDoId" />
+    </Key>
+    <Property Name="tienDoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noiDung" Type="nvarchar" MaxLength="200" />
+    <Property Name="phanTram" Type="int" />
+    <Property Name="ngay" Type="date" />
+    <Property Name="deTaiId" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="TinNhanYeuCau">
+    <Key>
+      <PropertyRef Name="tinNhanId" />
+    </Key>
+    <Property Name="tinNhanId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="tinNhan" Type="nvarchar" MaxLength="200" />
+    <Property Name="thoiGian" Type="datetime" />
+    <Property Name="username" Type="nvarchar" MaxLength="30" />
+    <Property Name="yeuCauId" Type="int" />
+  </EntityType>
+  <EntityType Name="YeuCau">
+    <Key>
+      <PropertyRef Name="yeuCauId" />
+    </Key>
+    <Property Name="yeuCauId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="noiDung" Type="nvarchar" MaxLength="200" />
+    <Property Name="trangThai" Type="int" />
+    <Property Name="phanTram" Type="int" />
+    <Property Name="deTaiId" Type="varchar" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK__DanhGia__deTaiId__45F365D3">
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="0..1" />
+    <End Role="DanhGia" Type="Self.DanhGia" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeTai">
+        <PropertyRef Name="deTaiId" />
+      </Principal>
+      <Dependent Role="DanhGia">
+        <PropertyRef Name="deTaiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DeTai__giangVien__3C69FB99">
+    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="0..1" />
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="GiangVien">
+        <PropertyRef Name="giangVienId" />
+      </Principal>
+      <Dependent Role="DeTai">
+        <PropertyRef Name="giangVienId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DeTai__nhomId__3B75D760">
+    <End Role="Nhom" Type="Self.Nhom" Multiplicity="0..1" />
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nhom">
+        <PropertyRef Name="nhomId" />
+      </Principal>
+      <Dependent Role="DeTai">
+        <PropertyRef Name="nhomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__DeTai__theLoaiId__3A81B327">
+    <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="0..1" />
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TheLoai">
+        <PropertyRef Name="theLoaiId" />
+      </Principal>
+      <Dependent Role="DeTai">
+        <PropertyRef Name="theLoaiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GiangVien__khoaI__2A4B4B5E">
+    <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khoa">
+        <PropertyRef Name="khoaId" />
+      </Principal>
+      <Dependent Role="GiangVien">
+        <PropertyRef Name="khoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__GiangVien__usern__2B3F6F97">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+    <End Role="GiangVien" Type="Self.GiangVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="GiangVien">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SinhVien__khoaId__30F848ED">
+    <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khoa">
+        <PropertyRef Name="khoaId" />
+      </Principal>
+      <Dependent Role="SinhVien">
+        <PropertyRef Name="khoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SinhVien__nhomId__32E0915F">
+    <End Role="Nhom" Type="Self.Nhom" Multiplicity="0..1" />
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Nhom">
+        <PropertyRef Name="nhomId" />
+      </Principal>
+      <Dependent Role="SinhVien">
+        <PropertyRef Name="nhomId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__SinhVien__userna__31EC6D26">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+    <End Role="SinhVien" Type="Self.SinhVien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="SinhVien">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TheLoai__khoaId__36B12243">
+    <End Role="Khoa" Type="Self.Khoa" Multiplicity="0..1" />
+    <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Khoa">
+        <PropertyRef Name="khoaId" />
+      </Principal>
+      <Dependent Role="TheLoai">
+        <PropertyRef Name="khoaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ThongBao__deTaiI__4BAC3F29">
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="0..1" />
+    <End Role="ThongBao" Type="Self.ThongBao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeTai">
+        <PropertyRef Name="deTaiId" />
+      </Principal>
+      <Dependent Role="ThongBao">
+        <PropertyRef Name="deTaiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TienDo__deTaiId__48CFD27E">
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="0..1" />
+    <End Role="TienDo" Type="Self.TienDo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeTai">
+        <PropertyRef Name="deTaiId" />
+      </Principal>
+      <Dependent Role="TienDo">
+        <PropertyRef Name="deTaiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TinNhanYe__usern__4222D4EF">
+    <End Role="TaiKhoan" Type="Self.TaiKhoan" Multiplicity="0..1" />
+    <End Role="TinNhanYeuCau" Type="Self.TinNhanYeuCau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TaiKhoan">
+        <PropertyRef Name="username" />
+      </Principal>
+      <Dependent Role="TinNhanYeuCau">
+        <PropertyRef Name="username" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TinNhanYe__yeuCa__4316F928">
+    <End Role="YeuCau" Type="Self.YeuCau" Multiplicity="0..1" />
+    <End Role="TinNhanYeuCau" Type="Self.TinNhanYeuCau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="YeuCau">
+        <PropertyRef Name="yeuCauId" />
+      </Principal>
+      <Dependent Role="TinNhanYeuCau">
+        <PropertyRef Name="yeuCauId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__YeuCau__deTaiId__3F466844">
+    <End Role="DeTai" Type="Self.DeTai" Multiplicity="0..1" />
+    <End Role="YeuCau" Type="Self.YeuCau" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DeTai">
+        <PropertyRef Name="deTaiId" />
+      </Principal>
+      <Dependent Role="YeuCau">
+        <PropertyRef Name="deTaiId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyLuanVanModelStoreContainer">
+    <EntitySet Name="DanhGia" EntityType="Self.DanhGia" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DeTai" EntityType="Self.DeTai" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GiangVien" EntityType="Self.GiangVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Khoa" EntityType="Self.Khoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Nhom" EntityType="Self.Nhom" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SinhVien" EntityType="Self.SinhVien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TaiKhoan" EntityType="Self.TaiKhoan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TheLoai" EntityType="Self.TheLoai" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ThongBao" EntityType="Self.ThongBao" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TienDo" EntityType="Self.TienDo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TinNhanYeuCau" EntityType="Self.TinNhanYeuCau" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="YeuCau" EntityType="Self.YeuCau" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__DanhGia__deTaiId__45F365D3" Association="Self.FK__DanhGia__deTaiId__45F365D3">
+      <End Role="DeTai" EntitySet="DeTai" />
+      <End Role="DanhGia" EntitySet="DanhGia" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DeTai__giangVien__3C69FB99" Association="Self.FK__DeTai__giangVien__3C69FB99">
+      <End Role="GiangVien" EntitySet="GiangVien" />
+      <End Role="DeTai" EntitySet="DeTai" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DeTai__nhomId__3B75D760" Association="Self.FK__DeTai__nhomId__3B75D760">
+      <End Role="Nhom" EntitySet="Nhom" />
+      <End Role="DeTai" EntitySet="DeTai" />
+    </AssociationSet>
+    <AssociationSet Name="FK__DeTai__theLoaiId__3A81B327" Association="Self.FK__DeTai__theLoaiId__3A81B327">
+      <End Role="TheLoai" EntitySet="TheLoai" />
+      <End Role="DeTai" EntitySet="DeTai" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GiangVien__khoaI__2A4B4B5E" Association="Self.FK__GiangVien__khoaI__2A4B4B5E">
+      <End Role="Khoa" EntitySet="Khoa" />
+      <End Role="GiangVien" EntitySet="GiangVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__GiangVien__usern__2B3F6F97" Association="Self.FK__GiangVien__usern__2B3F6F97">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="GiangVien" EntitySet="GiangVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SinhVien__khoaId__30F848ED" Association="Self.FK__SinhVien__khoaId__30F848ED">
+      <End Role="Khoa" EntitySet="Khoa" />
+      <End Role="SinhVien" EntitySet="SinhVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SinhVien__nhomId__32E0915F" Association="Self.FK__SinhVien__nhomId__32E0915F">
+      <End Role="Nhom" EntitySet="Nhom" />
+      <End Role="SinhVien" EntitySet="SinhVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__SinhVien__userna__31EC6D26" Association="Self.FK__SinhVien__userna__31EC6D26">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="SinhVien" EntitySet="SinhVien" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TheLoai__khoaId__36B12243" Association="Self.FK__TheLoai__khoaId__36B12243">
+      <End Role="Khoa" EntitySet="Khoa" />
+      <End Role="TheLoai" EntitySet="TheLoai" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ThongBao__deTaiI__4BAC3F29" Association="Self.FK__ThongBao__deTaiI__4BAC3F29">
+      <End Role="DeTai" EntitySet="DeTai" />
+      <End Role="ThongBao" EntitySet="ThongBao" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TienDo__deTaiId__48CFD27E" Association="Self.FK__TienDo__deTaiId__48CFD27E">
+      <End Role="DeTai" EntitySet="DeTai" />
+      <End Role="TienDo" EntitySet="TienDo" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TinNhanYe__usern__4222D4EF" Association="Self.FK__TinNhanYe__usern__4222D4EF">
+      <End Role="TaiKhoan" EntitySet="TaiKhoan" />
+      <End Role="TinNhanYeuCau" EntitySet="TinNhanYeuCau" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TinNhanYe__yeuCa__4316F928" Association="Self.FK__TinNhanYe__yeuCa__4316F928">
+      <End Role="YeuCau" EntitySet="YeuCau" />
+      <End Role="TinNhanYeuCau" EntitySet="TinNhanYeuCau" />
+    </AssociationSet>
+    <AssociationSet Name="FK__YeuCau__deTaiId__3F466844" Association="Self.FK__YeuCau__deTaiId__3F466844">
+      <End Role="DeTai" EntitySet="DeTai" />
+      <End Role="YeuCau" EntitySet="YeuCau" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.Properties;
 using Group01_QuanLyLuanVan.View;
 using System;
@@ -16,15 +15,13 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
     public class ADMainViewModel : BaseViewModel
     {
-
-        GiangVienDAO gvDao = new GiangVienDAO();
         public static Frame MainFrame { get; set; }
         public ICommand LoadPageCM { get; set; }
         public ICommand SignoutCM { get; set; }
         public ICommand HomeAdminCM { get; set; }
         public ICommand GiaoVienTotCM { get; set; }
         public ICommand GiaoVienTotCM1 { get; set; }
-
+         
 
         public ADMainViewModel()
         {
@@ -39,7 +36,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
             });
             GiaoVienTotCM = new RelayCommand<Frame>((P) => { return true; }, (P) =>
             {
-                gvDao.ListGiangVienXuatSac();
                 MainFrame.Content = new AdminManageTeacherView();
             });
             GiaoVienTotCM1 = new RelayCommand<Frame>((P) => { return true; }, (P) =>

@@ -25,7 +25,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
             SendMSG = new RelayCommand<StudentMailView>((p) => true, (p) => _SendMSG(p));
         }
         void _SendAttachment(StudentMailView parameter)
-        {
+        { 
             try
             {
                 OpenFileDialog file = new OpenFileDialog();

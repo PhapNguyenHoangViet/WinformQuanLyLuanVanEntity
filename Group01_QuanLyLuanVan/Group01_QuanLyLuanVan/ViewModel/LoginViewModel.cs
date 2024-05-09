@@ -9,7 +9,7 @@ using System.Windows.Input;
 namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class LoginViewModel : BaseViewModel
-    {
+    { 
         private string username;
         public string Username { get => username; set { username = value; OnPropertyChanged(); } }
 

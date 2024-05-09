@@ -86,18 +86,7 @@
     <Compile Include="Chat\Net\IO\PacketBuilder.cs" />
     <Compile Include="Chat\Net\IO\PacketReader.cs" />
     <Compile Include="Chat\Net\Server.cs" />
-    <Compile Include="DAO\ComboBoxData.cs" />
-    <Compile Include="DAO\DBConnection.cs" />
-    <Compile Include="DAO\DeTaiDAO.cs" />
-    <Compile Include="DAO\GiangVienDAO.cs" />
-    <Compile Include="DAO\KhoaDAO.cs" />
-    <Compile Include="DAO\MessageTaskDAO.cs" />
-    <Compile Include="DAO\SinhVienDAO.cs" />
-    <Compile Include="DAO\TaiKhoanDAO.cs" />
-    <Compile Include="DAO\TheLoaiDAO.cs" />
-    <Compile Include="DAO\ThongBaoDAO.cs" />
-    <Compile Include="DAO\TienDoDAO.cs" />
-    <Compile Include="DAO\YeuCauDAO.cs" />
+    <Compile Include="Model\ComboBoxData.cs" />
     <Compile Include="Model\Const.cs" />
     <Compile Include="Model\DanhGia.cs">
       <DependentUpon>QuanLyLuanVan.tt</DependentUpon>
@@ -174,13 +163,11 @@
     <Compile Include="ViewModel\StudentMailViewModel.cs" />
     <Compile Include="ViewModel\StudentMainViewModel.cs" />
     <Compile Include="ViewModel\StudentNotiViewModel.cs" />
-    <Compile Include="ViewModel\StudentReceiveEvaluationViewModel.cs" />
     <Compile Include="ViewModel\StudentRegisterTopicViewModel.cs" />
     <Compile Include="ViewModel\StudentScoreViewModel.cs" />
     <Compile Include="ViewModel\StudentScoreViewModel2.cs" />
     <Compile Include="ViewModel\StudentThesisViewModel.cs" />
     <Compile Include="ViewModel\StudentUpdateInforViewModel.cs" />
-    <Compile Include="ViewModel\StudentUpdateProgressViewModel.cs" />
     <Compile Include="ViewModel\StudentUpdateTaskViewModel.cs" />
     <Compile Include="ViewModel\TeacherAddDissertationViewModel.cs" />
     <Compile Include="ViewModel\TeacherDissertationDetailViewModel.cs" />
@@ -189,13 +176,9 @@
     <Compile Include="ViewModel\TeacherMainViewModel.cs" />
     <Compile Include="ViewModel\TeacherNotiAddViewModel.cs" />
     <Compile Include="ViewModel\TeacherNotiDetailViewModel.cs" />
-    <Compile Include="ViewModel\TeacherNotificationViewModel.cs" />
     <Compile Include="ViewModel\TeacherNotiViewModel.cs" />
-    <Compile Include="ViewModel\TeacherProgressDetailViewModel.cs" />
-    <Compile Include="ViewModel\TeacherProgressViewModel.cs" />
     <Compile Include="ViewModel\TeacherScoreDetailViewModel.cs" />
     <Compile Include="ViewModel\TeacherScoreViewModel.cs" />
-    <Compile Include="ViewModel\TeacherSettingViewModel.cs" />
     <Compile Include="ViewModel\TeacherStatisticViewModel.cs" />
     <Compile Include="ViewModel\TeacherTaskDetailViewModel.cs" />
     <Compile Include="ViewModel\TeacherTaskMessageViewModel.cs" />
@@ -318,12 +301,6 @@
     </Compile>
     <Compile Include="View\TeacherNotiView.xaml.cs">
       <DependentUpon>TeacherNotiView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TeacherProgressDetailView.xaml.cs">
-      <DependentUpon>TeacherProgressDetailView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="View\TeacherProgressView.xaml.cs">
-      <DependentUpon>TeacherProgressView.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\TeacherScoreDetailView.xaml.cs">
       <DependentUpon>TeacherScoreDetailView.xaml</DependentUpon>
@@ -537,14 +514,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\TeacherNotiView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TeacherProgressDetailView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="View\TeacherProgressView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

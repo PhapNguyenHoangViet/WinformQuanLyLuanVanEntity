@@ -112,7 +112,7 @@
                                                     </Grid>
                                                     <Grid Grid.Column="1">
                                                         <TextBlock
-                                                            x:Name="Ngay"
+                                                            x:Name="ngay"
                                                             VerticalAlignment="Center"
                                                             
                                                             Text="{Binding Ngay}"
@@ -126,7 +126,7 @@
                                                         <TextBlock
                                                        HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
-                                                        x:Name="TieuDe"
+                                                        x:Name="tieuDe"
                                                         Text="{Binding TieuDe}"
                                                         Foreground="#1e90ff"
                                                         FontFamily="{StaticResource Custom}"
@@ -150,7 +150,7 @@
 
                                                         <TextBlock 
                                                                     x:Name="TenTrangThai"
-                                                                    Text="{Binding TenTrangThai}" 
+                                                                    Text="{Binding tenTrangThai}" 
                                                                     Foreground="{Binding TenTrangThai, Converter={StaticResource TenTrangThaiConverterNoti}}" 
                                                                     
                                                                     FontFamily="{StaticResource Custom}" 

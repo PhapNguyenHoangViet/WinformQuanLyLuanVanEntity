@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using LiveCharts.Wpf;
 using LiveCharts;
@@ -19,8 +18,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
     public class TeacherStatisticViewModel:BaseViewModel
     {
         public ICommand LoadCommand { get; set; }
-
-        DeTaiDAO deTaiDAO = new DeTaiDAO();
 
         private string _gioi;
         public string Gioi { get => _gioi; set { _gioi = value; OnPropertyChanged(); } }
@@ -44,12 +41,37 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         public TeacherStatisticViewModel()
         {
-            Gioi = deTaiDAO.SoLuongSinhVienGioi(Const.giangVien.GiangVienId).ToString();
-            Kha = deTaiDAO.SoLuongSinhVienKha(Const.giangVien.GiangVienId).ToString();
-            TrungBinh = deTaiDAO.SoLuongSinhVienTrungBinh(Const.giangVien.GiangVienId).ToString();
-            List<int> ListSoYcCHT = deTaiDAO.ListSoYeuCauChuaHoanThanh();
-            List<int> ListSoYcHT = deTaiDAO.ListSoYeuCauHoanThanh();
-            List<string> ListYcId = deTaiDAO.ListDeTaiId();
+            var countGioi = DataProvider.Ins.DB.DeTais
+                .Where(dt => dt.giangVienId == Const.giangVien.giangVienId && dt.diem <= 10 && dt.diem >= 8 && dt.an != 1)
+                .Count();
+            var countKha = DataProvider.Ins.DB.DeTais
+                .Where(dt => dt.giangVienId == Const.giangVien.giangVienId && dt.diem < 8 && dt.diem >= 6.5 && dt.an != 1)
+                .Count();
+            var countTrungBinh = DataProvider.Ins.DB.DeTais
+                .Where(dt => dt.giangVienId == Const.giangVien.giangVienId && dt.diem < 6.5 && dt.diem >= 5 && dt.an != 1)
+                .Count();
+            Gioi = countGioi.ToString();
+            Kha = countKha.ToString();
+            TrungBinh = countTrungBinh.ToString();
+
+            List<int> ListSoYcCHT = new List<int>();
+            List<int> ListSoYcHT = new List<int>();
+            List<string> ListYcId = new List<string>();
+            var yeuCauData = DataProvider.Ins.DB.YeuCaus
+                        .GroupBy(yc => yc.deTaiId)
+                        .Select(group => new {
+                            DeTaiId = group.Key,
+                            SoYeuCau = group.Count(),
+                            SoYeuCauHoanThanh = group.Count(yc => yc.trangThai == 100)
+                        })
+                        .ToList();
+
+            foreach (var yc in yeuCauData)
+            {
+                ListSoYcHT.Add(yc.SoYeuCauHoanThanh);
+                ListSoYcCHT.Add(yc.SoYeuCau - yc.SoYeuCauHoanThanh);
+                ListYcId.Add(yc.DeTaiId);
+            }
 
             SeriesCollection = new SeriesCollection
             {
@@ -100,12 +122,37 @@ namespace Group01_QuanLyLuanVan.ViewModel
         }
         void _LoadCommand(TeacherStatisticView topicsView)
         {
-            Gioi = deTaiDAO.SoLuongSinhVienGioi(Const.giangVien.GiangVienId).ToString();
-            Kha = deTaiDAO.SoLuongSinhVienKha(Const.giangVien.GiangVienId).ToString();
-            TrungBinh = deTaiDAO.SoLuongSinhVienTrungBinh(Const.giangVien.GiangVienId).ToString();
-            List<int> ListSoYcCHT = deTaiDAO.ListSoYeuCauChuaHoanThanh();
-            List<int> ListSoYcHT = deTaiDAO.ListSoYeuCauHoanThanh();
-            List<string> ListYcId = deTaiDAO.ListDeTaiId();
+            var countGioi = DataProvider.Ins.DB.DeTais
+                .Where(dt => dt.giangVienId == Const.giangVien.giangVienId && dt.diem <= 10 && dt.diem >= 8 && dt.an != 1)
+                .Count();
+            var countKha = DataProvider.Ins.DB.DeTais
+                .Where(dt => dt.giangVienId == Const.giangVien.giangVienId && dt.diem < 8 && dt.diem >= 6.5 && dt.an != 1)
+                .Count();
+            var countTrungBinh = DataProvider.Ins.DB.DeTais
+                .Where(dt => dt.giangVienId == Const.giangVien.giangVienId && dt.diem < 6.5 && dt.diem >= 5 && dt.an != 1)
+                .Count();
+            Gioi = countGioi.ToString();
+            Kha = countKha.ToString();
+            TrungBinh = countTrungBinh.ToString();
+
+            List<int> ListSoYcCHT = new List<int>();
+            List<int> ListSoYcHT = new List<int>();
+            List<string> ListYcId = new List<string>();
+            var yeuCauData = DataProvider.Ins.DB.YeuCaus
+                        .GroupBy(yc => yc.deTaiId)
+                        .Select(group => new {
+                            DeTaiId = group.Key,
+                            SoYeuCau = group.Count(),
+                            SoYeuCauHoanThanh = group.Count(yc => yc.trangThai == 100)
+                        })
+                        .ToList();
+
+            foreach (var yc in yeuCauData)
+            {
+                ListSoYcHT.Add(yc.SoYeuCauHoanThanh);
+                ListSoYcCHT.Add(yc.SoYeuCau - yc.SoYeuCauHoanThanh);
+                ListYcId.Add(yc.DeTaiId);
+            }
 
             SeriesCollection = new SeriesCollection
             {

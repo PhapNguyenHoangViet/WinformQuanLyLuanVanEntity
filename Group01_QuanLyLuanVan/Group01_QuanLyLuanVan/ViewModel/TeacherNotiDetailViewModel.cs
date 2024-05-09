@@ -1,5 +1,4 @@
-﻿using Group01_QuanLyLuanVan.DAO;
-using Group01_QuanLyLuanVan.Model;
+﻿using Group01_QuanLyLuanVan.Model;
 using Group01_QuanLyLuanVan.View;
 using System;
 using System.Collections.Generic;
@@ -14,8 +13,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class TeacherNotiDetailViewModel:BaseViewModel
     {
-        ThongBaoDAO tbDAO = new ThongBaoDAO();
-        DeTaiDAO dtDAO = new DeTaiDAO();
         public ICommand back { get; set; }
 
         private ObservableCollection<ThongBao> _ListThongBao;
@@ -43,15 +40,18 @@ namespace Group01_QuanLyLuanVan.ViewModel
             LoadListNotiCommand = new RelayCommand<TeacherNotiDetailView>((p) => true, (p) => _LoadListNotiCommand(p));
 
             ThongBaos = new ObservableCollection<ThongBao>();
-            var thongBaosData = tbDAO.LoadListThongBao(Const.deTaiId);
 
-            foreach (DataRow row in thongBaosData.Rows)
+            var thongBaosData = DataProvider.Ins.DB.ThongBaos
+                        .Where(tb => tb.deTaiId == Const.deTaiId)
+                        .ToList();
+
+            foreach (ThongBao tb in thongBaosData)
             {
-                int thongBaoId = Convert.ToInt32(row["thongBaoId"]);
-                string tieuDe = row["tieuDe"].ToString();
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                DateTime ngay = Convert.ToDateTime(row["ngay"]);
+                int thongBaoId = Convert.ToInt32(tb.thongBaoId);
+                string tieuDe = (tb.tieude).ToString();
+                string noiDung = (tb.noiDung).ToString();
+                string deTaiId = (tb.deTaiId).ToString();
+                DateTime ngay = Convert.ToDateTime(tb.ngay);
 
                 ThongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay));
             }
@@ -71,7 +71,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
             if (tbView != null && tbView.ListThongBaoView.SelectedItem != null)
             {
                 var selectedThongBao = (ThongBao)tbView.ListThongBaoView.SelectedItem;
-                SelectedThongBaoNoiDung = selectedThongBao.NoiDung;
+                SelectedThongBaoNoiDung = selectedThongBao.noiDung;
             }
         }
 
@@ -85,25 +85,31 @@ namespace Group01_QuanLyLuanVan.ViewModel
         {
             topicsView.ListThongBaoView.ItemsSource = listNoti();
             topicsView.ListThongBaoView.Items.Refresh();
-            topicsView.TenDeTai.Text = dtDAO.FindTenDeTaiByDeTaiId(Const.deTaiId);
+
+            var dt = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == Const.deTaiId);
+            if (dt != null)
+            {
+                topicsView.TenDeTai.Text = dt.tenDeTai;
+            }
         }
 
         ObservableCollection<ThongBao> listNoti()
         {
             ThongBaos = new ObservableCollection<ThongBao>();
-            var thongBaosData = tbDAO.LoadListThongBao(Const.deTaiId);
 
-            foreach (DataRow row in thongBaosData.Rows)
+            var thongBaosData = DataProvider.Ins.DB.ThongBaos
+                        .Where(tb => tb.deTaiId == Const.deTaiId)
+                        .ToList();
+            foreach (ThongBao tb in thongBaosData)
             {
-                int thongBaoId = Convert.ToInt32(row["thongBaoId"]);
-                string tieuDe = row["tieuDe"].ToString();
-                string noiDung = row["noiDung"].ToString();
-                string deTaiId = row["deTaiId"].ToString();
-                DateTime ngay = Convert.ToDateTime(row["ngay"]);
+                int thongBaoId = Convert.ToInt32(tb.thongBaoId);
+                string tieuDe = (tb.tieude).ToString();
+                string noiDung = (tb.noiDung).ToString();
+                string deTaiId = (tb.deTaiId).ToString();
+                DateTime ngay = Convert.ToDateTime(tb.ngay);
 
                 ThongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay));
             }
-
             return ThongBaos;
         }
     }

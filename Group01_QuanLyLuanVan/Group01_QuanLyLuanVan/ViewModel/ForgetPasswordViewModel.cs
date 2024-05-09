@@ -12,7 +12,7 @@ using System.Windows;
 namespace Group01_QuanLyLuanVan.ViewModel
 {
     public class ForgetPasswordViewModel : BaseViewModel
-    {
+    { 
         public ICommand CancelCM { get; set; }
         public ICommand SendPassCM { get; set; }
         public ForgetPasswordViewModel()
