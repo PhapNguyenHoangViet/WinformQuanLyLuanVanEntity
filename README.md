@@ -155,6 +155,7 @@ Do kiến thức và thời gian thực hiện hạn chế, đồ án của nhó
 
 
 <div id="Huongdancaidat"></div>
+
 ## VI. Hướng dẫn cài đặt:
 
 * Bước 1: Vào https://github.com/Vuvom1/IT008-QLThuVien
