@@ -158,8 +158,8 @@ Do kiến thức và thời gian thực hiện hạn chế, đồ án của nhó
 
 ## VI. Hướng dẫn cài đặt:
 
-* Bước 1: Vào https://github.com/Vuvom1/IT008-QLThuVien
-  
+* Bước 1: Vào https://github.com/PhapNguyenHoangViet/WinformQuanLyLuanVanEntity
+
 *	Bước 2: Vào Code và copy https://github.com/PhapNguyenHoangViet/WinformQuanLyLuanVanEntity.git
   
 *	Bước 3: Mở cmd (yêu cầu phải code git) và gõ git clone https://github.com/PhapNguyenHoangViet/WinformQuanLyLuanVanEntity.git
