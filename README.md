@@ -43,12 +43,13 @@ Do kiến thức và thời gian thực hiện hạn chế, đồ án của nhó
 <!-- Ý TƯỞNG -->
 <div id="Ytuong"></div>
 
+
+### 1. Ý tưởng
+
 * Nhóm 1 thực hiện đồ án “Quản lí luận văn” với ý tưởng gồm có 3 phần chính như sau: Database, form giảng viên và form sinh viên.
 
 * Đây coi như là các thành phần quyết định để tiếp tục tạo ra được các form và các chức năng khác cho chương trình.
 
-
-### 1. Ý tưởng
 <div id="Congnghe"></div>
 
 ### 2. Công nghệ
