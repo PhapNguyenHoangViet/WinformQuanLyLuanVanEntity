@@ -17,9 +17,8 @@ namespace Group01_QuanLyLuanVan.Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TheLoai()
         {
-            this.DeTais = new HashSet<DeTai>();
         }
-    
+
         public int id { get; set; }
         public string theLoaiId { get; set; }
         public string tenTheLoai { get; set; }

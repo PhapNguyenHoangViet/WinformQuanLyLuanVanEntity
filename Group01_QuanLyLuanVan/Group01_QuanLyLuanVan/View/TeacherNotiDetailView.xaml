@@ -154,7 +154,7 @@
                                         <TextBlock
                                             Foreground="#1e90ff" 
                                             x:Name="TieuDe"
-                                            Text = "{Binding tieuDe}"
+                                            Text = "{Binding tieude}"
                                             HorizontalAlignment = "Center"
                                             VerticalAlignment = "Center"
                                             FontFamily = "{StaticResource Custom}"

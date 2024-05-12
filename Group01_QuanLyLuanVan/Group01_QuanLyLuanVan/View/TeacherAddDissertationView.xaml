@@ -122,7 +122,7 @@
                             <ComboBox.ItemTemplate>
                                 <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="{Binding TenTheLoai}"/>
+                                        <TextBlock Text="{Binding tenTheLoai}"/>
                                     </StackPanel>
                             </DataTemplate>
                             </ComboBox.ItemTemplate>

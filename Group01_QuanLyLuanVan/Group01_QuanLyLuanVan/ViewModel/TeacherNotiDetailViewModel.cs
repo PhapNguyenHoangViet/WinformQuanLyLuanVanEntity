@@ -18,7 +18,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
         private ObservableCollection<ThongBao> _ListThongBao;
         public ObservableCollection<ThongBao> ListThongBao { get => _ListThongBao; set { _ListThongBao = value; OnPropertyChanged(); } }
         public ICommand DetailThongBaoCommand { get; set; }
-        public ObservableCollection<ThongBao> ThongBaos { get; set; }
+        public ObservableCollection<ThongBao> thongBaos { get; set; }
         public ICommand LoadListNotiCommand { get; set; }
 
         private string _selectedThongBaoNoiDung;
@@ -38,25 +38,6 @@ namespace Group01_QuanLyLuanVan.ViewModel
         {
             back = new RelayCommand<TeacherNotiDetailView>((p) => true, p => _back(p));
             LoadListNotiCommand = new RelayCommand<TeacherNotiDetailView>((p) => true, (p) => _LoadListNotiCommand(p));
-
-            ThongBaos = new ObservableCollection<ThongBao>();
-
-            var thongBaosData = DataProvider.Ins.DB.ThongBaos
-                        .Where(tb => tb.deTaiId == Const.deTaiId)
-                        .ToList();
-
-            foreach (ThongBao tb in thongBaosData)
-            {
-                int thongBaoId = Convert.ToInt32(tb.thongBaoId);
-                string tieuDe = (tb.tieude).ToString();
-                string noiDung = (tb.noiDung).ToString();
-                string deTaiId = (tb.deTaiId).ToString();
-                DateTime ngay = Convert.ToDateTime(tb.ngay);
-
-                ThongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay));
-            }
-
-            ListThongBao = ThongBaos;
             DetailThongBaoCommand = new RelayCommand<TeacherNotiDetailView>((p) => { return p.ListThongBaoView.SelectedItem == null ? false : true; }, (p) => _DetailThongBaoCommand(p));
             AddNoti = new RelayCommand<TeacherNotiDetailView>((p) => true, (p) => _AddNoti(p));
         }
@@ -95,7 +76,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
 
         ObservableCollection<ThongBao> listNoti()
         {
-            ThongBaos = new ObservableCollection<ThongBao>();
+            thongBaos = new ObservableCollection<ThongBao>();
 
             var thongBaosData = DataProvider.Ins.DB.ThongBaos
                         .Where(tb => tb.deTaiId == Const.deTaiId)
@@ -108,9 +89,9 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 string deTaiId = (tb.deTaiId).ToString();
                 DateTime ngay = Convert.ToDateTime(tb.ngay);
 
-                ThongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay));
+                thongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay));
             }
-            return ThongBaos;
+            return thongBaos;
         }
     }
 }

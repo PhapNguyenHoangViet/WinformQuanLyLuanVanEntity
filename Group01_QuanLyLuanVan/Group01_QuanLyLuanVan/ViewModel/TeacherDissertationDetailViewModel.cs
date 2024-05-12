@@ -47,6 +47,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 dt.moTa = moTa;
                 dt.yeuCauChung = yeuCau;
                 dt.soLuong = soLuong;
+                DataProvider.Ins.DB.DeTais.Attach(dt);
                 DataProvider.Ins.DB.SaveChanges();
             }
 

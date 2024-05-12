@@ -65,9 +65,11 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 System.Windows.MessageBox.Show("Bạn chưa chọn thể loại !", "THÔNG BÁO", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            System.Windows.MessageBox.Show("Tạo đề tài thành công!", "THÔNG BÁO", MessageBoxButton.OK);
             TheLoai tl = (TheLoai)paramater.LTL.SelectedItem;
             DeTai dt = new DeTai
             {
+                deTaiId = "",
                 tenDeTai = paramater.TenDeTai.Text,
                 moTa = paramater.MoTa.Text,
                 yeuCauChung = paramater.YeuCau.Text,
@@ -80,7 +82,7 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 an = 0,
                 diem = 0
             };
-            DataProvider.Ins.DB.DeTais.Add(dt);
+            DataProvider.Ins.DB.DeTais.Attach(dt);
             DataProvider.Ins.DB.SaveChanges();
             TeacherDissertationView topicsView = new TeacherDissertationView();
             topicsView.ListTopicView.ItemsSource = listTopic();

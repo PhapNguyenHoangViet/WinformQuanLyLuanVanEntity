@@ -14,6 +14,9 @@ namespace Group01_QuanLyLuanVan.Model
     
     public partial class TienDo
     {
+        public TienDo()
+        {
+        }
         public int tienDoId { get; set; }
         public string noiDung { get; set; }
         public Nullable<int> phanTram { get; set; }

@@ -14,6 +14,7 @@ namespace Group01_QuanLyLuanVan.Model
     
     public partial class ThongBao
     {
+        public ThongBao() { }
         public ThongBao(string tieude, string noiDung, string deTaiId, DateTime ngay)
         {
             this.tieude = tieude;

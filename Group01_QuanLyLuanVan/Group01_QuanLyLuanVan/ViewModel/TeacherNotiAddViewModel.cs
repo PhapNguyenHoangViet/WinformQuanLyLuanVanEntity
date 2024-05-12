@@ -43,10 +43,15 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 System.Windows.MessageBox.Show("Bạn cần nhập đầy đủ thông tin !", "THÔNG BÁO", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            ThongBao tb = new ThongBao(paramater.TieuDe.Text, paramater.NoiDung.Text, Const.deTaiId, DateTime.Parse(paramater.Ngay.Text));
+            ThongBao tb = new ThongBao();
+            tb.tieude = paramater.TieuDe.Text;
+            tb.noiDung = paramater.NoiDung.Text;
+            tb.ngay = DateTime.Parse(paramater.Ngay.Text);
+            tb.DeTai = DataProvider.Ins.DB.DeTais.FirstOrDefault(x => x.deTaiId == Const.deTaiId);
 
             DataProvider.Ins.DB.ThongBaos.Add(tb);
             DataProvider.Ins.DB.SaveChanges();
+
             TeacherNotiDetailView teacherNotiDetailView = new TeacherNotiDetailView();
             teacherNotiDetailView.ListThongBaoView.ItemsSource = listTopic();
             teacherNotiDetailView.ListThongBaoView.Items.Refresh();

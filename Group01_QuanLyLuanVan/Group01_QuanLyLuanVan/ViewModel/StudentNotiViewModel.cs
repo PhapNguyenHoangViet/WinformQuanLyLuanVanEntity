@@ -56,7 +56,13 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 {
                     tenTrangThai = "Chưa đọc";
                 }
-                ThongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay, tenTrangThai));
+                ThongBao tbao = new ThongBao();
+                tbao.deTaiId = deTaiId;
+                tbao.thongBaoId = thongBaoId;
+                tbao.tieude = tieuDe;
+                tbao.ngay = ngay;
+                tbao.tenTrangThai = tenTrangThai;
+                ThongBaos.Add(tbao);
             }
             ListThongBao = ThongBaos;
             LoadThongBaosCommand = new RelayCommand<StudentNotiView>((p) => true, (p) => _LoadThongBaosCommand(p));
@@ -89,7 +95,14 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 {
                     tenTrangThai = "Chưa đọc";
                 }
-                ThongBaos.Add(new ThongBao(thongBaoId, tieuDe, noiDung, deTaiId, ngay, tenTrangThai));
+
+                ThongBao tbao = new ThongBao();
+                tbao.deTaiId = deTaiId;
+                tbao.thongBaoId = thongBaoId;
+                tbao.tieude = tieuDe;
+                tbao.ngay = ngay;
+                tbao.tenTrangThai = tenTrangThai;
+                ThongBaos.Add(tbao);
             }
             return ThongBaos;
         }

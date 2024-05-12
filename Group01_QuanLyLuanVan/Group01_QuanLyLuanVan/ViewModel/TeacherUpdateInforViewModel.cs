@@ -15,6 +15,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Windows.Media.Imaging;
 using System.Xml.Linq;
 using System.IO;
+using System.Data.Entity;
 
 namespace Group01_QuanLyLuanVan.ViewModel
 {
@@ -129,6 +130,16 @@ namespace Group01_QuanLyLuanVan.ViewModel
                 gv.SDT = SDT;
                 gv.email = Mail;
                 gv.diaChi = DiaChi;
+                try
+                {
+                    DataProvider.Ins.DB.GiangViens.Attach(gv);
+                    DataProvider.Ins.DB.SaveChanges();
+                }
+
+                catch (Exception ec)
+                {
+                    Console.WriteLine(ec.Message);
+                }
                 DataProvider.Ins.DB.SaveChanges();
             }
             Const.giangVien = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.username == Const.taiKhoan.username);

@@ -14,6 +14,9 @@ namespace Group01_QuanLyLuanVan.Model
     
     public partial class DanhGia
     {
+        public DanhGia()
+        {
+        }
         public int danhGiaId { get; set; }
         public string noiDung { get; set; }
         public string deTaiId { get; set; }
