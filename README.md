@@ -77,7 +77,7 @@ Do kiến thức và thời gian thực hiện hạn chế, đồ án của nhó
 * <strong>Quên mật khẩu</strong>
 * <strong>Giao diện của sinh viên</strong>
  
-    * 4.1. Giao diện dashboard
+    * Giao diện dashboard
     * Giao diện danh sách đề tài
     * Giao diện đăng ký đề tài
     * Giao diện đề xuất đề tài
