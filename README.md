@@ -31,7 +31,7 @@ Hỗ trợ các sinh viên và giáo viên dễ dàng hơn trong quản lý lu�
 ## I. Mở đầu
 * Sự phát triển như vũ bão của công nghệ thông tin (CNTT) đã tác động mạnh mẽ và to lớn đến mọi mặt đời sống kinh tế xã hội. Ngày nay, CNTT đã trở thành một trong những động lực quan trọng nhất của sự phát triển. Với khả năng số hóa mọi loại thông tin, máy tính trở thành phương tiện xử lý thông tin thống nhất và đa năng, thực hiện được nhiều chức năng khác nhau trên mọi dạng thông tin thuộc mọi lĩnh vực như: nghiên cứu, quản lý, kinh doanh, giáo dục, ...
 * Những ứng dụng của CNTT trong lĩnh vực quản lý là những ứng dụng vô cùng quan trọng. Nó không những giải phóng công sức cho những người quản lý mà còn đem lại sự chính xác và nhanh nhạy trong quản lý. 
-* Là sinh viên CNTT, trong đồ án môn Lập trình trực quan này, nhóm chúng em đã chọn và thực hiện đồ án “Xây dựng ứng dụng quản lí luận văn”. 
+* Là sinh viên CNTT, trong đồ án môn lập trình winform này, nhóm chúng em đã chọn và thực hiện đồ án “Xây dựng ứng dụng quản lí luận văn”. 
 Nhóm xin gửi lời cảm ơn chân thành đến cô Nguyễn Thủy An đã tận tình giảng dạy, hướng dẫn chúng em trong suốt thời gian học vừa qua và các bạn học đã góp ý và giúp đỡ nhóm trong quá trình thực hiện đồ án này.
 Do kiến thức và thời gian thực hiện hạn chế, đồ án của nhóm vẫn còn nhiều thiếu sót. Nhóm rất mong nhận được góp ý của thầy và các bạn để đồ án của nhóm được hoàn thiện.
 
@@ -43,16 +43,12 @@ Do kiến thức và thời gian thực hiện hạn chế, đồ án của nhó
 <!-- Ý TƯỞNG -->
 <div id="Ytuong"></div>
 
+* Nhóm 1 thực hiện đồ án “Quản lí luận văn” với ý tưởng gồm có 3 phần chính như sau: Database, form giảng viên và form sinh viên.
+
+* Đây coi như là các thành phần quyết định để tiếp tục tạo ra được các form và các chức năng khác cho chương trình.
+
+
 ### 1. Ý tưởng
-* Đề tài "Hệ Thống Quản Lý Thư Viện" là một dự án phần mềm nhằm xây dựng một hệ thống toàn diện và hiệu quả giúp quản lý các hoạt động trong một thư viện. Đề tài này đặt ra mục tiêu cung cấp giải pháp thông minh cho việc quản lý thông tin về sách, người đọc và giao dịch mượn trả
-
-* Xây dựng một ứng dụng phần mềm đa nhiệm và hiệu quả, giúp thư viện tổ chức thông tin sách, quản lý độc giả, và theo dõi quá trình mượn trả. Mục tiêu chính là tối ưu hóa các quy trình quản lý và cung cấp trải nghiệm thuận lợi cho cả người quản lý và độc giả.
-
-* Sử dụng mô hình MVVM để tách giao diện và xử lý, tăng khả năng sử dụng lại các thành phần hoặc thay đổi giao diện chương trình mà không cần viết lại quá nhiều mã, bạn có thể phát triển ứng dụng, nâng cấp, bảo trì, mở rộng hoặc sửa chữa một cách nhanh chóng và dễ dàng.
-
-* Công nghệ mã hóa Base64 và MD5Hásh được sử dụng trong quản lý tài khoản người dùng nhằm đảm bảo an toàn trong quá trình sử dụng và hạn chế tối đa tổn thất khi dữ liệu không may bị thất thoát ra bên ngoài.
-
-
 <div id="Congnghe"></div>
 
 ### 2. Công nghệ
