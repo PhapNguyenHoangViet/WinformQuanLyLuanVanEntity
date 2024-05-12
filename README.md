@@ -13,11 +13,9 @@ Hỗ trợ các sinh viên và giáo viên dễ dàng hơn trong quản lý lu�
 >
 > [2. Công nghệ](#Congnghe)
 >
-> [3. Người dùng](#Doituongsudung)
+> [3. Đối tượng sử dụng](#Doituongsudung)
 >
-> [4. Mục tiêu](#Muctieu)
->
-> [5. Tính năng](#Tinhnang)
+> [4. Giao diện](#Giaodien)
 
 [III. Tác giả](#Tacgia)
 
