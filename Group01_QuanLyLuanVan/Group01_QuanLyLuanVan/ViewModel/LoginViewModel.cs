@@ -63,8 +63,8 @@ namespace Group01_QuanLyLuanVan.ViewModel
                                 GiangVien gv = DataProvider.Ins.DB.GiangViens.FirstOrDefault(x => x.TaiKhoan.username == Const.taiKhoan.username);
 
                                 Const.giangVien = gv;
-                                //Const._server = new Server();
-                                //Const._server.ConnectToServer(Const.giangVien.username);
+                                Const._server = new Server();
+                                Const._server.ConnectToServer(Const.giangVien.username);
                                 Window oldWindow = App.Current.MainWindow;
                                 TeacherMainView teacherMainView = new TeacherMainView();
                                 App.Current.MainWindow = teacherMainView;
@@ -77,8 +77,8 @@ namespace Group01_QuanLyLuanVan.ViewModel
                                 SinhVien sv = DataProvider.Ins.DB.SinhViens.FirstOrDefault(x => x.TaiKhoan.username == Const.taiKhoan.username);
 
                                 Const.sinhVien = sv;
-                                //Const._server = new Server();
-                                //Const._server.ConnectToServer(Const.sinhVien.username);
+                                Const._server = new Server();
+                                Const._server.ConnectToServer(Const.sinhVien.username);
                                 Window oldWindow = App.Current.MainWindow;
                                 StudentMainView studentMainView = new StudentMainView();
                                 App.Current.MainWindow = studentMainView;

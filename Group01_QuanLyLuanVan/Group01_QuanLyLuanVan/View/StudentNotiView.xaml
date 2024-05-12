@@ -115,7 +115,7 @@
                                                             x:Name="ngay"
                                                             VerticalAlignment="Center"
                                                             
-                                                            Text="{Binding Ngay}"
+                                                            Text="{Binding ngay}"
                                                             Foreground="#1e90ff"
                                                             FontSize="16"
                                                             FontWeight="Bold"
@@ -127,7 +127,7 @@
                                                        HorizontalAlignment="Center"
                                                         VerticalAlignment="Center"
                                                         x:Name="tieuDe"
-                                                        Text="{Binding TieuDe}"
+                                                        Text="{Binding tieude}"
                                                         Foreground="#1e90ff"
                                                         FontFamily="{StaticResource Custom}"
                                                         FontSize="16"                                                           
@@ -151,7 +151,7 @@
                                                         <TextBlock 
                                                                     x:Name="TenTrangThai"
                                                                     Text="{Binding tenTrangThai}" 
-                                                                    Foreground="{Binding TenTrangThai, Converter={StaticResource TenTrangThaiConverterNoti}}" 
+                                                                    Foreground="{Binding tenTrangThai, Converter={StaticResource TenTrangThaiConverterNoti}}" 
                                                                     
                                                                     FontFamily="{StaticResource Custom}" 
                                                                     VerticalAlignment="Center" 
